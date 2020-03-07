@@ -3,29 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
-class HomeController extends Controller
+class CategoriesController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        return view("home.index");
-    }
-
-    public function product()
-    {
-        return view("home.product");
-    }
-
-    public function about()
-    {
-        return view("home.about");
+        //
     }
 
     /**
@@ -35,7 +24,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -46,7 +35,16 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'category_name' => 'required'
+        ]);
+
+        // save
+        $category = new Category;
+        $category->category_name = $request->input('category_name');
+        $category->save();
+
+        return redirect('/products')->with('success','Category Added Successfully');
     }
 
     /**

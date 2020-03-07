@@ -35,7 +35,8 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
-<body class="animsition">
+{{-- <body class="animsition"> --}}
+<body>
 
 	<!-- Header -->
 	<header class="header-v2">
@@ -55,27 +56,27 @@
 						<ul class="main-menu">
 							<li class="active-menu">
 								<a href="index.html">Home</a>
-								<ul class="sub-menu">
+								{{-- <ul class="sub-menu">
 									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
 									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
+								</ul> --}}
 							</li>
 
 							<li>
-								<a href="product.html">Shop</a>
+								<a href="/home/product">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="hot">
+							{{-- <li class="label1" data-label1="hot">
 								<a href="shoping-cart.html">Features</a>
-							</li>
+							</li> --}}
 
-							<li>
+							{{-- <li>
 								<a href="blog.html">Blog</a>
-							</li>
+							</li> --}}
 
 							<li>
-								<a href="about.html">About</a>
+								<a href="/home/about">About</a>
 							</li>
 
 							<li>
@@ -127,9 +128,9 @@
 				<li>
 					<a href="index.html">Home</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
+						{{-- <li><a href="index.html">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
+						<li><a href="home-03.html">Homepage 3</a></li> --}}
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -137,19 +138,19 @@
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="/home/product">Shop</a>
 				</li>
 
-				<li>
+				{{-- <li>
 					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
 				</li>
 
 				<li>
 					<a href="blog.html">Blog</a>
-				</li>
+				</li> --}}
 
 				<li>
-					<a href="about.html">About</a>
+					<a href="/home/about">About</a>
 				</li>
 
 				<li>
@@ -200,7 +201,7 @@
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="/home/product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -224,7 +225,7 @@
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="/home/product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -248,7 +249,7 @@
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="/home/product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
 							</div>
@@ -268,7 +269,7 @@
 				<div class="block1 wrap-pic-w">
 					<img src="images/banner-04.jpg" alt="IMG-BANNER">
 
-					<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+					<a href="/home/product" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 						<div class="block1-txt-child1 flex-col-l">
 							<span class="block1-name ltext-102 trans-04 p-b-8">
 								Women
@@ -293,7 +294,7 @@
 				<div class="block1 wrap-pic-w">
 					<img src="images/banner-05.jpg" alt="IMG-BANNER">
 
-					<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+					<a href="/home/product" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 						<div class="block1-txt-child1 flex-col-l">
 							<span class="block1-name ltext-102 trans-04 p-b-8">
 								Men
@@ -318,7 +319,7 @@
 				<div class="block1 wrap-pic-w">
 					<img src="images/banner-06.jpg" alt="IMG-BANNER">
 
-					<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+					<a href="/home/product" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 						<div class="block1-txt-child1 flex-col-l">
 							<span class="block1-name ltext-102 trans-04 p-b-8">
 								Bags
@@ -1624,25 +1625,25 @@
 					<ul>
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Women
+								Houses
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Men
+								Fashion
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shoes
+								Electronics
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Watches
+								Computers
 							</a>
 						</li>
 					</ul>
@@ -1656,19 +1657,19 @@
 					<ul>
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Track Order
+								Seller's Info
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns
+								More Product
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shipping
+								Purchase
 							</a>
 						</li>
 
@@ -1686,7 +1687,7 @@
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Any questions? Let us know by reaching to  us on +2507 96 716 6879
 					</p>
 
 					<div class="p-t-27">
@@ -1748,9 +1749,7 @@
 				</div>
 
 				<p class="stext-107 cl6 txt-center">
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | amizeromarket.com
 
 				</p>
 			</div>
@@ -1833,7 +1832,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 							<!--  -->
 							<div class="p-t-33">
-								<div class="flex-w flex-r-m p-b-10">
+								{{-- <div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
 										Size
 									</div>
@@ -1850,9 +1849,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 											<div class="dropDownSelect2"></div>
 										</div>
 									</div>
-								</div>
+								</div> --}}
 
-								<div class="flex-w flex-r-m p-b-10">
+								{{-- <div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
 										Color
 									</div>
@@ -1869,12 +1868,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 											<div class="dropDownSelect2"></div>
 										</div>
 									</div>
-								</div>
+								</div> --}}
 
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-204 flex-w flex-m respon6-next">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+											{{-- <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div>
 
@@ -1883,11 +1882,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
-										</div>
+										</div> --}}
 
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											Add to cart
-										</button>
+										{{-- <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+
+                                        </button> --}}
+                                        <div class="" styl="border-left:5px solid black !important;height:4rem;">
+                                            <p>Contact Us On : +250788993366 <br>
+                                            Email us On : amizeromarket@gmail.com</p>
+                                        </div>
 									</div>
 								</div>
 							</div>

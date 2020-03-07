@@ -3,29 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Field;
 
-class HomeController extends Controller
+class FieldsController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        return view("home.index");
-    }
-
-    public function product()
-    {
-        return view("home.product");
-    }
-
-    public function about()
-    {
-        return view("home.about");
+        //
     }
 
     /**
@@ -35,7 +24,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('fields.create');
     }
 
     /**
@@ -46,7 +35,16 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'field_name' => 'required'
+        ]);
+
+        // save
+        $field = new Field;
+        $field->field_name = $request->input('field_name');
+        $field->save();
+
+        return redirect('/products')->with('success','Field Added Successfully');
     }
 
     /**

@@ -16,3 +16,11 @@
 // });
 
 Route::get('/','HomeController@index');
+Route::get('home/product','HomeController@product');
+Route::get('home/about','HomeController@about');
+
+Route::resource('products','ProductsController');
+
+Route::resource('categories','CategoriesController');
+
+Route::resource('fields','FieldsController');
