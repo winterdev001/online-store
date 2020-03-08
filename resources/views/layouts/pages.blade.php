@@ -69,18 +69,18 @@
 
 							{{-- <li class="label1" data-label1="hot">
 								<a href="shoping-cart.html">Features</a>
-							</li>
+							</li> --}}
 
 							<li>
-								<a href="blog.html">Blog</a>
-							</li> --}}
+								<a href="/blog">Blog</a>
+							</li>
 
 							<li>
 								<a href="/home/about">About</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="/home/contact">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -146,7 +146,7 @@
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="/blog">Blog</a>
 				</li> --}}
 
 				<li>
@@ -154,7 +154,7 @@
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="/home/contact">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -177,8 +177,6 @@
 	</header>
 
 	<!-- Sidebar -->
-
-
 
 
 	@yield('content')

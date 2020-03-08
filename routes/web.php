@@ -18,6 +18,9 @@
 Route::get('/','HomeController@index');
 Route::get('home/product','HomeController@product');
 Route::get('home/about','HomeController@about');
+Route::get('home/contact','HomeController@contact');
+
+Route::resource('dashboard','DashboardController');
 
 Route::resource('products','ProductsController');
 
