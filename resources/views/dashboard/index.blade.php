@@ -12,7 +12,6 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,14 +28,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+              <h3>{{count($products)}}</h3>
 
-                <p>New Orders</p>
+                <p>All Products</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#all_products" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -86,42 +85,89 @@
           </div>
           <!-- ./col -->
         </div>
+        @include('inc.message')
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
+          <section class="col-lg-12 connectedSortable" id="all_products">
             <!-- Custom tabs (Charts with tabs)-->
+            <ul class="nav nav-pills mb-2">
+                <li class="nav-item">
+                  <a class="nav-link active" >All Products</a>
+                </li>
+                <li class="nav-item">
+                    <a   class=" nav-link" data-toggle="modal" data-target="#add_product">
+                        Add Product
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a   class=" nav-link" data-toggle="modal" data-target="#add_field">
+                        Add Field
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a   class=" nav-link" data-toggle="modal" data-target="#add_category">
+                        Add Category
+                    </a>
+                </li>
+
+                {{-- <li class="nav-item">
+                  <a class="nav-link" href="/fields/create">Add Field</a>
+                </li> --}}
+                {{-- <li class="nav-item">
+                  <a class="nav-link" href="/categories/create">Add Category</a>
+                </li> --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="/products/create">Add Product</a>
+                </li> --}}
+            </ul>
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Sales
-                </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                    </li>
-                  </ul>
+                <div class="card-header">
+                  <h3 class="card-title">All Products</h3>
                 </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-                  </div>  
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th >Product Name</th>
+                        <th >Field</th>
+                        <th >Category</th>
+                        <th >Price</th>
+                        <th >Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($products as $product)
+                        <tr>
+                          <th >{{ $product->product_name }}</th>
+                          <td>
+                              @foreach ($fields as $field)
+                                  @if ($product->field_id == $field->id)
+                                       {{ $field->field_name }}
+                                  @endif
+                              @endforeach
+                          </td>
+                          <td>
+                              @foreach ($categories as $category)
+                                  @if ($product->category_id == $category->id)
+                                       {{ $category->category_name }}
+                                  @endif
+                              @endforeach
+                          </td>
+                          <td>{{ $product->price }} $</td>
+                          <td>{{ $product->quantity }}</td>
+                          <td>{{ $product->total }} $</td>
+                          {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a></td> --}}
+                        </tr>
+                        @endforeach
+                    </tbody>
+                  </table>
                 </div>
-              </div><!-- /.card-body -->
-            </div>
+                <!-- /.card-body -->
+              </div>
             <!-- /.card -->
 
             <!-- DIRECT CHAT -->
@@ -610,4 +656,211 @@
     </section>
     <!-- /.content -->
   </div>
+
+  {{-- add product modal --}}
+  <div class="modal fade" id="add_product">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Product</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            {!! Form::open(['action'=>'ProductsController@store','method'=>'POST','enctype'=>'multipart/form-data']) !!}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{Form::label('product_name','Product Name')}}
+                            {{Form::text('product_name','',['class'=>'form-control','placeholder'=>'Product Name'])}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{-- @if (count($fields) > 0)
+                                    {{Form::label('field_id','Select Field')}}
+                                    {{Form::select('field_id', [$select_fld], null, ['class' => 'custom-select','placeholder' => 'Choose a field...'])}}
+                            @else
+                                {{Form::label('field_id','Select Field')}}
+                                {{Form::select('field_id', ['No Field added yet'],null,  ['class' => 'custom-select','placeholder' => 'Choose a field...'])}}
+                            @endif --}}
+                            {{Form::label('field_id','Select Field')}}
+                            <select class="form-control" name="field_id">
+
+                                <option>Select Field</option>
+
+                                @foreach ($fields as $field)
+                                  <option value="{{ $field->id }}" > {{ $field->field_name }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{-- @if (count($categories) > 0)
+                                    {{Form::label('category_id','Select Category')}}
+                                    {{
+                                    Form::select('category_id',[$select_cat], null, ['class' => 'custom-select','placeholder' => 'Choose a category...'])
+
+                                    }}
+                            @else
+                                {{Form::label('category_id','Select Category')}}
+                                {{Form::select('category_id', ['No Category added yet'],null,  ['class' => 'custom-select','placeholder' => 'Choose a category...'])}}
+                            @endif --}}
+                            {{Form::label('category_id','Select Category')}}
+                            <select class="form-control" name="category_id">
+
+                                <option>Select Category</option>
+
+                                @foreach ($categories as $category)
+                                  <option value="{{ $category->id }}" > {{ $category->category_name }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{Form::label('price','Price')}}
+                            {{Form::number('price','',['class'=>'form-control','placeholder'=>'Price'])}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{Form::label('quantity','Quantity')}}
+                            {{Form::number('quantity','',['class'=>'form-control','placeholder'=>'Quantity'])}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{Form::label('description','Description')}}
+                            {{Form::text('description','',['class'=>'form-control','placeholder'=>'Description'])}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{Form::label('seller_phone','Seller Phone')}}
+                            {{Form::text('seller_phone','',['class'=>'form-control','placeholder'=>'Seller Phone'])}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{Form::label('seller_email','Seller Email')}}
+                            {{Form::text('seller_email','',['class'=>'form-control','placeholder'=>'Seller Email'])}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{Form::label('Product Image')}}
+                            <div class="input-group control-group incremented_field" >
+                                <input type="file" name="filename[]" class="form-control">
+                                <div class="input-group-btn input-group-append">
+                                    <button class="btn btn-success add_field" type="button"><img src="{{asset('images/icons/plus.svg')}}">Add</button>
+                                </div>
+                                </div>
+                                <div class="cloned_field hide d-none">
+                                <div class="control-group_field input-group" style="margin-top:10px">
+                                    <input type="file" name="filename[]" class="form-control">
+                                    <div class="input-group-btn input-group-append">
+                                        <button class="btn btn-danger remove_field" type="button"><img src="{{asset('images/icons/x.svg')}}"> Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{Form::submit('Add Product',['class'=>'btn btn-primary'])}}
+
+            {!! Form::close() !!}
+          </p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  {{-- add product modal ends --}}
+
+  {{-- add field modal --}}
+  <div class="modal fade" id="add_field">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Field</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            {!! Form::open(['action'=>'FieldsController@store','method'=>'POST']) !!}
+                <div class="form-group">
+                    {{Form::label('field_name','Field Name')}}
+                    {{Form::text('field_name','',['class'=>'form-control','placeholder'=>'Field Name'])}}
+                </div>
+
+                {{Form::submit('Add Field',['class'=>'btn btn-primary'])}}
+
+            {!! Form::close() !!}
+          </p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  {{-- add field modal ends --}}
+
+  {{-- add category modal  starts--}}
+  <div class="modal fade" id="add_category">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Category</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @include('inc.message')
+          <p>
+            {!! Form::open(['action'=>'CategoriesController@store','method'=>'POST']) !!}
+                <div class="form-group">
+                    {{Form::label('category_name','Category Name')}}
+                    {{Form::text('category_name','',['class'=>'form-control','placeholder'=>'Category Name'])}}
+                </div>
+
+                {{Form::submit('Add Category',['class'=>'btn btn-primary text-center'])}}
+
+            {!! Form::close() !!}
+          </p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  {{-- add category modal ends --}}
+
 @endsection
+

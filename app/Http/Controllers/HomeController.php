@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
+use App\Category;
+use App\Field;
+use DB;
 
 class HomeController extends Controller
 {
@@ -15,7 +19,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view("home.index");
+        $products = Product::all();
+        $fields = Field::all();
+        $categories = Category::all();
+        $home_categories = Category::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
+        foreach ($products as $product) {
+            $product_images = $product->product_images;
+        }
+        return view('home.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'home_categories'=>$home_categories,'product_images'=>$product_images]);
     }
 
     public function product()

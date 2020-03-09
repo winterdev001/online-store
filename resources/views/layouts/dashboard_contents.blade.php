@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.css')}}">
+   <!-- DataTables -->
+   <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -184,9 +186,8 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
-            </a>           
+            </a>
           </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
@@ -691,11 +692,12 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
+  @include('inc.message')
   @yield('content')
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2020 <a href="/">amizeromarket.com</a>.</strong>
-    All rights reserved.   
+    All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -703,15 +705,15 @@
     <!-- Control sidebar content goes here -->
       <ul class="list-group bg-dark">
         <li class="list-group-item">
-          <a href="#" class="nav-link active">            
+          <a href="#" class="nav-link active">
             <span class="text-dark">&nbsp;<img src="https://img.icons8.com/metro/20/000000/pencil.png">Edit Acount</span>
           </a></li>
         <li class="list-group-item">
-          <a href="#" class="nav-link">            
+          <a href="#" class="nav-link">
             <span class="text-dark">&nbsp;<img src="https://img.icons8.com/ios-filled/20/000000/logout-rounded-left.png">Logout</span>
           </a>
-        </li>       
-      </ul>     
+        </li>
+      </ul>
   </aside>
   <!-- /.control-sidebar -->
 </div>
@@ -749,8 +751,39 @@
 <script src="{{ asset('admin/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('admin/dist/js/pages/dashboard.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="dist/js/demo.js"></script> --}}
+<!-- DataTables -->
+<script src="{{ asset('admin/plugins/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{ asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+
+      $(".add_field").click(function(){
+          var html = $(".cloned_field").html();
+          $(".incremented_field").after(html);
+      });
+
+      $("body").on("click",".remove_field",function(){
+          $(this).parents(".control-group_field").remove();
+      });
+
+    });
+
+</script>
 </body>
 
 </html>

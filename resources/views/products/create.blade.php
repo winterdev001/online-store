@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
 
             {{Form::submit('Add Product',['class'=>'btn btn-primary'])}}
 

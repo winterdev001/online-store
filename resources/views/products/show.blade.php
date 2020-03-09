@@ -25,21 +25,21 @@
                 <p>Status: @if ($product->status == 0)
                             <span>Available</span>
                         @else
-                        <span>Sold Out</span> 
+                        <span>Sold Out</span>
                         @endif
                 </p>
                 <p>Seller Info: {{$product->seller_phone}} <br> {{$product->seller_email}}</p>
                 <p>Description: {{$product->description}}</p>
             </div>
-            
+
         </div>
-        <div class="col-md-4"> 
+        <div class="col-md-4">
             @foreach (json_decode($product->product_images) as $item)
             <img style="width:50%" height="25%" src="/storage/cover_images/{{$item}}" class="text-center" alt="{{$product->product_name}}">
             <hr>
             @endforeach
         </div>
-    </div>   
+    </div>
 
     <a href="/products/{{$product->id}}/edit" class="btn btn-light ">Edit</a>
       {!!Form::open(['action'=>['ProductsController@destroy',$product->id],'method'=>'POST','class'=>' '])!!}

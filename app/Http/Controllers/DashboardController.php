@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
+use App\Category;
+use App\Field;
 
 class DashboardController extends Controller
 {
@@ -13,7 +16,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $products = Product::orderBy('created_at','desc')->get();
+        $fields = Field::all();
+        $categories = Category::all();
+        return view('dashboard.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories]);
     }
 
     /**

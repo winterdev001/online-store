@@ -7,6 +7,7 @@ use App\Product;
 use App\Category;
 use App\Field;
 use DB;
+use SweetAlert;
 
 class ProductsController extends Controller
 {
@@ -39,10 +40,7 @@ class ProductsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        // $select_cat = [];
-        // foreach($categories as $category){
-        //     $select_cat[$category->id] = $category->category_name;
-        // }
+
         $select_cat = Category::pluck('category_name', 'id');
         // fetch all fields
         $fields = Field::all();
@@ -141,6 +139,8 @@ class ProductsController extends Controller
         $product->seller_email = $request->input('seller_email');
         $product->product_images = json_encode($data);;
         $product->save();
+
+        SweetAlert::message('Product Added!');
 
         return redirect('/products')->with('success', 'Product Registered Successfully');
     }
