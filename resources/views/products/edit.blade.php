@@ -3,7 +3,7 @@
 @section('content')
     <div class="card card-body">
         <h1>Update Product</h1>
-        {!! Form::open(['action'=>['ProductsController@update',$product->id],'method'=>'POST']) !!}
+        {!! Form::open(['action'=>['ProductsController@update',$product->id],'method'=>'POST','enctype'=>'multipart/form-data']) !!}
             <div class="form-group">
                 {{Form::label('product_name','Product Name')}}
                 {{Form::text('product_name',$product->product_name,['class'=>'form-control','placeholder'=>'Product Name'])}}
@@ -11,9 +11,11 @@
             <div class="form-group">
                 @if (count($fields) > 0)
                         {{Form::label('field_id','Select Field')}}
-                    {{-- @foreach ($fields as $field) --}}
-                        {{Form::select('field_id', [$select_fld], null, ['class' => 'custom-select','placeholder' => 'Choose a field...'])}}
-                    {{-- @endforeach --}}
+                    @foreach ($fields as $field)
+                    @if ($field->id == $product->field_id)
+                        {{Form::select('field_id', [$field->field_name], ['class' => 'custom-select','placeholder' => 'Choose a field...'])}}
+                    @endif
+                    @endforeach
                 @else
                     {{Form::label('field_id','Select Field')}}
                     {{Form::select('field_id', ['No Field added yet'],null,  ['class' => 'custom-select','placeholder' => 'Choose a field...'])}}

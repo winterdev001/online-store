@@ -10,6 +10,16 @@ use App\Field;
 class DashboardController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -29,7 +39,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -40,7 +50,11 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category_id = $request->input("category_id");
+        $single_category = Category::find($category_id);
+
+        // return view("index",compact("single_category"));
+        return View::make('index', $single_category);
     }
 
     /**
@@ -51,7 +65,9 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        //
+        $single_category = Category::find($id);
+
+        return view("dashboard.index")->with(['single_category'=>$single_category]);
     }
 
     /**
@@ -62,7 +78,7 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -87,4 +103,8 @@ class DashboardController extends Controller
     {
         //
     }
+
+
+
+
 }

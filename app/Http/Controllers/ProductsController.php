@@ -7,10 +7,20 @@ use App\Product;
 use App\Category;
 use App\Field;
 use DB;
-use SweetAlert;
+// use SweetAlert;
 
 class ProductsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -138,9 +148,10 @@ class ProductsController extends Controller
         $product->seller_phone = $request->input('seller_phone');
         $product->seller_email = $request->input('seller_email');
         $product->product_images = json_encode($data);;
+        $product->user_id = auth()->user()->id;
         $product->save();
 
-        SweetAlert::message('Product Added!');
+        // SweetAlert::message('Product Added!');
 
         return redirect('/products')->with('success', 'Product Registered Successfully');
     }
@@ -223,6 +234,6 @@ class ProductsController extends Controller
         $product = Product::find($id);
 
         $product->delete();
-        return redirect('/products')->with('success','product Removed');
+        return redirect('/dashboard')->with('success','product Removed');
     }
 }

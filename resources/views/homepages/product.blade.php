@@ -5,7 +5,7 @@
 	<div class="bg0 m-t-23 p-b-140">
 		<div class="container">
 			<div class="flex-w flex-sb-m p-b-52">
-				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+				{{-- <div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
 						All Products
 					</button>
@@ -29,7 +29,28 @@
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
 						Watches
 					</button>
-				</div>
+                </div> --}}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      All Categories
+                    </button>
+                    <div class="dropdown-menu " aria-labelledby="dropdownMenu2">
+                      <button class="dropdown-item list-group-item" type="button">House</button>
+                      <button class="dropdown-item list-group-item" type="button">Plot </button>
+                      <button class="dropdown-item list-group-item" type="button">Fashion</button>
+                      {{-- <ul class="list-group">
+                        <li class="list-group-item dropdown-item">
+                            <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
+                                House
+                            </button>
+                        </li>
+                        <li class="list-group-item dropdown-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item dropdown-item">Morbi leo risus</li>
+                        <li class="list-group-item dropdown-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item dropdown-item">Vestibulum at eros</li>
+                      </ul> --}}
+                    </div>
+                  </div>
 
 				<div class="flex-w flex-c-m m-tb-10">
 					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">

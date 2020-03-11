@@ -3,18 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
+use App\Category;
 use App\Field;
+use DB;
 
-class FieldsController extends Controller
+class HomePageController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        //
+        $products = Product::all();
+        $fields = Field::all();
+        $categories = Category::all();
+        $home_categories = Category::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
+        foreach ($products as $product) {
+            $product_images = $product->product_images;
+        }
+        return view('homepages.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'home_categories'=>$home_categories,'product_images'=>$product_images]);
+    }
+
+    public function product()
+    {
+        return view("homepages.product");
+    }
+
+    public function about()
+    {
+        return view("homepages.about");
+    }
+
+    public function contact()
+    {
+        return view("homepages.contact");
     }
 
     /**
@@ -24,7 +51,7 @@ class FieldsController extends Controller
      */
     public function create()
     {
-        return view('fields.create');
+        //
     }
 
     /**
@@ -35,16 +62,7 @@ class FieldsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'field_name' => 'required'
-        ]);
-
-        // save
-        $field = new Field;
-        $field->field_name = $request->input('field_name');
-        $field->save();
-
-        return redirect('/products')->with('success','Field Added Successfully');
+        //
     }
 
     /**
@@ -66,12 +84,7 @@ class FieldsController extends Controller
      */
     public function edit($id)
     {
-        $field = Field::find($id);
-        // prevent the unauthorized user to edit the post
-        // if (auth()->user()->id !== $post->user_id) {
-        //     return redirect('/posts')->with('error','Unauthorized Page');
-        // }
-        return view('fields.edit')->with('field',$field);
+        //
     }
 
     /**
@@ -83,16 +96,7 @@ class FieldsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'field_name' => 'required'
-        ]);
-
-        // save
-        $field =  Field::find($id);
-        $field->field_name = $request->input('field_name');
-        $field->save();
-
-        return redirect('/dashboard')->with('success','Field Updated Successfully');
+        //
     }
 
     /**
