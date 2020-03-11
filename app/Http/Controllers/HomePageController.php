@@ -23,10 +23,12 @@ class HomePageController extends Controller
         $fields = Field::all();
         $categories = Category::all();
         $home_categories = Category::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
+        $popular_products = Product::orderBy('created_at', 'asc')->skip(0)->take(8)->get();
+        $recent_products = Product::orderBy('created_at', 'desc')->skip(0)->take(5)->get();
         foreach ($products as $product) {
             $product_images = $product->product_images;
         }
-        return view('homepages.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'home_categories'=>$home_categories,'product_images'=>$product_images]);
+        return view('homepages.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'home_categories'=>$home_categories,'product_images'=>$product_images,'recent_products'=>$recent_products,'popular_products'=>$popular_products]);
     }
 
     public function product()

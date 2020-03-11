@@ -151,9 +151,8 @@ class ProductsController extends Controller
         $product->user_id = auth()->user()->id;
         $product->save();
 
-        // SweetAlert::message('Product Added!');
 
-        return redirect('/products')->with('success', 'Product Registered Successfully');
+        return redirect('/dashboard')->with('success', 'Product Registered Successfully');
     }
 
     /**
@@ -207,10 +206,37 @@ class ProductsController extends Controller
         $this->validate($request, [
             'product_name' => 'required',
             'price' => 'required',
-            'quantity' => 'required'
-        ]);
+            'quantity' => 'required',
 
-        // update product
+
+        ]);
+        // 'filename' => 'required',
+        // 'filename.*' => 'image|nullable|max:2048'
+
+        if($request->hasfile('filename'))
+         {
+
+            foreach($request->file('filename') as $image)
+            {
+                // get filename with the extension
+                $name=$image->getClientOriginalName();
+                 // get just filename
+                $filename = pathinfo($name, PATHINFO_FILENAME);
+                // get just ext
+                $extension = $image->getClientOriginalExtension();
+                // filename to store
+                $fileNametoStore = $filename.'_'.time().'.'.$extension;
+                // upload image
+                $path = $image->storeAs('public/cover_images',$fileNametoStore);
+
+                // $image->move(public_path().'/images/', $name);
+                $data[] = $fileNametoStore;
+
+            }
+         }
+
+
+        // save pproduct
         $product = Product::find($id);
         $product->product_name = $request->input('product_name');
         $product->field_id = $request->input('field_id');
@@ -218,9 +244,17 @@ class ProductsController extends Controller
         $product->price = $request->input('price');
         $product->quantity = $request->input('quantity');
         $product->total = $product->price * $product->quantity;
+        $product->description = $request->input('description');
+        $product->status = 0;
+        $product->seller_phone = $request->input('seller_phone');
+        $product->seller_email = $request->input('seller_email');
+        if ($request->hasFile('filename')) {
+            $product->product_images = json_encode($data);
+        }
+        $product->user_id = auth()->user()->id;
         $product->save();
 
-        return redirect('/products')->with('success', 'Product Updated Successfully');
+        return redirect('/dashboard')->with('success', 'Product Updated Successfully');
     }
 
     /**

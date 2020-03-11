@@ -107,8 +107,6 @@ class CategoriesController extends Controller
     {
         $this->validate($request, [
             'category_name' => 'required',
-            'image' => 'required',
-            'image.*' => 'image|nullable|max:2048'
         ]);
         if($request->hasfile('image'))
          {
@@ -124,15 +122,14 @@ class CategoriesController extends Controller
             // upload image
             $path = $request->file('image')->storeAs('public/categories_images',$fileNametoStore);
 
-            // $request->file('image')->move(public_path().'/images/', $name);
-            // $data[] = $fileNametoStore;
-
          }
 
         // save
         $category = Category::find($id);
         $category->category_name = $request->input('category_name');
-        $category->image = $fileNametoStore;
+        if ($request->hasFile('filename')) {
+            $category->image = $fileNametoStore;
+        }
         $category->save();
 
         return redirect('/dashboard')->with('success','Category Updated Successfully');

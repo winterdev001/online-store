@@ -31,28 +31,19 @@
                   <section class="col-lg-12 connectedSortable" id="all_products">
                     <div class="card">
                         <div class="card-header">
-                          <h3 class="card-title">Category Details</h3>
+                          <h3 class="card-title">field Details</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                            {{-- content --}}
                             <div class="card col-8">
-                            <div class="row">
-                                <div class="col-md-5">
                                 <div class="card-body" >
-                                    <p>Category Name: {{$category->category_name}}</p>
+                                    <p>Field Name: {{$field->field_name}}</p>
                                 </div>
-
-                                </div>
-                                <div class="col-md-7">
-                                <img style="width:100%" height="100%" src="/storage/categories_images/{{$category->image}}" class="card-img"
-                                    alt="{{$category->category_name}}">
-                                </div>
-                            </div>
                             </div>
                             <table>
                                 <td>
-                                    {!!Form::open(['action'=>['CategoriesController@destroy',$category->id],'method'=>'POST','class'=>' '])!!}
+                                    {!!Form::open(['action'=>['FieldsController@destroy',$field->id],'method'=>'POST','class'=>' '])!!}
                                     {{Form::hidden('_method','DELETE')}}
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
                                     {{-- {{Form::submit('Delete',['class'=>'btn btn-danger ','onclick'=>"return confirm('Are you sure You want to delete this item?')"])}} --}}

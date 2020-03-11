@@ -44,7 +44,7 @@ class FieldsController extends Controller
         $field->field_name = $request->input('field_name');
         $field->save();
 
-        return redirect('/products')->with('success','Field Added Successfully');
+        return redirect('/dashboard')->with('success','Field Added Successfully');
     }
 
     /**
@@ -55,7 +55,11 @@ class FieldsController extends Controller
      */
     public function show($id)
     {
-        //
+        $fields = Field::all();
+
+        $field = Field::find($id);
+
+        return view('fields.show')->with(['fields'=>$fields,'field'=>$field]);
     }
 
     /**
@@ -103,6 +107,9 @@ class FieldsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $field = Field::find($id);
+
+        $field->delete();
+        return redirect('/dashboard')->with('success','Field Removed');
     }
 }

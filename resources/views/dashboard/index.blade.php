@@ -128,6 +128,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -151,6 +152,10 @@
                     <td>{{ $product->price }} $</td>
                     <td>{{ $product->quantity }}</td>
                     <td>{{ $product->total }} $</td>
+                    <td>
+                        <a href="/products/{{$product->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        |<a href="/products/{{$product->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                    </td>
                     {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
                     </td> --}}
                   </tr>
@@ -196,8 +201,8 @@
                   <tr>
                     <th>{{ $category->category_name }}</th>
                     <td>
-                        <a href="/categories/{{$category->id}}/edit" class="btn btn-default">Edit</a>
-                        |<a href="/categories/{{$category->id}}" class="btn btn-warning">Show</a>
+                        <a href="/categories/{{$category->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        |<a href="/categories/{{$category->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                     </td>
                     {{-- @if (!Auth::guest())
                           @if (Auth::user()->id == $category->user_id)
@@ -231,7 +236,7 @@
               <a class="nav-link active">All Fields</a>
             </li>
             <li class="nav-item">
-              <a class=" nav-link" data-toggle="modal" data-target="#add_category">
+              <a class=" nav-link" data-toggle="modal" data-target="#add_field">
                 Add Field
               </a>
             </li>
@@ -253,7 +258,15 @@
                   @foreach ($fields as $field)
                   <tr>
                     <th>{{ $field->field_name }}</th>
-                    <td><a href="/fields/{{$field->id}}/edit" class="btn btn-default">Edit</a></td>
+                    <td>
+                        <form action="{{route('fields.destroy',$field->id) }}" method="POST">
+                            <a href="/fields/{{$field->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>|
+
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </td>
                     {{-- @if (!Auth::guest())
                             @if (Auth::user()->id == $category->user_id)
                               <a href="/posts/{{$category->id}}/edit" class="btn btn-default">Edit</a>
