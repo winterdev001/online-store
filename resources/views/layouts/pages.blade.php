@@ -32,7 +32,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/perfect-scrollbar/perfect-scrollbar.css')}}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/util.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css')}}">
 <!--===============================================================================================-->
 </head>
 {{-- <body class="animsition"> --}}
@@ -46,7 +47,7 @@
 				<nav class="limiter-menu-desktop p-l-45">
 
 					<!-- Logo desktop -->
-					<a href="#" class="logo">
+					<a href="/" class="logo">
                         <img src="{{ asset('images/icons/logo-0.png')}}" alt="IMG-LOGO">
                         <h2 class="nav-brand"><strong><span class="text-primary">amizero</span><span class="text-dark">market</span> </strong></h2>
 					</a>
@@ -86,13 +87,13 @@
 					</div>
 
 					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m h-full">
+					{{-- <div class="wrap-icon-header flex-w flex-r-m h-full">
 						<div class="flex-c-m h-full p-r-24">
 							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
 								<i class="zmdi zmdi-search"></i>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</nav>
 			</div>
 		</div>
@@ -105,13 +106,13 @@
 			</div>
 
 			<!-- Icon header -->
-			<div class="wrap-icon-header flex-w flex-r-m h-full m-r-15">
+			{{-- <div class="wrap-icon-header flex-w flex-r-m h-full m-r-15">
 				<div class="flex-c-m h-full p-r-10">
 					<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
 						<i class="zmdi zmdi-search"></i>
 					</div>
 				</div>
-			</div>
+			</div> --}}
 
 			<!-- Button show menu -->
 			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
@@ -166,11 +167,13 @@
 					<img src="{{ asset('images/icons/icon-close2.png')}}" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+				<form class="wrap-search-header flex-w p-l-15" method="POST" action="homepages/product_result">
+                    @csrf
 					<button class="flex-c-m trans-04">
+
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
+					<input class="plh3" type="text" name="home-search" placeholder="Search...">
 				</form>
 			</div>
 		</div>
@@ -589,7 +592,194 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="{{ asset('js/main.js')}}"></script>
+    <script src="{{ asset('js/main.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#product_detail').on('show.bs.modal', function (event) {
+                // console.log("modal opened");
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            var test = button.data('test')
+            var images = [];
+            images = button.data('images')
+            var status =  button.data('status')
+            var seller_phone =  button.data('seller_phone')
+            var seller_email =  button.data('seller_email')
+            var description =  button.data('description')
+            var product_name =  button.data('product_name')
+            var updated_at =  button.data('updated_at')
+            var price = button.data('price')
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            var changed_img = JSON.stringify(images);
+            var final_img = JSON.parse(changed_img);
+            // document.write(datas[0]);
+            var f_img = final_img[0];
+            var s_img = final_img[1];
+            var t_img = final_img[2];
+            var url1 = "/storage/cover_images/";
+            // console.log(t_img);
+            // modal.find('.modal-title').text('New message to ' + recipient)
+            // modal.find('.modal-body input').val(recipient)
+            // modal.find('.modal-body #img_01').attr("data-thumb",url1 + f_img)
+            if ((final_img.length)>2 ) {
+                $(".single_img").css('display','none');
+                $(".two_img").css('display','none');
+                $(".multi_img").css('display','flex');
+                modal.find('.modal-body #img_1').attr('src',url1 + f_img)
+                modal.find('.modal-body #img_2').attr('src',url1 + s_img)
+                modal.find('.modal-body #img_3').attr('src',url1 + t_img)
+                if (status == 0) {
+                    var Status = "Available";
+                    $("#product_status").css('color','green')
+                    $("#badge").addClass("badge badge-pill badge-success")
+                }else {
+                    var Status = "Out of Stock";
+                    $("#product_status").css('color','red')
+                    $("#badge").addClass("badge badge-pill badge-danger")
+                }
+                modal.find('.modal-body #product_status').html(Status)
+                modal.find('.modal-body #product_name').html(product_name)
+                modal.find('.modal-body #description').html(description)
+                var changed_date = new  Date(updated_at).toDateString();
+                // console.log(changed_date);
+                modal.find('.modal-body #seller_info').html(seller_phone +" / "+ seller_email)
+                modal.find('.modal-body #updated_at').html(changed_date)
+                modal.find('.modal-body #price').html(price)
+
+
+            }else if((final_img.length)>1 && (final_img.length)<3){
+                $(".single_img").css('display','none');
+                $(".multi_img").css('display','none');
+                $(".two_img").css('display','flex');
+
+                modal.find('.modal-body #img_1').attr('src',url1 + f_img)
+                modal.find('.modal-body #img_2').attr('src',url1 + s_img)
+                if (status == 0) {
+                    var Status = "Available";
+                    $("#product_status").css('color','green')
+                    $("#badge").addClass("badge badge-pill badge-success")
+                }else {
+                    var Status = "Out of Stock";
+                    $("#product_status").css('color','red')
+                    $("#badge").addClass("badge badge-pill badge-danger")
+                }
+                modal.find('.modal-body #product_status').html(Status)
+                modal.find('.modal-body #product_name').html(product_name)
+                modal.find('.modal-body #description').html(description)
+                var changed_date = new  Date(updated_at).toDateString();
+                // console.log(changed_date);
+                modal.find('.modal-body #seller_info').html(seller_phone +" / "+ seller_email)
+                modal.find('.modal-body #updated_at').html(changed_date)
+                modal.find('.modal-body #price').html(price)
+            }
+             else {
+                $(".multi_img").css('display','none');
+                $(".two_img").css('display','none');
+                $(".single_img").css('display','flex');
+                modal.find('.modal-body #img_1').attr('src',url1 + f_img)
+                if (status == 0) {
+                    var Status = "Available";
+                    $("#product_status").css('color','green')
+                    $("#badge").addClass("badge badge-pill badge-success")
+                }else {
+                    var Status = "Out of Stock";
+                    $("#product_status").css('color','red')
+                    $("#badge").addClass("badge badge-pill badge-danger")
+                }
+                modal.find('.modal-body #product_status').html(Status)
+                modal.find('.modal-body #product_name').html(product_name)
+                modal.find('.modal-body #description').html(description)
+                var changed_date = new  Date(updated_at).toDateString();
+                // console.log(changed_date);
+                modal.find('.modal-body #seller_info').html(seller_phone +" / "+ seller_email)
+                modal.find('.modal-body #updated_at').html(changed_date)
+                modal.find('.modal-body #price').html(price)
+            }
+
+            })
+
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.class1').on('change', function(){
+                if($('.class1:checked').length){
+                    //or $('.class3').prop({disabled: 'disabled', checked: false});
+                    $('.class2').prop('disabled', true);
+                    $('.class3').prop('disabled', true);
+                    $('.class4').prop('disabled', true);
+                    $('.class5').prop('disabled', true);
+                    return;
+                }
+                $('.class2').prop('disabled', false);
+                $('.class3').prop('disabled', false);
+                $('.class4').prop('disabled', false);
+                $('.class5').prop('disabled', false);
+            });
+
+            $('.class2').on('change', function(){
+                if($('.class2:checked').length){
+                    //or $('.class3').prop({disabled: 'disabled', checked: false});
+                    $('.class1').prop('disabled', true);
+                    $('.class3').prop('disabled', true);
+                    $('.class4').prop('disabled', true);
+                    $('.class5').prop('disabled', true);
+                    return;
+                }
+                $('.class1').prop('disabled', false);
+                $('.class3').prop('disabled', false);
+                $('.class4').prop('disabled', false);
+                $('.class5').prop('disabled', false);
+            });
+
+            $('.class3').on('change', function(){
+                if($('.class3:checked').length){
+                    //or $('.class3').prop({disabled: 'disabled', checked: false});
+                    $('.class1').prop('disabled', true);
+                    $('.class2').prop('disabled', true);
+                    $('.class4').prop('disabled', true);
+                    $('.class5').prop('disabled', true);
+                    return;
+                }
+                $('.class1').prop('disabled', false);
+                $('.class2').prop('disabled', false);
+                $('.class4').prop('disabled', false);
+                $('.class5').prop('disabled', false);
+            });
+            $('.class4').on('change', function(){
+                if($('.class4:checked').length){
+                    //or $('.class3').prop({disabled: 'disabled', checked: false});
+                    $('.class1').prop('disabled', true);
+                    $('.class2').prop('disabled', true);
+                    $('.class2').prop('disabled', true);
+                    $('.class5').prop('disabled', true);
+                    return;
+                }
+                $('.class1').prop('disabled', false);
+                $('.class2').prop('disabled', false);
+                $('.class3').prop('disabled', false);
+                $('.class5').prop('disabled', false);
+            });
+            $('.class5').on('change', function(){
+                if($('.class5:checked').length){
+                    //or $('.class3').prop({disabled: 'disabled', checked: false});
+                    $('.class1').prop('disabled', true);
+                    $('.class2').prop('disabled', true);
+                    $('.class3').prop('disabled', true);
+                    $('.class4').prop('disabled', true);
+                    return;
+                }
+                $('.class1').prop('disabled', false);
+                $('.class2').prop('disabled', false);
+                $('.class3').prop('disabled', false);
+                $('.class4').prop('disabled', false);
+
+            });
+
+        })
+    </script>
 
 </body>
 </html>

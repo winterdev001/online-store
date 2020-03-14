@@ -33,7 +33,25 @@ class HomePageController extends Controller
 
     public function product()
     {
-        return view("homepages.product");
+        if(isset($_POST['find'])){
+            $cat_id = $_POST['cat_id'];
+            $price = $_POST['price'];
+            $changed_price = explode("-",$price);
+            $start_p = $changed_price[0];
+            $last_p = $changed_price[1];
+            if (!empty($cat_id) && !empty($price )) {
+                $products = DB::select("SELECT * FROM products
+                WHERE (category_id = $cat_id) AND (price BETWEEN $start_p AND $last_p ) ");
+            } else{
+                $products = DB::select("SELECT * FROM products
+                WHERE (category_id = $cat_id) OR (price BETWEEN $start_p AND $last_p ) ");
+            }
+        }else{
+            $products = Product::orderBy('created_at', 'desc')->get();
+        }
+
+
+        return view("homepages.product")->with(['products'=>$products]);
     }
 
     public function about()
@@ -110,5 +128,87 @@ class HomePageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function category(){
+        $all_categories = category::all();
+
+        return view("homepages.category")->with(['all_categories'=>$all_categories]);
+    }
+
+    public function result(){
+        $id = $_POST['category_id'];
+        // $category = $_GET['category'];
+
+        $items = \App\Product::where([
+            ['category_id', 'LIKE', '%' . $id . '%']
+
+        ])->get();
+
+
+
+        return view('homepages.products_by_cat', compact('items'));
+    }
+
+    public function products_by_cat(){
+        $id = $_POST['category_id'];
+        // $category = $_GET['category'];
+        $cat_name = DB::table('categories')->where('id', $id)->value('category_name');
+        $items = \App\Product::where([
+            ['category_id', 'LIKE', '%' . $id . '%']
+
+        ])->get();
+
+        return view('homepages.result', compact('items','cat_name'));
+    }
+
+    public function home_search(){
+        $query = $_POST['home-search'];
+        $changed_query = ucfirst($query);
+        // $category = $_GET['category'];
+        $cat_id = DB::table('categories')->where('category_name', $changed_query)->value('id');
+        $field_id = DB::table('fields')->where('field_name', $changed_query)->value('id');
+
+        if (count($cat_id) > 0 ) {
+
+            $items = DB::select("SELECT * FROM products
+            WHERE (`product_name` LIKE '%".$query."%') OR (`category_id` LIKE '%".$cat_id."%') ");
+
+        } elseif(count($field_id) > 0 ){
+            $items = DB::select("SELECT * FROM products
+            WHERE (`product_name` LIKE '%".$query."%') OR (`field_id` LIKE '%".$field_id."%')");
+        } else {
+            $items = \App\Product::where([
+                ['product_name', 'LIKE', '%' . $query . '%']
+
+            ])->get();
+        }
+
+        return view('homepages.product_result', compact('items'));
+    }
+
+    public function shop_search(){
+        $query = $_POST['shop_search'];
+        $changed_query = ucfirst($query);
+        // $category = $_GET['category'];
+        $cat_id = DB::table('categories')->where('category_name', $changed_query)->value('id');
+        $field_id = DB::table('fields')->where('field_name', $changed_query)->value('id');
+
+        if (count($cat_id) > 0 ) {
+
+            $items = DB::select("SELECT * FROM products
+            WHERE (`product_name` LIKE '%".$query."%') OR (`category_id` LIKE '%".$cat_id."%') ");
+
+        } elseif(count($field_id) > 0 ){
+            $items = DB::select("SELECT * FROM products
+            WHERE (`product_name` LIKE '%".$query."%') OR (`field_id` LIKE '%".$field_id."%')");
+        } else {
+            $items = \App\Product::where([
+                ['product_name', 'LIKE', '%' . $query . '%']
+
+            ])->get();
+        }
+
+        return view('homepages.shop_result', compact('items'));
     }
 }

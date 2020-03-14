@@ -32,7 +32,9 @@
 	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
 <!--===============================================================================================-->
 </head>
 {{-- <body class="animsition"> --}}
@@ -46,7 +48,7 @@
 				<nav class="limiter-menu-desktop p-l-45">
 
 					<!-- Logo desktop -->
-					<a href="#" class="logo">
+					<a href="/" class="logo">
                         <img src="images/icons/logo-0.png" alt="IMG-LOGO">
                         <h2 class="nav-brand"><strong><span class="text-primary">amizero</span><span class="text-dark">market</span> </strong></h2>
 					</a>
@@ -55,7 +57,7 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
+								<a href="/">Home</a>
 							</li>
 
 							<li>
@@ -88,7 +90,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="/"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -113,7 +115,7 @@
 		<div class="menu-mobile">
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="/">Home</a>
 					<ul class="sub-menu-m">
 					</ul>
 					<span class="arrow-main-menu-m">
@@ -150,11 +152,13 @@
 					<img src="images/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+                <form class="wrap-search-header flex-w p-l-15" method="POST" action="homepages/product_result">
+                    @csrf
 					<button class="flex-c-m trans-04">
+
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
+					<input class="plh3" type="text" name="home-search" placeholder="Search...">
 				</form>
 			</div>
 		</div>
@@ -267,9 +271,16 @@
 
 						<div class="block1-txt-child2 p-b-4 trans-05">
 							<div class="block1-link stext-101 cl0 trans-09">
-								Explore
+                                <form action="homepages/result" method="POST">
+                                    {{-- @method('POST') --}}
+                                    @csrf
+                                    <input type="hidden" value="{{$category->id}}" name="category_id">
+                                    <input type="submit" value="Explore">
+                                </form>
+								{{-- Explore --}}
 							</div>
-						</div>
+                        </div>
+
 					</a>
 				</div>
 			</div>
@@ -307,7 +318,9 @@
                                             <img src="/storage/cover_images/{{$image}}" width="100" height="300" alt="{{$product->product_name}}">
                                             @break
                                             @endforeach
-                                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail" type="button" data-images="{{$product->product_images}}">
+                                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail"
+                                        type="button" data-images="{{$product->product_images}}" data-status="{{$product->status}}" data-price="{{$product->price}}" data-seller_phone="{{$product->seller_phone}}"
+                                        data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}}>
 												Quick View
 											</a>
 										</div>
@@ -359,7 +372,9 @@
                                             <img src="/storage/cover_images/{{$image}}" width="100" height="300" alt="{{$product->product_name}}">
                                             @break
                                             @endforeach
-											<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail"
+                                            type="button" data-images="{{$product->product_images}}" data-status="{{$product->status}}" data-price="{{$product->price}}" data-seller_phone="{{$product->seller_phone}}"
+                                            data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}}>
 												Quick View
 											</a>
 										</div>
@@ -540,208 +555,6 @@
 		</div>
     </section>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_detail" data-whatever="@mdo" data-test="hello">Open modal for @mdo</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
-
-<div class="modal fade" id="product_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modo modal-lg" role="document">
-    <div class="modal-content actual-modo">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{-- <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form> --}}
-        <div class="container">
-			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-					<img src="images/icons/icon-close.png" alt="CLOSE">
-				</button>
-
-				<div class="row">
-					<div class="col-md-6 col-lg-7 p-b-30">
-						<div class="p-l-25 p-r-30 p-lr-0-lg">
-							<div class="wrap-slick3 flex-sb flex-w">
-								<div class="wrap-slick3-dots"></div>
-								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
-								<div class="slick3 gallery-lb">
-									<div class="item-slick3 img_01" id="img_01" data-thumb="images/product-detail-01.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-01.jpg" id="img_1" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" id="img_11" href="images/product-detail-01.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Lightweight Jacketz
-							</h4>
-
-							<span class="mtext-106 cl2">
-								$58.79
-							</span>
-
-							<p class="stext-102 cl3 p-t-23">
-								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-							</p>
-
-							<!--  -->
-							<div class="p-t-33">
-								{{-- <div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Size S</option>
-												<option>Size M</option>
-												<option>Size L</option>
-												<option>Size XL</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div> --}}
-
-								{{-- <div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div> --}}
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-204 flex-w flex-m respon6-next">
-										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											{{-- <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div> --}}
-
-										{{-- <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-
-                                        </button> --}}
-                                        <div class="" styl="border-left:5px solid black !important;height:4rem;">
-                                            <p>Contact Us On : +250788993366 <br>
-                                            Email us On : amizeromarket@gmail.com</p>
-                                        </div>
-									</div>
-								</div>
-							</div>
-
-							<!--  -->
-							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-								<div class="flex-m bor9 p-r-10 m-r-11">
-									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-										<i class="zmdi zmdi-favorite"></i>
-									</a>
-								</div>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-									<i class="fa fa-facebook"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-									<i class="fa fa-twitter"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-									<i class="fa fa-google-plus"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<style>
-    .modo {
-  position: absolute;
-  top: 50px;
-  right: 100px;
-  bottom: 0;
-  left: 0;
-  z-index: 10040;
-  overflow: auto;
-  overflow-y: auto;
-
-}
-
-/* .actual-modo {
-    width: 40rem !important;
-} */
-</style>
-
-
 	<!-- Footer -->
 	<footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
@@ -878,11 +691,245 @@
 				</div>
 
 				<p class="stext-107 cl6 txt-center">
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | amizeromarket.com
-
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | amizeromarket.com
 				</p>
 			</div>
-		</div>
+        </div>
+        {{-- Product detail modal --}}
+        <style>
+            .modo {
+        position: absolute;
+        top: 50px;
+        right: 100px;
+        bottom: 0;
+        left: 0;
+        z-index: 10040;
+        overflow: auto;
+        overflow-y: auto;
+
+        }
+        </style>
+        <div class="modal fade" id="product_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog modo modal-lg" role="document">
+                <div class="modal-content actual-modo">
+                <div class="modal-header">
+                    <h5 class="modal-title" id=" product_name"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{-- <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                    </form> --}}
+                    {{-- <div class="container">
+                        <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+                            <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                                <img src="images/icons/icon-close.png" alt="CLOSE">
+                            </button>
+
+                            <div class="row">
+                                <div class="col-md-6 col-lg-7 p-b-30">
+                                    <div class="p-l-25 p-r-30 p-lr-0-lg">
+                                        <div class="wrap-slick3 flex-sb flex-w">
+                                            <div class="wrap-slick3-dots"></div>
+                                            <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                                            <div class="slick3 gallery-lb">
+                                                <div class="item-slick3 img_01" id="img_01" data-thumb="images/product-detail-01.jpg">
+                                                    <div class="wrap-pic-w pos-relative">
+                                                        <img src="images/product-detail-01.jpg" id="img_1" alt="IMG-PRODUCT">
+
+                                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" id="img_11" href="images/product-detail-01.jpg">
+                                                            <i class="fa fa-expand"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
+                                                    <div class="wrap-pic-w pos-relative">
+                                                        <img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
+
+                                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
+                                                            <i class="fa fa-expand"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
+                                                    <div class="wrap-pic-w pos-relative">
+                                                        <img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
+
+                                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
+                                                            <i class="fa fa-expand"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-5 p-b-30">
+                                    <div class="p-r-50 p-t-5 p-lr-0-lg">
+                                        <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                                            Lightweight Jacketz
+                                        </h4>
+
+                                        <span class="mtext-106 cl2">
+                                            $58.79
+                                        </span>
+
+                                        <p class="stext-102 cl3 p-t-23">
+                                            Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
+                                        </p>
+
+                                        <!--  -->
+                                        <div class="p-t-33">
+
+                                            <div class="flex-w flex-r-m p-b-10">
+                                                <div class="size-204 flex-w flex-m respon6-next">
+                                                    <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+
+                                                    <div class="" styl="border-left:5px solid black !important;height:4rem;">
+                                                        <p>Contact Us On : +250788993366 <br>
+                                                        Email us On : amizeromarket@gmail.com</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--  -->
+                                        <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                                            <div class="flex-m bor9 p-r-10 m-r-11">
+                                                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+                                                    <i class="zmdi zmdi-favorite"></i>
+                                                </a>
+                                            </div>
+
+                                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+
+                                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+
+                                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="card mb-3" style="max-width: 850px;max-height:400px;">
+                        <div class="row no-gutters">
+                          <div class="col-md-6">
+                              <div class="single_img" style="max-height:400px;">
+                                <img src="..." class="card-img img-fluid" style="max-height:400px;" id="img_1" alt="...">
+                              </div>
+                              <div class="two_img" style="max-height:400px;">
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselExampleControls" data-slide-to="1"></li>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                      <div class="carousel-item active">
+                                        <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;"   id="img_1" alt="...">
+                                      </div>
+                                      <div class="carousel-item">
+                                        <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;" id="img_2" alt="...">
+                                      </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                      <span class="carousel-control-prev-icon bg-danger" aria-hidden="true"></span>
+                                      <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                      <span class="carousel-control-next-icon bg-danger" aria-hidden="true"></span>
+                                      <span class="sr-only">Next</span>
+                                    </a>
+                                  </div>
+                              </div>
+                              <div class="multi_img" style="max-height:400px;">
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                      <div class="carousel-item active">
+                                        <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;"  id="img_1" alt="...">
+                                      </div>
+                                      <div class="carousel-item">
+                                        <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;" id="img_2" alt="...">
+                                      </div>
+                                      <div class="carousel-item" id="carousel_3">
+                                        <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;" id="img_3" alt="...">
+                                      </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                      <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
+                                      <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                      <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
+                                      <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="card-body">
+                              <h5 class="card-title"><span><img src="https://img.icons8.com/color/24/000000/warranty.png"/></span> <span id="product_name"></span></h5>
+                              <p class="card-text" ><span id="badge">.</span> <span id="product_status"></span></p><br>
+                              <p class="card-text" ><span><img src="https://img.icons8.com/ultraviolet/24/000000/tag-window.png"/></span> <span id="price"></span>$</p><br>
+                              <p class="card-text" ><span><img src="https://img.icons8.com/color/24/000000/activity-history.png"/></span> <span id="description"> </span></p><br>
+                              <p class="card-text"><small class="text-muted"><img src="https://img.icons8.com/color/24/000000/calendar.png"/> Last updated <span id="updated_at"></span></small></p><br>
+                              <p class="card-text">
+                                     Like what you see? Contact us : <span class="btn btn-sm bg-dark btn-dark btn-cancel i-text-small mt-4 mb-5 animated fadeIn slow delay-2s">
+                                    <img src="https://img.icons8.com/color/24/000000/outgoing-call.png" alt="user_name" class="d-header-icon animated tada infinite slow"> :
+                                    <span id="seller_info"></span>
+                                    </span>
+                                    <div class="btn-group dropright">
+                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Comment
+                                        </button>
+                                        <div class="dropdown-menu product-comment">
+                                        <!-- Dropdown menu links -->
+                                        <form>
+                                            <h1 class="h3 mb-3 font-weight-light mt-2">#Leave a Comment</h1>
+                                            <label for="inputEmail" class="sr-only mt-1">Email</label>
+                                            <input id="inputEmail" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Your Email" required="" autofocus="" type="text" >
+                                            <label for="inputComment" class="sr-only">Comment</label>
+                                            <textarea id="inputComment" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Enter a Comment..." required="" ></textarea>
+                                            <button class="btn btn-lg mt-2 btn-primary radius text-center" >Comment</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
 	</footer>
 
 
@@ -892,166 +939,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<i class="zmdi zmdi-chevron-up"></i>
 		</span>
 	</div>
-
-	<!-- Modal1 -->
-	<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
-		<div class="overlay-modal1 js-hide-modal1"></div>
-
-		<div class="container">
-			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-					<img src="images/icons/icon-close.png" alt="CLOSE">
-				</button>
-
-				<div class="row">
-					<div class="col-md-6 col-lg-7 p-b-30">
-						<div class="p-l-25 p-r-30 p-lr-0-lg">
-							<div class="wrap-slick3 flex-sb flex-w">
-								<div class="wrap-slick3-dots"></div>
-								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
-								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Lightweight Jacketz
-							</h4>
-
-							<span class="mtext-106 cl2">
-								$58.79
-							</span>
-
-							<p class="stext-102 cl3 p-t-23">
-								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-							</p>
-
-							<!--  -->
-							<div class="p-t-33">
-								{{-- <div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Size S</option>
-												<option>Size M</option>
-												<option>Size L</option>
-												<option>Size XL</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div> --}}
-
-								{{-- <div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div> --}}
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-204 flex-w flex-m respon6-next">
-										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											{{-- <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div> --}}
-
-										{{-- <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-
-                                        </button> --}}
-                                        <div class="" styl="border-left:5px solid black !important;height:4rem;">
-                                            <p>Contact Us On : +250788993366 <br>
-                                            Email us On : amizeromarket@gmail.com</p>
-                                        </div>
-									</div>
-								</div>
-							</div>
-
-							<!--  -->
-							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-								<div class="flex-m bor9 p-r-10 m-r-11">
-									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-										<i class="zmdi zmdi-favorite"></i>
-									</a>
-								</div>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-									<i class="fa fa-facebook"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-									<i class="fa fa-twitter"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-									<i class="fa fa-google-plus"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-    </div>
-
-    {{-- test modal --}}
 
 
 <!--===============================================================================================-->
@@ -1164,6 +1051,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             var test = button.data('test')
             var images = [];
             images = button.data('images')
+            var status =  button.data('status')
+            var seller_phone =  button.data('seller_phone')
+            var seller_email =  button.data('seller_email')
+            var description =  button.data('description')
+            var product_name =  button.data('product_name')
+            var updated_at =  button.data('updated_at')
+            var price = button.data('price')
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
@@ -1175,13 +1069,86 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             var t_img = final_img[2];
             var url1 = "/storage/cover_images/";
             // console.log(t_img);
-            modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('.modal-body input').val(recipient)
-            modal.find('.modal-body #img_01').attr("data-thumb",url1 + f_img)
-            modal.find('.modal-body #img_1').attr('src',url1 + f_img)
-            modal.find('.modal-body #img_11').attr('href',url1 + f_img)
+            // modal.find('.modal-title').text('New message to ' + recipient)
+            // modal.find('.modal-body input').val(recipient)
+            // modal.find('.modal-body #img_01').attr("data-thumb",url1 + f_img)
+            if ((final_img.length)>2 ) {
+                $(".single_img").css('display','none');
+                $(".two_img").css('display','none');
+                $(".multi_img").css('display','flex');
+                modal.find('.modal-body #img_1').attr('src',url1 + f_img)
+                modal.find('.modal-body #img_2').attr('src',url1 + s_img)
+                modal.find('.modal-body #img_3').attr('src',url1 + t_img)
+                if (status == 0) {
+                    var Status = "Available";
+                    $("#product_status").css('color','green')
+                    $("#badge").addClass("badge badge-pill badge-success")
+                }else {
+                    var Status = "Out of Stock";
+                    $("#product_status").css('color','red')
+                    $("#badge").addClass("badge badge-pill badge-danger")
+                }
+                modal.find('.modal-body #product_status').html(Status)
+                modal.find('.modal-body #product_name').html(product_name)
+                modal.find('.modal-body #description').html(description)
+                var changed_date = new  Date(updated_at).toDateString();
+                // console.log(changed_date);
+                modal.find('.modal-body #seller_info').html(seller_phone +" / "+ seller_email)
+                modal.find('.modal-body #updated_at').html(changed_date)
+                modal.find('.modal-body #price').html(price)
+
+
+            }else if((final_img.length)>1 && (final_img.length)<3){
+                $(".single_img").css('display','none');
+                $(".multi_img").css('display','none');
+                $(".two_img").css('display','flex');
+
+                modal.find('.modal-body #img_1').attr('src',url1 + f_img)
+                modal.find('.modal-body #img_2').attr('src',url1 + s_img)
+                if (status == 0) {
+                    var Status = "Available";
+                    $("#product_status").css('color','green')
+                    $("#badge").addClass("badge badge-pill badge-success")
+                }else {
+                    var Status = "Out of Stock";
+                    $("#product_status").css('color','red')
+                    $("#badge").addClass("badge badge-pill badge-danger")
+                }
+                modal.find('.modal-body #product_status').html(Status)
+                modal.find('.modal-body #product_name').html(product_name)
+                modal.find('.modal-body #description').html(description)
+                var changed_date = new  Date(updated_at).toDateString();
+                // console.log(changed_date);
+                modal.find('.modal-body #seller_info').html(seller_phone +" / "+ seller_email)
+                modal.find('.modal-body #updated_at').html(changed_date)
+                modal.find('.modal-body #price').html(price)
+            }
+             else {
+                $(".multi_img").css('display','none');
+                $(".two_img").css('display','none');
+                $(".single_img").css('display','flex');
+                modal.find('.modal-body #img_1').attr('src',url1 + f_img)
+                if (status == 0) {
+                    var Status = "Available";
+                    $("#product_status").css('color','green')
+                    $("#badge").addClass("badge badge-pill badge-success")
+                }else {
+                    var Status = "Out of Stock";
+                    $("#product_status").css('color','red')
+                    $("#badge").addClass("badge badge-pill badge-danger")
+                }
+                modal.find('.modal-body #product_status').html(Status)
+                modal.find('.modal-body #product_name').html(product_name)
+                modal.find('.modal-body #description').html(description)
+                var changed_date = new  Date(updated_at).toDateString();
+                // console.log(changed_date);
+                modal.find('.modal-body #seller_info').html(seller_phone +" / "+ seller_email)
+                modal.find('.modal-body #updated_at').html(changed_date)
+                modal.find('.modal-body #price').html(price)
+            }
 
             })
+
         });
     </script>
 
