@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use App\Field;
+use App\Carousel;
 
 class DashboardController extends Controller
 {
@@ -78,7 +79,7 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**
@@ -103,6 +104,13 @@ class DashboardController extends Controller
     {
         //
     }
+
+    // public function carousel(){
+    //     $carousels = Carousel::all();
+    //     $products = Product::all();
+
+    //     return view('dashboard.carousel')->with(['carousels'=>$carousels,'products'=>$products]);
+    // }
 
 
 

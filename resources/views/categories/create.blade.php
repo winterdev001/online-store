@@ -10,7 +10,7 @@
             </div>
 
             <div class="form-group">
-                {{Form::label('Product Image')}}
+                {{Form::label('Category Image')}}
                 <input type="file" name="image" class="form-control">
             </div>
 

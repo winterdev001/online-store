@@ -222,46 +222,60 @@
 				</div>
 			</div>
 
-			<div class="row isotope-grid">
-                @foreach ($items as $product)
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-                    <!-- Block2 -->
-                    <div class="block2">
-                        <div class="block2-pic hov-img0">
-                            @foreach (json_decode($product->product_images) as $image)
-                            <img src="/storage/cover_images/{{$image}}" width="100" height="300" alt="{{$product->product_name}}">
-                            @break
-                            @endforeach
-                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail"
-                        type="button" data-images="{{$product->product_images}}" data-status="{{$product->status}}" data-price="{{$product->price}}" data-seller_phone="{{$product->seller_phone}}"
-                        data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}}>
-                                Quick View
-                            </a>
-                        </div>
-
-                        <div class="block2-txt flex-w flex-t p-t-14">
-                            <div class="block2-txt-child1 flex-col-l ">
-                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                    {{$product->product_name}}
+            @if(count($items)>0)
+                <div class="row isotope-grid">
+                    @foreach ($items as $product)
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                        <!-- Block2 -->
+                        <div class="block2">
+                            <div class="block2-pic hov-img0">
+                                @foreach (json_decode($product->product_images) as $image)
+                                <img src="/storage/cover_images/{{$image}}" width="100" height="300" alt="{{$product->product_name}}">
+                                @break
+                                @endforeach
+                            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail"
+                            type="button" data-images="{{$product->product_images}}" data-status="{{$product->status}}" data-price="{{$product->price}}" data-seller_phone="{{$product->seller_phone}}"
+                            data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}}>
+                                    Quick View
                                 </a>
-
-                                <span class="stext-105 cl3">
-                                    {{$product->price}}$
-                                </span>
                             </div>
 
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                    {{-- <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-                                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON"> --}}
-                                </a>
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l ">
+                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        {{$product->product_name}}
+                                    </a>
+
+                                    <span class="stext-105 cl3">
+                                        {{$product->price}}$
+                                    </span>
+                                </div>
+
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                        {{-- <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                                        <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON"> --}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
+                </div>
+            @else
+                <div class="container mt-5 mb-5">
+                    <div class="d-flex justify-content-center">
+                        <div class="card card-body">
+                            <div class="alert alert-dark alert-block">
+                                {{-- <button type="button" class="close" data-dismiss="alert">×</button> --}}
+                                <strong>Ooops!? No Items found.</strong>
+                                <a class="btn btn-light float-right" href="/">Go Back</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                @endforeach
-
-			</div>
+            @endif
 
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">

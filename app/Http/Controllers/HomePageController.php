@@ -147,7 +147,7 @@ class HomePageController extends Controller
 
 
 
-        return view('homepages.products_by_cat', compact('items'));
+        return view('homepages.result', compact('items'));
     }
 
     public function products_by_cat(){
@@ -159,7 +159,7 @@ class HomePageController extends Controller
 
         ])->get();
 
-        return view('homepages.result', compact('items','cat_name'));
+        return view('homepages.products_by_cat', compact('items','cat_name'));
     }
 
     public function home_search(){
