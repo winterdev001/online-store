@@ -94,7 +94,9 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
-				<a href="/"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="/" class="logo">
+                    <h2 class="nav-brand"><strong><span class="text-dark">Hamubere</span> </strong></h2>
+                </a>
 			</div>
 
 			<!-- Icon header -->
