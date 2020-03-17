@@ -20,11 +20,17 @@ Route::match(['get', 'post'],'homepages/result','HomePageController@result');
 Route::match(['get', 'post'],'homepages/product_result','HomePageController@home_search');
 Route::match(['get', 'post'],'homepages/shop_result','HomePageController@shop_search');
 Route::match(['get', 'post'],'homepages/products_by_cat','HomePageController@products_by_cat');
+Route::match(['get', 'post'],'home/blog/{id}','HomePageController@blog');
+Route::match(['get', 'post'],'homepages/all_blogs','HomePageController@blog_by_cat');
 
 Route::resource('dashboard','DashboardController');
 Route::get('carousells','CarouselsController@carousel');
 
 Route::resource('carousel','CarouselsController');
+
+Route::resource('blogs','BlogsController');
+
+Route::resource('blogcategories','BlogCategoriesController');
 
 
 Route::resource('products','ProductsController');

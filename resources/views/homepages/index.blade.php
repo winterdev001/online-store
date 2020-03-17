@@ -49,27 +49,31 @@
 
 					<!-- Logo desktop -->
 					<a href="/" class="logo">
-                        <img src="images/icons/logo-0.png" alt="IMG-LOGO">
-                        <h2 class="nav-brand"><strong><span class="text-primary">amizero</span><span class="text-dark">market</span> </strong></h2>
+                        {{-- <img src="images/icons/logo-0.png" alt="IMG-LOGO"> --}}
+                        <h2 class="nav-brand"><strong><span class="text-dark">Hamubere</span> </strong></h2>
 					</a>
 
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li class="active-menu">
-								<a href="/">Home</a>
+							<li >
+								<a class="active-menu" href="/">Home</a>
 							</li>
 
 							<li>
-								<a href="/home/product">Shop</a>
+								<a class="" href="/home/product">Shop</a>
+                            </li>
+
+                            <li>
+								<a href="/homepages/all_blogs">Blog</a>
 							</li>
 
 							<li>
-								<a href="/home/about">About</a>
+								<a class="" href="/home/about">About</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a class="" href="/home/contact">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -127,20 +131,16 @@
 					<a href="/home/product">Shop</a>
 				</li>
 
-				{{-- <li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
-				</li>
-
 				<li>
-					<a href="blog.html">Blog</a>
-				</li> --}}
+                    <a href="/homepages/all_blogs">Blog</a>
+                </li>
 
 				<li>
 					<a href="/home/about">About</a>
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="/home/contact">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -173,31 +173,33 @@
 	<section class="section-slide">
 		<div class="wrap-slick1 rs1-slick1">
 			<div class="slick1">
-				<div class="item-slick1" style="background-image: url(images/slide-03.jpg);">
-					<div class="container h-full">
-						<div class="flex-col-l-m h-full p-t-100 p-b-30">
-							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
-								<span class="ltext-202 cl2 respon2">
-									Men Collection 2018
-								</span>
-							</div>
+                @foreach ($carousels as $carousel)
+                    <div class="item-slick1" style="background-image: url(/storage/carousels_images/{{$carousel->image}});">
+                        <div class="container h-full">
+                            <div class="flex-col-l-m h-full p-t-100 p-b-30">
+                                <div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+                                    <span class="ltext-202 cl2 respon2">
+                                        {{$carousel->first_title}}
+                                    </span>
+                                </div>
 
-							<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
-								<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
-									New arrivals
-								</h2>
-							</div>
+                                <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
+                                    <h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
+                                        {{$carousel->second_title}}
+                                    </h2>
+                                </div>
 
-							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="/home/product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-									Explore
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+                                <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                                    <a href="/home/product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                        Explore
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
 
-				<div class="item-slick1" style="background-image: url(images/slide-02.jpg);">
+				{{-- <div class="item-slick1" style="background-image: url(images/slide-02.jpg);">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30">
 							<div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
@@ -243,7 +245,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 			</div>
 		</div>
 	</section>
@@ -420,137 +422,42 @@
 			</div>
 
 			<div class="row">
-				<div class="col-sm-6 col-md-4 p-b-40">
-					<div class="blog-item">
-						<div class="hov-img0">
-							<a href="blog-detail.html">
-								<img src="images/blog-01.jpg" alt="IMG-BLOG">
-							</a>
-						</div>
+                @foreach ($home_blogs as $blog)
+                    <div class="col-sm-6 col-md-4 p-b-40">
+                        <div class="blog-item">
+                            <div class="hov-img0">
+                                <a href="/home/blog/{{$blog->id}}">
+                                    <img src="/storage/blogs_images/{{$blog->image}}" height="250px" alt="{{$blog->title}}">
+                                </a>
+                            </div>
 
-						<div class="p-t-15">
-							<div class="stext-107 flex-w p-b-14">
-								<span class="m-r-3">
-									<span class="cl4">
-										By
-									</span>
+                            <div class="p-t-15">
+                                <div class="stext-107 flex-w p-b-14">
+                                    <span>
+                                        <span class="cl4">
+                                            on
+                                        </span>
 
-									<span class="cl5">
-										Nancy Ward
-									</span>
-								</span>
+                                        <span class="cl5">
+                                            {{$blog->updated_at}}
+                                        </span>
+                                    </span>
+                                </div>
 
-								<span>
-									<span class="cl4">
-										on
-									</span>
+                                <h4 class="p-b-12">
+                                    <a href="/home/blog/{{$blog->id}}" class="mtext-101 cl2 hov-cl1 trans-04">
+                                        {{$blog->title}}
+                                    </a>
+                                </h4>
 
-									<span class="cl5">
-										July 22, 2017
-									</span>
-								</span>
-							</div>
+                                <p class="stext-108 cl6">
+                                    {{str_limit($blog->content,60)}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
 
-							<h4 class="p-b-12">
-								<a href="blog-detail.html" class="mtext-101 cl2 hov-cl1 trans-04">
-									8 Inspiring Ways to Wear Dresses in the Winter
-								</a>
-							</h4>
-
-							<p class="stext-108 cl6">
-								Duis ut velit gravida nibh bibendum commodo. Suspendisse pellentesque mattis augue id euismod. Interdum et male-suada fames
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-6 col-md-4 p-b-40">
-					<div class="blog-item">
-						<div class="hov-img0">
-							<a href="blog-detail.html">
-								<img src="images/blog-02.jpg" alt="IMG-BLOG">
-							</a>
-						</div>
-
-						<div class="p-t-15">
-							<div class="stext-107 flex-w p-b-14">
-								<span class="m-r-3">
-									<span class="cl4">
-										By
-									</span>
-
-									<span class="cl5">
-										Nancy Ward
-									</span>
-								</span>
-
-								<span>
-									<span class="cl4">
-										on
-									</span>
-
-									<span class="cl5">
-										July 18, 2017
-									</span>
-								</span>
-							</div>
-
-							<h4 class="p-b-12">
-								<a href="blog-detail.html" class="mtext-101 cl2 hov-cl1 trans-04">
-									The Great Big List of Men’s Gifts for the Holidays
-								</a>
-							</h4>
-
-							<p class="stext-108 cl6">
-								Nullam scelerisque, lacus sed consequat laoreet, dui enim iaculis leo, eu viverra ex nulla in tellus. Nullam nec ornare tellus, ac fringilla lacus. Ut sit ame
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-6 col-md-4 p-b-40">
-					<div class="blog-item">
-						<div class="hov-img0">
-							<a href="blog-detail.html">
-								<img src="images/blog-03.jpg" alt="IMG-BLOG">
-							</a>
-						</div>
-
-						<div class="p-t-15">
-							<div class="stext-107 flex-w p-b-14">
-								<span class="m-r-3">
-									<span class="cl4">
-										By
-									</span>
-
-									<span class="cl5">
-										Nancy Ward
-									</span>
-								</span>
-
-								<span>
-									<span class="cl4">
-										on
-									</span>
-
-									<span class="cl5">
-										July 2, 2017
-									</span>
-								</span>
-							</div>
-
-							<h4 class="p-b-12">
-								<a href="blog-detail.html" class="mtext-101 cl2 hov-cl1 trans-04">
-									5 Winter-to-Spring Fashion Trends to Try Now
-								</a>
-							</h4>
-
-							<p class="stext-108 cl6">
-								Proin nec vehicula lorem, a efficitur ex. Nam vehicula nulla vel erat tincidunt, sed hendrerit ligula porttitor. Fusce sit amet maximus nunc
-							</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
     </section>
@@ -668,46 +575,25 @@
 			</div>
 
 			<div class="p-t-40">
-				<div class="flex-c-m flex-w p-b-18">
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
-					</a>
-				</div>
 
 				<p class="stext-107 cl6 txt-center">
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | amizeromarket.com
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | hamubere.com
 				</p>
 			</div>
         </div>
         {{-- Product detail modal --}}
         <style>
             .modo {
-        position: absolute;
-        top: 50px;
-        right: 100px;
-        bottom: 0;
-        left: 0;
-        z-index: 10040;
-        overflow: auto;
-        overflow-y: auto;
+                position: absolute;
+                top: 50px;
+                right: 100px;
+                bottom: 0;
+                left: 0;
+                z-index: 10040;
+                overflow: auto;
+                overflow-y: auto;
 
-        }
+            }
         </style>
         <div class="modal fade" id="product_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
             <div class="modal-dialog modo modal-lg" role="document">
@@ -719,118 +605,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{-- <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                    </form> --}}
-                    {{-- <div class="container">
-                        <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-                            <button class="how-pos3 hov3 trans-04 js-hide-modal1">
-                                <img src="images/icons/icon-close.png" alt="CLOSE">
-                            </button>
-
-                            <div class="row">
-                                <div class="col-md-6 col-lg-7 p-b-30">
-                                    <div class="p-l-25 p-r-30 p-lr-0-lg">
-                                        <div class="wrap-slick3 flex-sb flex-w">
-                                            <div class="wrap-slick3-dots"></div>
-                                            <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
-                                            <div class="slick3 gallery-lb">
-                                                <div class="item-slick3 img_01" id="img_01" data-thumb="images/product-detail-01.jpg">
-                                                    <div class="wrap-pic-w pos-relative">
-                                                        <img src="images/product-detail-01.jpg" id="img_1" alt="IMG-PRODUCT">
-
-                                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" id="img_11" href="images/product-detail-01.jpg">
-                                                            <i class="fa fa-expand"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
-                                                    <div class="wrap-pic-w pos-relative">
-                                                        <img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-                                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
-                                                            <i class="fa fa-expand"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-                                                    <div class="wrap-pic-w pos-relative">
-                                                        <img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-                                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
-                                                            <i class="fa fa-expand"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-lg-5 p-b-30">
-                                    <div class="p-r-50 p-t-5 p-lr-0-lg">
-                                        <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                                            Lightweight Jacketz
-                                        </h4>
-
-                                        <span class="mtext-106 cl2">
-                                            $58.79
-                                        </span>
-
-                                        <p class="stext-102 cl3 p-t-23">
-                                            Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-                                        </p>
-
-                                        <!--  -->
-                                        <div class="p-t-33">
-
-                                            <div class="flex-w flex-r-m p-b-10">
-                                                <div class="size-204 flex-w flex-m respon6-next">
-                                                    <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-
-                                                    <div class="" styl="border-left:5px solid black !important;height:4rem;">
-                                                        <p>Contact Us On : +250788993366 <br>
-                                                        Email us On : amizeromarket@gmail.com</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!--  -->
-                                        <div class="flex-w flex-m p-l-100 p-t-40 respon7">
-                                            <div class="flex-m bor9 p-r-10 m-r-11">
-                                                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-                                                    <i class="zmdi zmdi-favorite"></i>
-                                                </a>
-                                            </div>
-
-                                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-
-                                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-
-                                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
                     <div class="card mb-3" style="max-width: 850px;max-height:400px;">
                         <div class="row no-gutters">
                           <div class="col-md-6">
@@ -1150,6 +924,17 @@
             })
 
         });
+    </script>
+    <script>
+        $(function(){
+		$('.main-menu li a').filter(function(){return this.href==location.href}).parent().addClass('active-menu').siblings().removeClass('active-menu')
+		$('.main-menu li a').click(function(){
+			$(this).parent().addClass('active-menu').siblings().removeClass('active-menu')
+		})
+        // $('.main-menu li a').click(function(){
+		// 	$(this).parent().addClass('active-menu').siblings().removeClass('active-menu')
+		// })
+	})
     </script>
 
 </body>

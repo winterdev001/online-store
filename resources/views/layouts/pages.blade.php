@@ -48,32 +48,23 @@
 
 					<!-- Logo desktop -->
 					<a href="/" class="logo">
-                        <img src="{{ asset('images/icons/logo-0.png')}}" alt="IMG-LOGO">
-                        <h2 class="nav-brand"><strong><span class="text-primary">amizero</span><span class="text-dark">market</span> </strong></h2>
+                        {{-- <img src="{{ asset('images/icons/logo-0.png')}}" alt="IMG-LOGO"> --}}
+                        <h2 class="nav-brand"><strong><span class="text-dark">Hamubere</span> </strong></h2>
 					</a>
 
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li class="active-menu">
-								<a href="/">Home</a>
-								{{-- <ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul> --}}
+							<li >
+								<a  href="/">Home</a>
 							</li>
 
 							<li>
 								<a href="/home/product">Shop</a>
 							</li>
 
-							{{-- <li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Features</a>
-							</li> --}}
-
 							<li>
-								<a href="/blog">Blog</a>
+								<a href="/homepages/all_blogs">Blog</a>
 							</li>
 
 							<li>
@@ -102,7 +93,9 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
-				<a href="index.html"><img src="{{ asset('images/icons/logo-01.png')}}" alt="IMG-LOGO"></a>
+                <a href="/
+
+                "><img src="{{ asset('images/icons/logo-01.png')}}" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -127,7 +120,7 @@
 		<div class="menu-mobile">
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="/">Home</a>
 					<ul class="sub-menu-m">
 						{{-- <li><a href="index.html">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
@@ -297,30 +290,9 @@
 			</div>
 
 			<div class="p-t-40">
-				<div class="flex-c-m flex-w p-b-18">
-					<a href="#" class="m-all-1">
-						<img src="{{ asset('images/icons/icon-pay-01.png')}}" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="{{ asset('images/icons/icon-pay-02.png')}}" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="{{ asset('images/icons/icon-pay-03.png')}}" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="{{ asset('images/icons/icon-pay-04.png')}}" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="{{ asset('images/icons/icon-pay-05.png')}}" alt="ICON-PAY">
-					</a>
-				</div>
 
 				<p class="stext-107 cl6 txt-center">
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | amizeromarket.com
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | hamubere.com
 
 				</p>
 			</div>
@@ -403,64 +375,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 							<!--  -->
 							<div class="p-t-33">
-								{{-- <div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Size S</option>
-												<option>Size M</option>
-												<option>Size L</option>
-												<option>Size XL</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div> --}}
-
-								{{-- <div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div> --}}
 
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-204 flex-w flex-m respon6-next">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											{{-- <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
 
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div> --}}
-
-										{{-- <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-
-                                        </button> --}}
                                         <div class="" styl="border-left:5px solid black !important;height:4rem;">
                                             <p>Contact Us On : +250788993366 <br>
-                                            Email us On : amizeromarket@gmail.com</p>
+                                            Email us On : Hamubere.com</p>
                                         </div>
 									</div>
 								</div>
@@ -779,6 +701,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             });
 
         })
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(function(){
+            $('.main-menu li a').filter(function(){return this.href==location.href}).parent().addClass('active-menu').siblings().removeClass('active-menu')
+            $('.main-menu li a').click(function(){
+                $(this).parent().addClass('active-menu').siblings().removeClass('active-menu')
+            })
+
+        });
+        $('#set-active').click(function(){
+            $('.main-menu ul li:nth-child(2) ').addClass('active-menu')
+        });
+        function changeActive(){
+            $('.main-menu ul li:nth-child(2) ').addClass('active-menu')
+        }
+        });
     </script>
 
 </body>

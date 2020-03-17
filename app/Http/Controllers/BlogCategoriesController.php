@@ -3,24 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
-use App\Category;
-use App\Field;
-use App\Carousel;
-use App\Blog;
+use App\BlogCategory;
 
-class DashboardController extends Controller
+class BlogCategoriesController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,12 +14,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at','desc')->get();
-        $fields = Field::all();
-        $categories = Category::all();
-        $carousels = Carousel::all();
-        $blogs = Blog::all();
-        return view('dashboard.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'carousels'=>$carousels,'blogs'=>$blogs]);
+        // $blog_categories = BlogCategory::all();
+
+        // return view('blogcategories.index')->with(['blog_categories'=>$blog_categories]);
     }
 
     /**
@@ -43,7 +26,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-
+        return view('blogcategories.create');
     }
 
     /**
@@ -54,11 +37,16 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        $category_id = $request->input("category_id");
-        $single_category = Category::find($category_id);
+        $this->validate($request, [
+            'category_name' => 'required'
+        ]);
 
-        // return view("index",compact("single_category"));
-        return View::make('index', $single_category);
+        // save
+        $blog_category = new BlogCategory;
+        $blog_category->category_name = $request->input('category_name');
+        $blog_category->save();
+
+        return redirect('/blogs')->with('success','Blog Category Created Successfully');
     }
 
     /**
@@ -69,9 +57,7 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        $single_category = Category::find($id);
-
-        return view("dashboard.index")->with(['single_category'=>$single_category]);
+        //
     }
 
     /**
@@ -82,7 +68,8 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-
+        $blog_category = BlogCategory::find($id);
+        return view('blogcategories.edit')->with(['blog_category'=>$blog_category]);
     }
 
     /**
@@ -94,7 +81,16 @@ class DashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'category_name' => 'required'
+        ]);
+
+        // save
+        $blog_category =  BlogCategory::find($id);
+        $blog_category->category_name = $request->input('category_name');
+        $blog_category->save();
+
+        return redirect('/blogs')->with('success','Blog Category Updated Successfully');
     }
 
     /**
@@ -105,17 +101,9 @@ class DashboardController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $blog_category = BlogCategory::find($id);
+
+        $blog_category->delete();
+        return redirect('/blogs')->with('success','Blog Category Removed');
     }
-
-    // public function carousel(){
-    //     $carousels = Carousel::all();
-    //     $products = Product::all();
-
-    //     return view('dashboard.carousel')->with(['carousels'=>$carousels,'products'=>$products]);
-    // }
-
-
-
-
 }

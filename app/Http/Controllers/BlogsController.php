@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Category;
-use App\Field;
+use App\Blog;
+use App\BlogCategory;
 
-class CategoriesController extends Controller
+class BlogsController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +15,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $blogs = Blog::all();
+        $blog_categories = BlogCategory::all();
+
+        return view('blogs.index')->with(['blogs'=>$blogs,'blog_categories'=>$blog_categories]);
     }
 
     /**
@@ -27,7 +28,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('blogs.create');
     }
 
     /**
@@ -39,7 +40,9 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'category_name' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'category_id' => 'required',
             'image' => 'required',
             'image.*' => 'image|nullable|max:2048'
         ]);
@@ -54,19 +57,21 @@ class CategoriesController extends Controller
             // filename to store
             $fileNametoStore = $filename.'_'.time().'.'.$extension;
             // upload image
-            $path = $request->file('image')->storeAs('public/categories_images',$fileNametoStore);
+            $path = $request->file('image')->storeAs('public/blogs_images',$fileNametoStore);
 
          }else {
             $fileNametoStore = 'noimage.jpg';
         }
 
         // save
-        $category = new Category;
-        $category->category_name = $request->input('category_name');
-        $category->image = $fileNametoStore;
-        $category->save();
+        $blog = new Blog;
+        $blog->title = $request->input('title');
+        $blog->content = $request->input('content');
+        $blog->category_id = $request->input('category_id');
+        $blog->image = $fileNametoStore;
+        $blog->save();
 
-        return redirect('/dashboard')->with('success','Category Added Successfully');
+        return redirect('/blogs')->with('success','Blog Created Successfully');
     }
 
     /**
@@ -77,11 +82,11 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::all();
+        $blogs = Blog::all();
 
-        $category = Category::find($id);
+        $blog = Blog::find($id);
 
-        return view('categories.show')->with(['categories'=>$categories,'category'=>$category]);
+        return view('blogs.show')->with(['blogs'=>$blogs,'blog'=>$blog]);
     }
 
     /**
@@ -92,8 +97,8 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('categories.edit')->with(['category'=>$category]);
+        $blog = Blog::find($id);
+        return view('blogs.edit')->with(['blog'=>$blog]);
     }
 
     /**
@@ -106,11 +111,16 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'category_name' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'category_id' => 'required',
         ]);
         if($request->hasfile('image'))
          {
-
+             $this->validate($request,[
+                'image' => 'required',
+                'image.*' => 'image|nullable|max:2048'
+             ]);
             // get filename with the extension
             $name=$request->file('image')->getClientOriginalName();
                 // get just filename
@@ -120,19 +130,21 @@ class CategoriesController extends Controller
             // filename to store
             $fileNametoStore = $filename.'_'.time().'.'.$extension;
             // upload image
-            $path = $request->file('image')->storeAs('public/categories_images',$fileNametoStore);
+            $path = $request->file('image')->storeAs('public/blogs_images',$fileNametoStore);
 
          }
 
         // save
-        $category = Category::find($id);
-        $category->category_name = $request->input('category_name');
+        $blog = Blog::find($id);
+        $blog->title = $request->input('title');
+        $blog->content = $request->input('content');
+        $blog->category_id = $request->input('category_id');
         if ($request->hasFile('image')) {
-            $category->image = $fileNametoStore;
+            $blog->image = $fileNametoStore;
         }
-        $category->save();
+        $blog->save();
 
-        return redirect('/dashboard')->with('success','Category Updated Successfully');
+        return redirect('/blogs')->with('success','Blog Updated Successfully');
     }
 
     /**
@@ -143,10 +155,9 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        $blog = Blog::find($id);
 
-        $category->delete();
-        return redirect('/dashboard')->with('success','Category Removed');
+        $blog->delete();
+        return redirect('/blogs')->with('success','Blog Removed');
     }
-
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use App\Field;
+use App\Carousel;
+use App\Blog;
 use DB;
 
 class HomePageController extends Controller
@@ -22,13 +24,18 @@ class HomePageController extends Controller
         $products = Product::all();
         $fields = Field::all();
         $categories = Category::all();
+        $carousels = Carousel::all();
+        $home_blogs = Blog::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
         $home_categories = Category::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
         $popular_products = Product::orderBy('created_at', 'asc')->skip(0)->take(8)->get();
         $recent_products = Product::orderBy('created_at', 'desc')->skip(0)->take(5)->get();
         foreach ($products as $product) {
             $product_images = $product->product_images;
         }
-        return view('homepages.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'home_categories'=>$home_categories,'product_images'=>$product_images,'recent_products'=>$recent_products,'popular_products'=>$popular_products]);
+        return view('homepages.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,
+                                              'home_categories'=>$home_categories,'product_images'=>$product_images,
+                                              'recent_products'=>$recent_products,'popular_products'=>$popular_products,
+                                              'carousels'=>$carousels,'home_blogs'=>$home_blogs]);
     }
 
     public function product()
@@ -64,6 +71,32 @@ class HomePageController extends Controller
         return view("homepages.contact");
     }
 
+    public function blog($id)
+    {
+        $blog = Blog::find($id);
+        $recent_products = Product::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
+
+        return view("homepages.blog")->with(['blog'=>$blog]);
+    }
+
+    public function blog_by_cat(){
+
+        if (isset($_POST['blog'])) {
+            $id = $_POST['category_id'];
+            // $category = $_GET['category'];
+            $cat_name = DB::table('blog_categories')->where('id', $id)->value('category_name');
+            $blogs = \App\Blog::where([
+                ['category_id', 'LIKE', '%' . $id . '%']
+
+            ])->get();
+        } else {
+            $blogs = Blog::orderBy('created_at','desc')->paginate(20);
+        }
+
+
+
+        return view('homepages.all_blogs', compact('blogs','cat_name'));
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -162,7 +162,7 @@
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('images/icons/logo-0.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AmizeroMarket</span>
+      <span class="brand-text font-weight-light">Hamubere</span>
     </a>
 
     <!-- Sidebar -->
@@ -181,27 +181,38 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column dash-menu" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="/dashboard" class="nav-link active">
+          <li class="nav-item has-treeview menu-open ">
+            <a href="/dashboard" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
+              <p >
                 Dashboard
               </p>
             </a>
           </li>
           <li class="nav-item has-treeview menu-open">
             <a href="/carousells" class="nav-link ">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon far fa-images"></i>
               <p>
-                Carousel
+                Carousels
               </p>
             </a>
           </li>
+          <li  class="nav-item has-treeview menu-open">
+            <a href="/blogs" class="nav-link ">
+                <i class="nav-icon fas fa-blog"></i>
+                <p>
+                Blogs
+                </p>
+            </a>
+        </li>
         </ul>
       </nav>
+
+
+
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -212,7 +223,7 @@
   @yield('content')
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020 <a href="/">amizeromarket.com</a>.</strong>
+    <strong>Copyright &copy; 2020 <a href="/">hamubere.com</a>.</strong>
     All rights reserved.
   </footer>
 
@@ -349,6 +360,29 @@
 </script>
 {{-- product-detail-admin --}}
 <script src="{{asset('admin/product-details/custom.js')}}"></script>
+<style>
+    .actives{
+    color: red !important;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        $(this).addClass('actives');
+        $('.dash-menu a').click(function(){
+            $('.dash-menu a.actives').each(function(){
+                $(this).removeClass('actives');
+            });
+
+        });
+        // $(function(){
+        //     $('.dash-menu a').filter(function(){return this.href==location.href}).parent().addClass('active').siblings().removeClass('active')
+        //     $('.dash-menu a').click(function(){
+        //         $(this).parent().addClass('active').siblings().removeClass('active')
+        //     })
+
+        // });
+    });
+</script>
 </body>
 
 </html>

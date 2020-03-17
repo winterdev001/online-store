@@ -73,14 +73,14 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>65</h3>
+                <h3>{{count($blogs)}}</h3>
 
-              <p>Unique Visitors</p>
+              <p>Blogs</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/blogs" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -267,19 +267,6 @@
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
                         </form>
                     </td>
-                    {{-- @if (!Auth::guest())
-                            @if (Auth::user()->id == $category->user_id)
-                              <a href="/posts/{{$category->id}}/edit" class="btn btn-default">Edit</a>
-                    {!!Form::open(['action'=>['PostsController@destroy',$category->id],'method'=>'POST','class'=>'float-right'])!!}
-                    {{Form::hidden('_method','DELETE')}}
-                    {{Form::submit('Delete',['class'=>'btn btn-danger'])}}
-                    {!!Form::close()!!}
-                    @endif
-                    @endif --}}
-                    {{-- <td><button id="edit-category" class="btn btn-light " data-whatever="{{$category->category_name}}"
-                    data-catId="{{$category->id}}" data-toggle="modal" data-target="#edit_category"
-                    value="{{$category->id}}">Edit</button></td> --}}
-
                   </tr>
                   @endforeach
                 </tbody>
