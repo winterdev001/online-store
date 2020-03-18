@@ -33,8 +33,7 @@ class HomePageController extends Controller
             $product_images = $product->product_images;
         }
         return view('homepages.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,
-                                              'home_categories'=>$home_categories,
-                                              'recent_products'=>$recent_products,'popular_products'=>$popular_products,
+                                              'home_categories'=>$home_categories,'recent_products'=>$recent_products,'popular_products'=>$popular_products,
                                               'carousels'=>$carousels,'home_blogs'=>$home_blogs]);
     }
 
