@@ -318,7 +318,7 @@
     //   adding file input on product registration
       $(".add_field").click(function(){
           var html = $(".cloned_field").html();
-          $(".incremented_field").after(html);
+          $(".all_fields").append(html);
       });
 
       $("body").on("click",".remove_field",function(){

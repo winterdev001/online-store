@@ -531,6 +531,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             var product_name =  button.data('product_name')
             var updated_at =  button.data('updated_at')
             var price = button.data('price')
+            var product_id = button.data('product_id')
+
+            $("#for_id").val(product_id);
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
@@ -719,6 +722,32 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         }
         });
     </script>
+    <script>
+        $('.comment').click(function(){
+            swal({
+            title:'Comment Sent!',
+            text:"{{Session::get('success')}}",
+            timer:5000,
+            type:'success'
+        }).then((value) => {
+        //location.reload();
+        }).catch(swal.noop);
+            });
+    </script>
+
+    <script>
+        $('.message_us').click(function(){
+            swal({
+            title:'Comment Sent!',
+            text:"{{Session::get('success')}}",
+            timer:5000,
+            type:'success'
+        }).then((value) => {
+        //location.reload();
+        }).catch(swal.noop);
+            });
+    </script>
+
 
 </body>
 </html>

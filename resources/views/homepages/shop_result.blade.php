@@ -241,7 +241,7 @@
                                 @endforeach
                             <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail"
                             type="button" data-images="{{$product->product_images}}" data-status="{{$product->status}}" data-price="{{$product->price}}" data-seller_phone="{{$product->seller_phone}}"
-                            data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}}>
+                            data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}} data-product_id="{{$product->id}}">
                                     Quick View
                                 </a>
                             </div>
@@ -279,7 +279,7 @@
         </div>
         {{-- Product detail modal --}}
         <style>
-            .modo {
+            .modo,.comment-modo {
         position: absolute;
         top: 50px;
         right: 100px;
@@ -373,20 +373,10 @@
                                     <span id="seller_info"></span>
                                     </span>
                                     <div class="btn-group dropright">
-                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{-- <button type="button" class="btn btn-light dropdown-toggle" data-toggle="modal" data-target="#comment">
                                             Comment
-                                        </button>
-                                        <div class="dropdown-menu product-comment">
-                                        <!-- Dropdown menu links -->
-                                        <form>
-                                            <h1 class="h3 mb-3 font-weight-light mt-2">#Leave a Comment</h1>
-                                            <label for="inputEmail" class="sr-only mt-1">Email</label>
-                                            <input id="inputEmail" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Your Email" required="" autofocus="" type="text" >
-                                            <label for="inputComment" class="sr-only">Comment</label>
-                                            <textarea id="inputComment" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Enter a Comment..." required="" ></textarea>
-                                            <button class="btn btn-lg mt-2 btn-primary radius text-center" >Comment</button>
-                                        </form>
-                                        </div>
+                                        </button> --}}
+
                                     </div>
                             </p>
                             </div>
@@ -400,6 +390,42 @@
                 </div>
             </div>
         </div>
+        {{-- comment's modal --}}
+        <div class="modal fade" id="comment">
+            <div class="modal-dialog modal-md comment-modo">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">#Leave a Comment</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    {!!
+                    Form::open(['action'=>'CommentsController@store','method'=>'POST'])
+                    !!}
+                    <label for="inputEmail" class="sr-only mt-1">Email</label>
+                    <input id="inputEmail" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Your Email" required="" autofocus="" type="email" name="email" >
+                    <label for="inputComment" class="sr-only">Comment</label>
+                    <textarea id="inputComment" name="content" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Enter a Comment..." required="" ></textarea>
+                    <input type="hidden" name="for" value="product">
+                    <input type="hidden" id="for_id" name="for_id" value="">
+                    {{Form::submit(' Commnent',['class'=>'btn btn-primary text-center comment'])}}
+
+                    {!! Form::close() !!}
+                  </p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          {{-- /.comments end --}}
         @else
         <div class="container mt-5 mb-5">
             <div class="d-flex justify-content-center">

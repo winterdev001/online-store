@@ -292,7 +292,6 @@
 		</div>
 	</div>
 
-
 	<!-- Product -->
 	<section class="sec-product bg0 p-t-100 p-b-50">
 		<div class="container">
@@ -324,7 +323,7 @@
                                             @endforeach
                                         <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail"
                                         type="button" data-images="{{$product->product_images}}" data-status="{{$product->status}}" data-price="{{$product->price}}" data-seller_phone="{{$product->seller_phone}}"
-                                        data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}}>
+                                        data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}} data-product_id="{{$product->id}}">
 												Quick View
 											</a>
 										</div>
@@ -378,7 +377,7 @@
                                             @endforeach
                                             <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail"
                                             type="button" data-images="{{$product->product_images}}" data-status="{{$product->status}}" data-price="{{$product->price}}" data-seller_phone="{{$product->seller_phone}}"
-                                            data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}}>
+                                            data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}} data-product_id="{{$product->id}}">
 												Quick View
 											</a>
 										</div>
@@ -585,7 +584,7 @@
         </div>
         {{-- Product detail modal --}}
         <style>
-            .modo {
+            .modo,.comment-modo {
                 position: absolute;
                 top: 50px;
                 right: 100px;
@@ -679,20 +678,17 @@
                                     <span id="seller_info"></span>
                                     </span>
                                     <div class="btn-group dropright">
-                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="modal" data-target="#comment">
                                             Comment
                                         </button>
-                                        <div class="dropdown-menu product-comment">
-                                        <!-- Dropdown menu links -->
-                                        <form>
-                                            <h1 class="h3 mb-3 font-weight-light mt-2">#Leave a Comment</h1>
-                                            <label for="inputEmail" class="sr-only mt-1">Email</label>
-                                            <input id="inputEmail" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Your Email" required="" autofocus="" type="text" >
-                                            <label for="inputComment" class="sr-only">Comment</label>
-                                            <textarea id="inputComment" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Enter a Comment..." required="" ></textarea>
-                                            <button class="btn btn-lg mt-2 btn-primary radius text-center" >Comment</button>
+                                        <form action="/" method="post">
+                                            @csrf
+                                            <input type="hidden" name="product_id" id="view_comments">
+                                            <a  type="submit" name="view_comments" class="btn btn-light dropdown-toggle" data-toggle="modal" data-target="#all_comments">
+                                                View Comments
+                                            </a>
                                         </form>
-                                        </div>
+
                                     </div>
                               </p>
                             </div>
@@ -706,6 +702,98 @@
                 </div>
             </div>
         </div>
+        {{-- comment's modal --}}
+        <div class="modal fade" id="comment">
+            <div class="modal-dialog modal-md comment-modo">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">#Leave a Comment</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    {!!
+                    Form::open(['action'=>'CommentsController@store','method'=>'POST'])
+                    !!}
+                    <label for="inputEmail" class="sr-only mt-1">Email</label>
+                    <input id="inputEmail" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Your Email" required="" autofocus="" type="email" name="email" >
+                    <label for="inputComment" class="sr-only">Comment</label>
+                    <textarea id="inputComment" name="content" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Enter a Comment..." required="" ></textarea>
+                    <input type="hidden" name="for" value="product">
+                    <input type="hidden" id="for_id" name="for_id" value="">
+                    {{Form::submit(' Commnent',['class'=>'btn btn-primary text-center comment'])}}
+
+                    {!! Form::close() !!}
+                  </p>
+                  <p>
+                    @foreach ($comments as $comment)
+                    @if (($comment->for == "product") && ($comment->for_id == 9))
+                        <h3>Recent Comments</h3>
+                        <div class="card" style="border-left:8px solid  #717fe0 !important">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$comment->email}}</h5>
+                                <hr>
+                                <p class="card-text"> {{$comment->content}}</p>
+                            </div>
+                        </div>
+                    {{-- @else
+                        <div class="card card-body">No Comment Yet...</div></p> --}}
+                    @endif
+                @endforeach
+                  </p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+          {{-- /.comments end --}}
+
+          {{-- view comment's modal --}}
+        <div class="modal fade" id="all_comments">
+            <div class="modal-dialog modal-md comment-modo">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">#all  Comments</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    <h3>Recent Comments</h3>
+                    @foreach ($comments as $comment)
+                    @if (($comment->for == "product") && ($comment->for_id == $that_product->id))
+
+                        <div class="card" style="border-left:8px solid  #717fe0 !important">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$comment->email}}</h5>
+                                <hr>
+                                <p class="card-text"> {{$comment->content}}</p>
+                            </div>
+                        </div>
+                    {{-- @else
+                        <div class="card card-body">No Comment Yet...</div></p> --}}
+                    @endif
+                @endforeach
+                  </p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+          {{-- /.comments end --}}
 	</footer>
 
 
@@ -834,6 +922,10 @@
             var product_name =  button.data('product_name')
             var updated_at =  button.data('updated_at')
             var price = button.data('price')
+            var product_id = button.data('product_id')
+
+            $("#for_id").val(product_id);
+            $("#view_comments").val(product_id);
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
@@ -937,6 +1029,18 @@
 		// 	$(this).parent().addClass('active-menu').siblings().removeClass('active-menu')
 		// })
 	})
+    </script>
+    <script>
+        $('.comment').click(function(){
+            swal({
+            title:'Comment Sent!',
+            text:"{{Session::get('success')}}",
+            timer:5000,
+            type:'success'
+        }).then((value) => {
+        //location.reload();
+        }).catch(swal.noop);
+            });
     </script>
 
 </body>

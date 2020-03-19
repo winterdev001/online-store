@@ -140,7 +140,7 @@ class CarouselsController extends Controller
         }
         $carousel->save();
 
-        return redirect('/dashboard')->with('success','Carousel Updated Successfully');
+        return redirect('/carousells')->with('success','Carousel Updated Successfully');
     }
 
     /**

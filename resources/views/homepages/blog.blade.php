@@ -85,26 +85,43 @@
 
 							<p class="stext-107 cl6 p-b-40">
 								Your email address will not be published, Remember to fill all fields.
-							</p>
+                            </p>
+                            @include('inc.message')
 
-							<form>
+							{!!
+                                Form::open(['action'=>'CommentsController@store','method'=>'POST'])
+                                !!}
 								<div class="bor19 m-b-20">
-									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="cmt" placeholder="Comment..."></textarea>
-								</div>
-
-								<div class="bor19 size-218 m-b-20">
-									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="name" placeholder="Name *">
+									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="content" placeholder="Comment..."></textarea>
 								</div>
 
 								<div class="bor19 size-218 m-b-20">
 									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="email" placeholder="Email *">
 								</div>
+                                <input type="hidden" name="for" value="blog">
+                                <input type="hidden" id="for_id" name="for_id" value="{{$blog->id}}">
 
-								<button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
-									Post Comment
-								</button>
-							</form>
-						</div>
+                                {{Form::submit(' Commnent',['class'=>'flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04'])}}
+
+                                {!! Form::close() !!}
+
+                        </div>
+                        <div class="p-t-40">
+                            @foreach ($comments as $comment)
+                                @if (($comment->for == "blog") && ($comment->for_id == $blog->id))
+                                    <h3>Recent Comments</h3>
+                                    <div class="card" style="border-left:8px solid  #717fe0 !important">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{$comment->email}}</h5>
+                                            <hr>
+                                            <p class="card-text"> {{$comment->content}}</p>
+                                        </div>
+                                    </div>
+                                {{-- @else
+                                    <div class="card card-body">No Comment Yet...</div></p> --}}
+                                @endif
+                            @endforeach
+                        </div>
 					</div>
 				</div>
 
@@ -273,9 +290,9 @@
                                     <span id="seller_info"></span>
                                     </span>
                                     <div class="btn-group dropright">
-                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{-- <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Comment
-                                        </button>
+                                        </button> --}}
                                         <div class="dropdown-menu product-comment">
                                         <!-- Dropdown menu links -->
                                         <form>

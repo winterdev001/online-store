@@ -52,13 +52,12 @@
                             </div>
                             </div>
                             <table>
-                                <td>
+                                {{-- <td>
                                     {!!Form::open(['action'=>['CategoriesController@destroy',$carousel->id],'method'=>'POST','class'=>' '])!!}
                                     {{Form::hidden('_method','DELETE')}}
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
-                                    {{-- {{Form::submit('Delete',['class'=>'btn btn-danger ','onclick'=>"return confirm('Are you sure You want to delete this item?')"])}} --}}
                                     {!!Form::close()!!}
-                                </td>
+                                </td> --}}
                                 <td><a href="/dashboard" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Back</a></td>
                             </table>
 

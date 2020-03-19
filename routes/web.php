@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/','HomePageController@index');
+Route::match(['get', 'post','head'],'/','HomePageController@index');
 Route::match(['get', 'post'],'home/product','HomePageController@product');
 Route::get('home/about','HomePageController@about');
 Route::get('home/contact','HomePageController@contact');
@@ -29,6 +29,10 @@ Route::get('carousells','CarouselsController@carousel');
 Route::resource('carousel','CarouselsController');
 
 Route::resource('blogs','BlogsController');
+
+Route::resource('comments','CommentsController');
+
+Route::resource('messages','MessagesController');
 
 Route::resource('blogcategories','BlogCategoriesController');
 

@@ -8,6 +8,7 @@ use App\Category;
 use App\Field;
 use App\Carousel;
 use App\Blog;
+use App\Comment;
 use DB;
 
 class HomePageController extends Controller
@@ -25,16 +26,26 @@ class HomePageController extends Controller
         $fields = Field::all();
         $categories = Category::all();
         $carousels = Carousel::all();
+        $comments = Comment::all();
         $home_blogs = Blog::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
         $home_categories = Category::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
         $popular_products = Product::orderBy('created_at', 'asc')->skip(0)->take(8)->get();
         $recent_products = Product::orderBy('created_at', 'desc')->skip(0)->take(5)->get();
+
+        if(isset($_POST['view_comments'])){
+            $product_id =$_POST['product_id'];
+            $that_product = Product::find($product_id);
+        }else{
+            $that_product = Product::find(1);
+        }
+
+
         foreach ($products as $product) {
             $product_images = $product->product_images;
         }
         return view('homepages.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,
                                               'home_categories'=>$home_categories,'recent_products'=>$recent_products,'popular_products'=>$popular_products,
-                                              'carousels'=>$carousels,'home_blogs'=>$home_blogs]);
+                                              'carousels'=>$carousels,'home_blogs'=>$home_blogs,'comments'=>$comments,'that_product'=>$that_product]);
     }
 
     public function product()
@@ -74,8 +85,9 @@ class HomePageController extends Controller
     {
         $blog = Blog::find($id);
         $recent_products = Product::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
+        $comments = Comment::all();
 
-        return view("homepages.blog")->with(['blog'=>$blog]);
+        return view("homepages.blog")->with(['blog'=>$blog,'comments'=>$comments]);
     }
 
     public function blog_by_cat(){
