@@ -59,13 +59,16 @@
                             </div>
                             </div>
                             <table>
-                                <td>
-                                    {!!Form::open(['action'=>['BlogsController@destroy',$blog->id],'method'=>'POST','class'=>' '])!!}
-                                    {{Form::hidden('_method','DELETE')}}
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
-                                    {{-- {{Form::submit('Delete',['class'=>'btn btn-danger ','onclick'=>"return confirm('Are you sure You want to delete this item?')"])}} --}}
-                                    {!!Form::close()!!}
-                                </td>
+                                @if (auth()->user()->super == 1)
+                                    <td>
+                                        {!!Form::open(['action'=>['BlogsController@destroy',$blog->id],'method'=>'POST','class'=>' '])!!}
+                                        {{Form::hidden('_method','DELETE')}}
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
+                                        {{-- {{Form::submit('Delete',['class'=>'btn btn-danger ','onclick'=>"return confirm('Are you sure You want to delete this item?')"])}} --}}
+                                        {!!Form::close()!!}
+                                    </td>
+                                @else
+                                @endif
                                 <td><a href="/blogs" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Back</a></td>
                             </table>
                         </div>

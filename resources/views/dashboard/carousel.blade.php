@@ -52,7 +52,10 @@
                     <td>{{ $carousel->second_title }}</td>
 
                     <td>
-                        <a href="/carousel/{{$carousel->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        @if (auth()->user()->super == 1)
+                            <a href="/carousel/{{$carousel->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        @else
+                        @endif
                         |<a href="/carousel/{{$carousel->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                     </td>
                     {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>

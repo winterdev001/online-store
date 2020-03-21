@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Category;
-use App\Field;
+use Illuminate\Support\Facades\Hash;
+use App\User;
 
-class CategoriesController extends Controller
+class UsersController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -19,14 +18,20 @@ class CategoriesController extends Controller
         $this->middleware('auth');
     }
 
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        if (auth()->user()->id !== 1) {
+            return redirect('/dashboard')->with('error','Unauthorized Page');
+        }else{
+            $users = User::all();
+        }
+
+        return view("users.index")->with(['users'=>$users]);
     }
 
     /**
@@ -36,7 +41,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('users.create');
     }
 
     /**
@@ -48,12 +53,19 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'category_name' => 'required',
-            'image' => 'required',
-            'image.*' => 'image|nullable|max:2048'
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:9',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required']
         ]);
+
         if($request->hasfile('image'))
          {
+            $this->validate($request, [
+                'image' => ['required'],
+                'image.*' => ['image|nullable|max:2048']
+            ]);
             // get filename with the extension
             $name=$request->file('image')->getClientOriginalName();
                 // get just filename
@@ -63,19 +75,23 @@ class CategoriesController extends Controller
             // filename to store
             $fileNametoStore = $filename.'_'.time().'.'.$extension;
             // upload image
-            $path = $request->file('image')->storeAs('public/categories_images',$fileNametoStore);
+            $path = $request->file('image')->storeAs('public/users_images',$fileNametoStore);
 
          }else {
             $fileNametoStore = 'noimage.jpg';
         }
 
         // save
-        $category = new Category;
-        $category->category_name = $request->input('category_name');
-        $category->image = $fileNametoStore;
-        $category->save();
+        $user = new User;
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->phone = $request->input('phone');
+        $user->super = $request->input('role');
+        $user->image = $fileNametoStore;
+        $user->save();
 
-        return redirect('/dashboard')->with('success','Category Added Successfully');
+        return redirect('/users')->with('success','User Added Successfully');
     }
 
     /**
@@ -86,11 +102,11 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::all();
+        $users = User::all();
 
-        $category = Category::find($id);
+        $user = User::find($id);
 
-        return view('categories.show')->with(['categories'=>$categories,'category'=>$category]);
+        return view('users.show')->with(['users'=>$users,'user'=>$user]);
     }
 
     /**
@@ -101,11 +117,12 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
+        $user = User::find($id);
+        // prevent the unauthorized user to edit the post
         if (auth()->user()->super !== 1) {
             return redirect('/dashboard')->with('error','Unauthorized Page');
         }
-        $category = Category::find($id);
-        return view('categories.edit')->with(['category'=>$category]);
+        return view('users.edit')->with('user',$user);
     }
 
     /**
@@ -118,11 +135,19 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'category_name' => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => 'required|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:9',
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required']
         ]);
+
         if($request->hasfile('image'))
          {
-
+            $this->validate($request, [
+                'image' => ['required'],
+                'image.*' => ['image|nullable|max:2048']
+            ]);
             // get filename with the extension
             $name=$request->file('image')->getClientOriginalName();
                 // get just filename
@@ -132,19 +157,24 @@ class CategoriesController extends Controller
             // filename to store
             $fileNametoStore = $filename.'_'.time().'.'.$extension;
             // upload image
-            $path = $request->file('image')->storeAs('public/categories_images',$fileNametoStore);
+            $path = $request->file('image')->storeAs('public/users_images',$fileNametoStore);
 
          }
 
         // save
-        $category = Category::find($id);
-        $category->category_name = $request->input('category_name');
+        $user =  User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->phone = $request->input('phone');
+        $user->super = $request->input('role');
         if ($request->hasFile('image')) {
-            $category->image = $fileNametoStore;
+            $user->image = $fileNametoStore;
         }
-        $category->save();
+        $user->save();
 
-        return redirect('/dashboard')->with('success','Category Updated Successfully');
+        return redirect('/dashboard')->with('success','Updated');
+
     }
 
     /**
@@ -155,13 +185,16 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        if (auth()->user()->super !== 1){
-            return redirect('/dashboard')->with('error','You can not delete this item');
+        $user = User::find($id);
+        if (auth()->user()->id == $id) {
+            return redirect('/dashboard')->with('error','Ooops , can not delete yourself');
+        } else {
+            $user->delete();
         }
-        $category = Category::find($id);
 
-        $category->delete();
-        return redirect('/dashboard')->with('success','Category Removed');
+        return redirect('/dashboard')->with('success','Field Removed');
+
     }
+
 
 }

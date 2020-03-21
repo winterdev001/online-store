@@ -178,6 +178,9 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
+        if (auth()->user()->super !== 1) {
+            return redirect('/dashboard')->with('error','Unauthorized Page');
+        }
         // fetch all categories
         $categories = Category::all();
         $select_cat = Category::pluck('category_name', 'id');
@@ -265,6 +268,9 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
+        if (auth()->user()->super !== 1){
+            return redirect('/dashboard')->with('error','You can not delete this item');
+        }
         $product = Product::find($id);
 
         $product->delete();

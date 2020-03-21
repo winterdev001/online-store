@@ -8,6 +8,16 @@ use App\Message;
 class MessagesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -75,7 +85,9 @@ class MessagesController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (auth()->user()->super !== 1) {
+            return redirect('/dashboard')->with('error','Unauthorized Page');
+        }
     }
 
     /**
@@ -98,7 +110,10 @@ class MessagesController extends Controller
      */
     public function destroy($id)
     {
-        $message = Comment::find($id);
+        if (auth()->user()->super !== 1){
+            return redirect('/dashboard')->with('error','You can not delete this item');
+        }
+        $message = Message::find($id);
 
         $message->delete();
         return redirect('/messages')->with('success','Message Removed');

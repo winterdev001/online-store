@@ -58,7 +58,7 @@
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
                                     {!!Form::close()!!}
                                 </td> --}}
-                                <td><a href="/dashboard" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Back</a></td>
+                                <td><a href="/carousells" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Back</a></td>
                             </table>
 
                         </div>

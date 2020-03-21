@@ -33,7 +33,7 @@ class HomePageController extends Controller
         $recent_products = Product::orderBy('created_at', 'desc')->skip(0)->take(5)->get();
 
         if(isset($_POST['view_comments'])){
-            $product_id =$_POST['product_id'];
+            $product_id =$_POST['data1'];
             $that_product = Product::find($product_id);
         }else{
             $that_product = Product::find(1);

@@ -9,6 +9,16 @@ use App\Carousel;
 class CarouselsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -92,6 +102,9 @@ class CarouselsController extends Controller
      */
     public function edit($id)
     {
+        if (auth()->user()->super !== 1) {
+            return redirect('/dashboard')->with('error','Unauthorized Page');
+        }
         $carousel = Carousel::find($id);
         return view('carousels.edit')->with(['carousel'=>$carousel]);
     }
@@ -151,6 +164,9 @@ class CarouselsController extends Controller
      */
     public function destroy($id)
     {
+        if (auth()->user()->super !== 1){
+            return redirect('/dashboard')->with('error','You can not delete this item');
+        }
         $carousel = Carourel::find($id);
 
         $carousel->delete();

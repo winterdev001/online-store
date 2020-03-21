@@ -153,7 +153,10 @@
                     <td>{{ $product->quantity }}</td>
                     <td>{{ $product->total }} $</td>
                     <td>
+                        @if (auth()->user()->super == 1)
                         <a href="/products/{{$product->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        @else
+                        @endif
                         |<a href="/products/{{$product->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                     </td>
                     {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
@@ -201,7 +204,10 @@
                   <tr>
                     <th>{{ $category->category_name }}</th>
                     <td>
-                        <a href="/categories/{{$category->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        @if (auth()->user()->super == 1)
+                            <a href="/categories/{{$category->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        @else
+                        @endif
                         |<a href="/categories/{{$category->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                     </td>
                     {{-- @if (!Auth::guest())
@@ -251,22 +257,28 @@
                 <thead>
                   <tr>
                     <th>Field Name</th>
-                    <th>Action</th>
+                    @if (auth()->user()->super == 1)
+                        <th>Action</th>
+                    @else
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
                   @foreach ($fields as $field)
                   <tr>
                     <th>{{ $field->field_name }}</th>
-                    <td>
-                        <form action="{{route('fields.destroy',$field->id) }}" method="POST">
-                            <a href="/fields/{{$field->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>|
+                    @if (auth()->user()->super == 1)
+                        <td>
+                            <form action="{{route('fields.destroy',$field->id) }}" method="POST">
+                                <a href="/fields/{{$field->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>|
 
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
-                        </form>
-                    </td>
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
+                            </form>
+                        </td>
+                    @else
+                    @endif
                   </tr>
                   @endforeach
                 </tbody>

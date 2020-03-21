@@ -46,3 +46,5 @@ Route::resource('fields','FieldsController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('users','UsersController');

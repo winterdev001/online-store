@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comment;
+use DB;
 
 class CommentsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comment::all();
+        $comments = Comment::orderBy('created_at','desc')->get();
 
         return view('comments.index')->with(['comments'=>$comments]);
     }
@@ -77,7 +88,9 @@ class CommentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (auth()->user()->super !== 1) {
+            return redirect('/dashboard')->with('error','Unauthorized Page');
+        }
     }
 
     /**
@@ -100,6 +113,9 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
+        if (auth()->user()->super !== 1){
+            return redirect('/dashboard')->with('error','You can not delete this item');
+        }
         $comment = Comment::find($id);
 
         $comment->delete();

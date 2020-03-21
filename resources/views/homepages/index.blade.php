@@ -681,13 +681,13 @@
                                         <button type="button" class="btn btn-light dropdown-toggle" data-toggle="modal" data-target="#comment">
                                             Comment
                                         </button>
-                                        <form action="/" method="post">
+                                        {{-- <form action="/" method="post">
                                             @csrf
                                             <input type="hidden" name="product_id" id="view_comments">
-                                            <a  type="submit" name="view_comments" class="btn btn-light dropdown-toggle" data-toggle="modal" data-target="#all_comments">
+                                            <a   id="send_id" name="view_comments" class="btn btn-light dropdown-toggle" data-toggle="modal" data-target="#all_comments">
                                                 View Comments
                                             </a>
-                                        </form>
+                                        </form> --}}
 
                                     </div>
                               </p>
@@ -926,6 +926,19 @@
 
             $("#for_id").val(product_id);
             $("#view_comments").val(product_id);
+
+            $("#send_id").click(function(){
+                $.ajax({
+                type: "POST",
+                url: '/',
+                data: {
+                    data1: product_id,
+                },
+                success: function(response){
+                    console.log(response);
+                }
+                });
+            });
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)

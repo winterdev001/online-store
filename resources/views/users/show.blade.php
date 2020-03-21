@@ -31,37 +31,44 @@
                   <section class="col-lg-12 connectedSortable" id="all_products">
                     <div class="card">
                         <div class="card-header">
-                          <h3 class="card-title">Category Details</h3>
+                          <h3 class="card-title">User Details</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                            {{-- content --}}
-                            <div class="card col-8">
+                            <div class="card col-6">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-7">
                                 <div class="card-body" >
-                                    <p>Category Name: {{$category->category_name}}</p>
+                                    <p> Name: {{$user->name}}</p>
+                                    <p> Email: {{$user->email}}</p>
+                                    <p> Phone: {{$user->phone}}</p>
+                                    <p> Role:   @if ($user->super == 1)
+                                                    Super Admin
+                                                @else
+                                                    Admin
+                                                @endif
+                                    </p>
                                 </div>
 
                                 </div>
-                                <div class="col-md-7">
-                                <img style="width:100%" height="100%" src="/storage/categories_images/{{$category->image}}" class="card-img"
-                                    alt="{{$category->category_name}}">
+                                <div class="col-md-5">
+                                <img style="width:100%" height="100%" src="/storage/users_images/{{$user->image}}" class="card-img"
+                                    alt="{{$user->name}}">
                                 </div>
                             </div>
                             </div>
                             <table>
-                                @if (auth()->user()->super == 1)
-                                    <td>
-                                        {!!Form::open(['action'=>['CategoriesController@destroy',$category->id],'method'=>'POST','class'=>' '])!!}
+                                <td>
+                                    @if (auth()->user()->super == 1)
+                                        {!!Form::open(['action'=>['UsersController@destroy',$user->id],'method'=>'POST','class'=>' '])!!}
                                         {{Form::hidden('_method','DELETE')}}
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
-                                        {{-- {{Form::submit('Delete',['class'=>'btn btn-danger ','onclick'=>"return confirm('Are you sure You want to delete this item?')"])}} --}}
                                         {!!Form::close()!!}
-                                    </td>
-                                @else
-                                @endif
-                                <td><a href="/dashboard" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Back</a></td>
+                                    @else
+                                    @endif
+                                </td>
+                                <td><a href="/users" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Back</a></td>
                             </table>
 
                         </div>

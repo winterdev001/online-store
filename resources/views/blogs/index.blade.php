@@ -12,7 +12,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/dashboard">Home</a> <span><i class="fa fa-chevron-right"></i></span>
-                 <a href="/carousells">Carousel</a></li>
+                 <a href="/blogs">Blogs</a></li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -61,7 +61,10 @@
                     <td>{{ str_limit($blog->content,20) }}</td>
 
                     <td>
-                        <a href="/blogs/{{$blog->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        @if (auth()->user()->super == 1)
+                            <a href="/blogs/{{$blog->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                        @else
+                        @endif
                         |<a href="/blogs/{{$blog->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                     </td>
                     {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
@@ -92,25 +95,28 @@
                   <thead>
                     <tr>
                       <th>Category name</th>
-                      <th>Action</th>
+                      @if (auth()->user()->super == 1)
+                        <th>Action</th>
+                      @else
+                      @endif
                     </tr>
                   </thead>
                   <tbody>
                     @foreach ($blog_categories as $blog_cat)
                     <tr>
                       <td>{{ $blog_cat->category_name }}</td>
+                      @if (auth()->user()->super == 1)
+                        <td>
+                            <form action="{{route('blogcategories.destroy',$blog_cat->id) }}" method="POST">
+                                <a href="/blogcategories/{{$blog_cat->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>|
 
-                      <td>
-                        <form action="{{route('blogcategories.destroy',$blog_cat->id) }}" method="POST">
-                            <a href="/blogcategories/{{$blog_cat->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>|
-
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
-                        </form>
-                      </td>
-                      {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
-                      </td> --}}
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
+                            </form>
+                        </td>
+                      @else
+                      @endif
                     </tr>
                     @endforeach
                   </tbody>

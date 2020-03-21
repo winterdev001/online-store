@@ -170,7 +170,11 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('admin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+            @foreach (App\User::all() as $user)
+                @if (auth()->user()->id == $user->id)
+                <img src="/storage/users_images/{{$user->image}}" class="img-circle elevation-2" alt="User Image">
+                @endif
+            @endforeach
         </div>
         <div class="info">
             @if (Auth::user('auth'))
@@ -207,7 +211,34 @@
                 Blogs
                 </p>
             </a>
-        </li>
+          </li>
+          <li  class="nav-item has-treeview menu-open">
+            <a href="/comments" class="nav-link ">
+                <i class="nav-icon fas fa-comment"></i>
+                <p>
+                Comments
+                </p>
+            </a>
+          </li>
+          <li  class="nav-item has-treeview menu-open">
+            <a href="/messages" class="nav-link ">
+                <i class="nav-icon fas fa-envelope"></i>
+                <p>
+                Messages
+                </p>
+            </a>
+          </li>
+          @if (auth()->user()->super == 1)
+            <li  class="nav-item has-treeview menu-open">
+                <a href="/users" class="nav-link ">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                    Manage Users
+                    </p>
+                </a>
+            </li>
+          @else
+          @endif
         </ul>
       </nav>
 

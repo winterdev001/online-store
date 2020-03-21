@@ -8,6 +8,16 @@ use App\BlogCategory;
 class BlogCategoriesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -68,6 +78,9 @@ class BlogCategoriesController extends Controller
      */
     public function edit($id)
     {
+        if (auth()->user()->super !== 1) {
+            return redirect('/dashboard')->with('error','Unauthorized Page');
+        }
         $blog_category = BlogCategory::find($id);
         return view('blogcategories.edit')->with(['blog_category'=>$blog_category]);
     }
@@ -101,6 +114,9 @@ class BlogCategoriesController extends Controller
      */
     public function destroy($id)
     {
+        if (auth()->user()->super !== 1){
+            return redirect('/dashboard')->with('error','You can not delete this item');
+        }
         $blog_category = BlogCategory::find($id);
 
         $blog_category->delete();

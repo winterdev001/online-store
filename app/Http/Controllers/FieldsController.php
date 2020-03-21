@@ -8,6 +8,16 @@ use App\Field;
 class FieldsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -70,6 +80,9 @@ class FieldsController extends Controller
      */
     public function edit($id)
     {
+        if (auth()->user()->super !== 1) {
+            return redirect('/dashboard')->with('error','Unauthorized Page');
+        }
         $field = Field::find($id);
         // prevent the unauthorized user to edit the post
         // if (auth()->user()->id !== $post->user_id) {
@@ -107,6 +120,9 @@ class FieldsController extends Controller
      */
     public function destroy($id)
     {
+        if (auth()->user()->super !== 1){
+            return redirect('/dashboard')->with('error','You can not delete this item');
+        }
         $field = Field::find($id);
 
         $field->delete();

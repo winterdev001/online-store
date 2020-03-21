@@ -100,13 +100,16 @@
                                         <p class="card-text">Description: {{$product->description}}</p>
                                         <p class="card-text"><small class="text-muted">Posted By:</small></p>
                                         <table>
+                                            @if (auth()->user()->super == 1)
                                                 <td>
-                                                {!!Form::open(['action'=>['ProductsController@destroy',$product->id],'method'=>'POST','class'=>' '])!!}
-                                                {{Form::hidden('_method','DELETE')}}
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
-                                                {{-- {{Form::submit('Delete',['class'=>'btn btn-danger ','onclick'=>"return confirm('Are you sure You want to delete this item?')"])}} --}}
-                                                {!!Form::close()!!}
-                                            </td>
+                                                    {!!Form::open(['action'=>['ProductsController@destroy',$product->id],'method'=>'POST','class'=>' '])!!}
+                                                    {{Form::hidden('_method','DELETE')}}
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure You want to delete this item?')"><i class="fa fa-trash"></i></button>
+                                                    {{-- {{Form::submit('Delete',['class'=>'btn btn-danger ','onclick'=>"return confirm('Are you sure You want to delete this item?')"])}} --}}
+                                                    {!!Form::close()!!}
+                                                </td>
+                                            @else
+                                            @endif
                                             <td><a href="/dashboard" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Back</a></td>
                                         </table>
                                     </div>
