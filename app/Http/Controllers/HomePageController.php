@@ -81,6 +81,11 @@ class HomePageController extends Controller
         return view("homepages.contact");
     }
 
+    public function test()
+    {
+        return view("homepages.test");
+    }
+
     public function blog($id)
     {
         $blog = Blog::find($id);
