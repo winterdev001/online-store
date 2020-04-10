@@ -257,6 +257,7 @@
                 <thead>
                   <tr>
                     <th>Field Name</th>
+                    <th>Category</th>
                     @if (auth()->user()->super == 1)
                         <th>Action</th>
                     @else
@@ -267,6 +268,13 @@
                   @foreach ($fields as $field)
                   <tr>
                     <th>{{ $field->field_name }}</th>
+                    <td>
+                      @foreach ($categories as $category)
+                          @if ($category->id == $field->category_id)
+                              {{$category->category_name}}
+                          @endif
+                      @endforeach
+                    </td>
                     @if (auth()->user()->super == 1)
                         <td>
                             <form action="{{route('fields.destroy',$field->id) }}" method="POST">
@@ -455,6 +463,15 @@
             {{Form::label('field_name','Field Name')}}
             {{Form::text('field_name','',['class'=>'form-control','placeholder'=>'Field Name'])}}
           </div>
+          <div class="form-group">                
+            {{Form::label('category_id','Select Category')}}
+            <select class="form-control" name="category_id">
+              <option>Select Category</option>
+              @foreach ($categories as $category)
+              <option value="{{ $category->id }}"> {{ $category->category_name }} </option>
+              @endforeach
+            </select>
+        </div>
 
           {{Form::submit('Add Field',['class'=>'btn btn-primary'])}}
 

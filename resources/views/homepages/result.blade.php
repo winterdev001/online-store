@@ -1,4 +1,4 @@
-@extends('layouts.pages')
+@extends('layouts.home')
 
 @section('content')
     <!-- Product -->

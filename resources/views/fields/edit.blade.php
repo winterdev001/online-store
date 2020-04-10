@@ -41,6 +41,22 @@
                                     {{Form::text('field_name',$field->field_name,['class'=>'form-control','placeholder'=>'Field Name'])}}
                                 </div>
 
+                                <div class="form-group">
+                                  {{Form::label('category_id','Select Category')}}
+                                  <select class="form-control" name="category_id">
+                  
+                                    @foreach ($categories as $category)
+                                        @if ($category->id == $field->category_id)
+                                            <option value="{{ $field->category_id }}">{{$category->category_name}}</option>
+                                        @endif
+                                    @endforeach
+                  
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"> {{ $category->category_name }} </option>
+                                    @endforeach
+                                  </select>
+                                </div>
+
                                 {{Form::hidden('_method','PUT')}}
                                 {{Form::submit('Update',['class'=>'btn btn-primary'])}}
 

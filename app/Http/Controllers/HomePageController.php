@@ -51,24 +51,67 @@ class HomePageController extends Controller
     public function product()
     {
         if(isset($_POST['find'])){
-            $cat_id = $_POST['cat_id'];
-            $price = $_POST['price'];
+            if (!empty($_POST['cat_id'])) {
+                $cat_id = $_POST['cat_id'];
+            }else{
+                $cat_id = null;
+            }
+
+            if (!empty($_POST['price'])) {
+                $price = $_POST['price'];
+            }else{
+                $price = null;
+            }
+            
+            // $price = $_POST['price'];
             $changed_price = explode("-",$price);
             $start_p = $changed_price[0];
             $last_p = $changed_price[1];
             if (!empty($cat_id) && !empty($price )) {
-                $products = DB::select("SELECT * FROM products
-                WHERE (category_id = $cat_id) AND (price BETWEEN $start_p AND $last_p ) ");
-            } else{
-                $products = DB::select("SELECT * FROM products
-                WHERE (category_id = $cat_id) OR (price BETWEEN $start_p AND $last_p ) ");
+                // $products = DB::select("SELECT * FROM products
+                // WHERE (category_id = $cat_id) AND (price BETWEEN $start_p AND $last_p ) ");
+                $products = Product::where('category_id', '=', $cat_id)->whereBetween('price', [$start_p, $last_p])->paginate(12);
+            } 
+            else{
+                // $products = DB::select("SELECT * FROM products
+                // WHERE (category_id = $cat_id) OR (price BETWEEN $start_p AND $last_p ) ");
+                $products = Product::where('category_id', '=', $cat_id)->orWhereBetween('price', [$start_p, $last_p])->paginate(12);
             }
+           
         }else{
-            $products = Product::orderBy('created_at', 'desc')->get();
+            $products = Product::orderBy('created_at', 'desc')->paginate(12);
+        }
+
+        // filter by category
+        if(isset($_POST['filter_by_cat'])){
+            $id = $_POST['category_id'];
+            // $category = $_GET['category'];
+    
+            $products = \App\Product::where('category_id', $id )->paginate(12);  
+        }
+
+        // filter by field
+        if(isset($_POST['filter_by_field'])){
+            $id = $_POST['field_id'];
+    
+            $products = \App\Product::where('field_id',$id)->paginate(12);  
+        }
+        // $products = Product::orderBy('created_at', 'desc')->paginate(12);
+        $categories = Category::all();
+        $fields = Field::all();
+
+        foreach ($fields as $key => $fld) {
+            
+        }
+
+        foreach ($products as $key => $item) {
+            if ($fld->id == $item->field_id) {
+                $cat_child = $fld->field_name;
+            }
         }
 
 
-        return view("homepages.product")->with(['products'=>$products]);
+        return view("homepages.product")->with(['products'=>$products,'categories'=>$categories,'fields'=>$fields]);
     }
 
     public function about()

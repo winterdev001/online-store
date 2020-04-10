@@ -6,6 +6,7 @@
                     <div class="single-cta">
                         <i class="fas fa-map-marker-alt"></i>
                         <div class="cta-text">
+                            <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
                             <h4>Find us</h4>
                             <span>1010 Avenue, sw 54321, chandigarh</span>
                         </div>
@@ -36,8 +37,8 @@
                 <div class="col-xl-4 col-lg-4 mb-50">
                     <div class="footer-widget">
                         <div class="footer-logo">
-                            <div style="border:5px solid #f6c89f;">
-                                <a class="navbar-brand p-2 mx-auto text-light" href="#">Hamubere</a>
+                            <div style="border:5px solid #f6c89f;" class="mx-auto text-center">
+                                <a class="navbar-brand p-2  text-light" href="#">Hamubere</a>
                             </div>
                         </div>
                         <div class="footer-social-icon">

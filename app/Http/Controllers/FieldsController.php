@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Field;
+use App\Category;
 
 class FieldsController extends Controller
 {
@@ -34,7 +35,8 @@ class FieldsController extends Controller
      */
     public function create()
     {
-        return view('fields.create');
+        $categories = Category::all();
+        return view('fields.create')->with(['cetegories'=>$categories]);
     }
 
     /**
@@ -46,12 +48,14 @@ class FieldsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'field_name' => 'required'
+            'field_name' => 'required',
+            'category_id' => 'required'
         ]);
 
         // save
         $field = new Field;
         $field->field_name = $request->input('field_name');
+        $field->category_id = $request->input('category_id');
         $field->save();
 
         return redirect('/dashboard')->with('success','Field Added Successfully');
@@ -83,12 +87,13 @@ class FieldsController extends Controller
         if (auth()->user()->super !== 1) {
             return redirect('/dashboard')->with('error','Unauthorized Page');
         }
+        $categories = Category::all();
         $field = Field::find($id);
         // prevent the unauthorized user to edit the post
         // if (auth()->user()->id !== $post->user_id) {
         //     return redirect('/posts')->with('error','Unauthorized Page');
         // }
-        return view('fields.edit')->with('field',$field);
+        return view('fields.edit')->with(['field'=>$field,'categories'=>$categories]);
     }
 
     /**
@@ -107,6 +112,7 @@ class FieldsController extends Controller
         // save
         $field =  Field::find($id);
         $field->field_name = $request->input('field_name');
+        $field->category_id = $request->input('category_id');
         $field->save();
 
         return redirect('/dashboard')->with('success','Field Updated Successfully');

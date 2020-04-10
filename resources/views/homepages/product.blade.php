@@ -1,378 +1,256 @@
-@extends('layouts.pages')
+@extends('layouts.home')
 @section('content')
-    <!-- Product -->
-	<div class="bg0 m-t-23 p-b-140">
-		<div class="container">
-			<div class="flex-w flex-sb-m p-b-52">
-                @include('homepages.category')
+    <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb ">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Products</li>
+            </ol>
+          </nav>
+    </div>
+    <div class="all-products">
+        <div class="product-container">            
+              <div class="card">
+                <div class="card-body">
+                  <a href="/home/product" class="text-decoration-none text-dark link">All Products</a>
+                  <hr>
+                  @foreach ($categories as $category)
+                    <ul>                    
+                      <li class="cat-list">                        
+                        <span class="cat-list-item">
+                            
+                            <form action="{{URL::current()}}" method="POST">
+                                {{-- @method('POST') --}}
+                                @csrf
+                                <input type="hidden" value="{{$category->id}}" name="category_id">
+                                <input type="submit" class="filter_by_cat" name="filter_by_cat" value="{{$category->category_name}}">
+                            </form>
+                        </span>
+                        <ul>
+                          @foreach ($fields as $field) 
+                              @if ($field->category_id == $category->id)
+                                  <li class="cat-child"> 
+                                       
+                                      <form action="{{URL::current()}}" method="POST">
+                                        {{-- @method('POST') --}}
+                                        @csrf
+                                        <input type="hidden" value="{{$field->id}}" name="field_id">
+                                        <input type="submit" class="filter_by_field" name="filter_by_field" value="{{$field->field_name}}">
+                                    </form>
+                                  </li>
+                              @endif
+                          @endforeach
+                        </ul>
+                      </li>    
+                      <hr>                
+                    </ul>
+                  @endforeach
 
-
-				<div class="flex-w flex-c-m m-tb-10">
-					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
-						<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-						<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						 Filter
-					</div>
-
-					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
-						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						Search
-					</div>
-				</div>
-
-				<!-- Search product -->
-				<div class="dis-none panel-search w-full p-t-10 p-b-15">
-					<div class="bor8 dis-flex p-l-15">
-						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
-							<i class="zmdi zmdi-search"></i>
-						</button>
-                        <form action="/homepages/shop_result" method="POST">
-                            @csrf
-                            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="shop_search" placeholder="Search">
-                        </form>
-                    </div>
-                    {{-- <input type="submit" class="btn btn-light" value="Search"> --}}
-
-				</div>
-
-				<!-- Filter -->
-				<div class="dis-none panel-filter w-full p-t-10">
                     <form action="{{URL::current()}}" method="POST">
                         @csrf
-                        <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-                            {{-- <div class="filter-col1 p-r-15 p-b-27">
-                                <div class="mtext-102 cl2 p-b-15">
-                                    Sort By
+                        <div class="filters">
+                          <h4 class="filter muted">Filters</h4>
+                          <div class="price-range">
+                                <h5>Price Range</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="exampleRadios1" value="500-50000" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                    500Rwf - 50,000Rwf
+                                    </label>
                                 </div>
-
-                                <ul>
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            Default
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            Popularity
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            Average rating
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                            Newness
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            Price: Low to High
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            Price: High to Low
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> --}}
-
-                            <div class="filter-col2 p-r-15 p-b-27">
-                                <div class="mtext-102 cl2 p-b-15">
-                                    Price Range
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="exampleRadios2" value="50000-100000">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                    50,000Rwf - 100,000Rwf
+                                    </label>
                                 </div>
-
-                                <ul>
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            <div class="form-check">
-                                                <input class="form-check-input class1" type="checkbox" name="price" value="0-50" id="defaultCheck1 check-1">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    $0.00 - $50.00
-                                                </label>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            <div class="form-check">
-                                                <input class="form-check-input class2" type="checkbox" name="price" value="50-100" id="defaultCheck1 check-2">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    $50.00 - $100.00
-                                                </label>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            <div class="form-check">
-                                                <input class="form-check-input class3" type="checkbox" name="price" value="100-150" id="defaultCheck1 check-3">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    $100.00 - $150.00
-                                                </label>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            <div class="form-check">
-                                                <input class="form-check-input class4" type="checkbox" name="price" value="150-200" id="defaultCheck1 check-3">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    $150.00 - $200.00
-                                                </label>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li class="p-b-6">
-                                        <a href="#" class="filter-link stext-106 trans-04">
-                                            <div class="form-check">
-                                                <input class="form-check-input class5" type="checkbox" name="price" value="200" id="defaultCheck1 check-4">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    $200.00+
-                                                </label>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="filter-col4 p-b-27">
-                                <div class="mtext-102 cl2 p-b-15">
-                                    Categories
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="exampleRadios3" value="100000-150000">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                    100,000Rwf - 150,000Rwf
+                                    </label>
                                 </div>
-
-                                <div class="flex-w p-t-4 m-r--5">
-                                    @foreach ((App\Category::all()) as $category)
-                                    <a href="javascript:void(0)" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="cat_id" value="{{$category->id}}" id="defaultCheck1">
-                                            <label class="form-check-label" for="defaultCheck1">
-                                                {{$category->category_name}}
-                                            </label>
-                                        </div>
-                                    </a>
-                                    @endforeach
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="exampleRadios4" value="150000-200000">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                    150,000Rwf - 200,000Rwf
+                                    </label>
                                 </div>
-                                <div class="filter-col2 p-b-27"></div>
-                                <div class="filter-col4 p-b-27">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="exampleRadios5" value="200000-1000000000">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                    200,000Rwf +
+                                    </label>
                                 </div>
                             </div>
-                            <div class=" col-12 text-center">
-                                <input type="submit" name="find" class="btn btn-outline-primary btn-lg btn-rounded btn-block " value="Find">
+                            <div class="categories">
+                                <h5>Categories</h5>
+                                @foreach ((App\Category::orderBy('category_name','asc')->skip(0)->take(5)->get()) as $category)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="cat_id" id="exampleRadios" value="{{$category->id}}">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                        {{$category->category_name}}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
+                        </div>
+                        <div class=" col-12 text-center">
+                            <input type="submit" name="find" class="btn btn-outline-warning btn-sm btn-rounded btn-block " value="Filter">
                         </div>
                     </form>
-				</div>
-			</div>
-
-			<div class="row isotope-grid">
-                @foreach ($products as $product)
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-                    <!-- Block2 -->
-                    <div class="block2">
-                        <div class="block2-pic hov-img0">
-                            @foreach (json_decode($product->product_images) as $image)
-                            <img src="/storage/cover_images/{{$image}}" width="100" height="300" alt="{{$product->product_name}}">
-                            @break
-                            @endforeach
-                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " data-toggle="modal" data-target="#product_detail"
-                        type="button" data-images="{{$product->product_images}}" data-status="{{$product->status}}" data-price="{{$product->price}}" data-seller_phone="{{$product->seller_phone}}"
-                        data-seller_email="{{$product->seller_email}}" data-description="{{$product->description}}" data-product_name="{{$product->product_name}}" data-updated_at={{$product->updated_at}} data-product_id="{{$product->id}}">
-                                Quick View
-                            </a>
-                        </div>
-
-                        <div class="block2-txt flex-w flex-t p-t-14">
-                            <div class="block2-txt-child1 flex-col-l ">
-                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                    {{$product->product_name}}
-                                </a>
-
-                                <span class="stext-105 cl3">
-                                    {{$product->price}}$
-                                </span>
-                            </div>
-
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                    {{-- <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-                                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON"> --}}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                @endforeach
-
-			</div>
-
-			<!-- Load more -->
-			<div class="flex-c-m flex-w w-full p-t-45">
-				{{-- pagination links  --}}
-                {{-- {{$products->links()}} --}}
-			</div>
-		</div>
+              </div>
+            
+              @foreach ($products as $product)
+                  <div class="card product-card">
+                      @foreach (json_decode($product->product_images) as $image)
+                          <img src="/storage/cover_images/{{$image}}" class="card-img" width="100" height="150" alt="{{$product->product_name}}">
+                      @break
+                      @endforeach
+                      <div class="card-body">
+                          <p class="card-text">
+                              <span > <strong class="text-center">{{$product->product_name}}</strong></span> <br>
+                              <span><small class="text-center price-tag">{{number_format($product->price)}} Rwf</small></span>
+                          </p>
+                      </div>
+                  </div>
+            @endforeach                        
+        </div>
+        <div class="d-flex justify-content-center mt-5 ">
+            {{-- pagination links  --}}
+                <span class="text-center page-links">{{$products->render()}}</span>
+          </div>
     </div>
+    <div class="blogs">
+        <div class="blogs mb-5 mt-3">
+            <strong><h5 class=" mb-2">Latest Blogs</h5></strong>
+            <div class="blog-container">
+                @foreach (App\Blog::orderBy('created_at','desc')->skip(0)->take(3)->get() as $blog)
+                    <div class="card blog-card">
+                        <img src="/storage/blogs_images/{{$blog->image}}" height="250px" alt="{{$blog->title}}">
+                        <div class="card-body">
+                            <p><small class="text-muted blog-date">{{$blog->updated_at->format('M d, Y')}} </small></p>
+                            <h4 class="card-text"> <strong>{{$blog->title}}</strong> </h4>
+                            <p class="card-text"> {{str_limit($blog->content,60)}} </p>
+                            <a href="#" class="read-more-blog text-decoration-none">Read More</a>
+                        </div>
+
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+ 
     {{-- Product detail modal --}}
     <style>
+        /* breadcrumbs */
+        .breadcrumb-item>a {
+            color: #faa45a !important;
+        }
+        .breadcrumb>li::before {
+            content:none !important;
+        }
+        .breadcrumb>li:after {
+            content:'\3E';
+            margin-left: 0.3em;
+        }
+        .breadcrumb>li:last-child:after
+         {
+            content: none;
+        }
+
+        /* product container */
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+        .product-container .card:first-child {
+            grid-row: span 4;
+            /* height: 30rem; */
+        }
+
+        .cat-list {
+          display: block;
+          
+        }
+
+        .cat-list-item {
+          border-bottom:2px solid #faa45a;
+        }
+
+        .cat-child {
+          display: flex ;
+          padding-left: 1rem;
+        }
+
+        .price-tag {
+            color: #faa45a !important;
+        }
+
+        .product-card:hover {
+          box-shadow: 0 0 2px 2px rgba(45, 46, 45, 0.11) !important;
+        }
+
+        @media (max-width: 768px) and (min-width: 577px) {
+            .product-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+                grid-gap: 10px;
+                cursor: pointer;
+            }
+            .product-container .card:first-child {
+                grid-row: span 8;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .product-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-gap: 20px;
+                cursor: pointer;
+            }
+            .product-container .card:first-child {
+                grid-row: span 7;
+            }
+        }
+
+        .page-links {
+            z-index: 0 !important;
+        }
+
+        .filter {
+            border-bottom:2px solid  #faa45a;
+        }
+
+        .product-container>.card>.card-body>.link:hover {
+            color: #faa45a !important
+        }
+
+        .filter_by_cat ,.filter_by_field {
+            border:none !important;
+            background-color: white !important
+        }
+
+        .filter_by_cat:hover, .filter_by_field:hover {
+            color: #faa45a !important
+        }
+
+        
         .modo,.comment-modo {
-    position: absolute;
-    top: 50px;
-    right: 100px;
-    bottom: 0;
-    left: 0;
-    z-index: 10040;
-    overflow: auto;
-    overflow-y: auto;
+          position: absolute;
+          top: 50px;
+          right: 100px;
+          bottom: 0;
+          left: 0;
+          z-index: 10040;
+          overflow: auto;
+          overflow-y: auto;
 
-    }
+        }
     </style>
-    <div class="modal fade" id="product_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-        <div class="modal-dialog modo modal-lg" role="document">
-            <div class="modal-content actual-modo">
-            <div class="modal-header">
-                <h5 class="modal-title" id=" product_name"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card mb-3" style="max-width: 850px;max-height:400px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-6">
-                          <div class="single_img" style="max-height:400px;">
-                            <img src="..." class="card-img img-fluid" style="max-height:400px;" id="img_1" alt="...">
-                          </div>
-                          <div class="two_img" style="max-height:400px;">
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carouselExampleControls" data-slide-to="1"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                  <div class="carousel-item active">
-                                    <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;"   id="img_1" alt="...">
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;" id="img_2" alt="...">
-                                  </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                  <span class="carousel-control-prev-icon bg-danger" aria-hidden="true"></span>
-                                  <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                  <span class="carousel-control-next-icon bg-danger" aria-hidden="true"></span>
-                                  <span class="sr-only">Next</span>
-                                </a>
-                              </div>
-                          </div>
-                          <div class="multi_img" style="max-height:400px;">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                  <div class="carousel-item active">
-                                    <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;"  id="img_1" alt="...">
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;" id="img_2" alt="...">
-                                  </div>
-                                  <div class="carousel-item" id="carousel_3">
-                                    <img src="..." class="d-block w-100 img-fluid card-img" style="max-height:400px;" id="img_3" alt="...">
-                                  </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                  <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
-                                  <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                  <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-                                  <span class="sr-only">Next</span>
-                                </a>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="card-body">
-                          <h5 class="card-title"><span><img src="https://img.icons8.com/color/24/000000/warranty.png"/></span> <span id="product_name"></span></h5>
-                          <p class="card-text" ><span id="badge">.</span> <span id="product_status"></span></p><br>
-                          <p class="card-text" ><span><img src="https://img.icons8.com/ultraviolet/24/000000/tag-window.png"/></span> <span id="price"></span>$</p><br>
-                          <p class="card-text" ><span><img src="https://img.icons8.com/color/24/000000/activity-history.png"/></span> <span id="description"> </span></p><br>
-                          <p class="card-text"><small class="text-muted"><img src="https://img.icons8.com/color/24/000000/calendar.png"/> Last updated <span id="updated_at"></span></small></p><br>
-                          <p class="card-text">
-                                 Like what you see? Contact us : <span class="btn btn-sm bg-dark btn-dark btn-cancel i-text-small mt-4 mb-5 animated fadeIn slow delay-2s">
-                                <img src="https://img.icons8.com/color/24/000000/outgoing-call.png" alt="user_name" class="d-header-icon animated tada infinite slow"> :
-                                <span id="seller_info"></span>
-                                </span>
-                                <div class="btn-group dropright">
-                                    <button type="button" class="btn btn-light dropdown-toggle"data-toggle="modal" data-target="#comment">
-                                        Comment
-                                    </button>
-
-                                </div>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-            </div>
-        </div>
-    </div>
-    {{-- comment's modal --}}
-    <div class="modal fade" id="comment">
-        <div class="modal-dialog modal-md comment-modo">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">#Leave a Comment</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>
-                {!!
-                Form::open(['action'=>'CommentsController@store','method'=>'POST'])
-                !!}
-                <label for="inputEmail" class="sr-only mt-1">Email</label>
-                <input id="inputEmail" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Your Email" required="" autofocus="" type="email" name="email" >
-                <label for="inputComment" class="sr-only">Comment</label>
-                <textarea id="inputComment" name="content" class="form-control mb-1 bg-dark border-top-0 border-left-0 border-right-0 border-ligth rounded-0 text-light" placeholder="Enter a Comment..." required="" ></textarea>
-                <input type="hidden" name="for" value="product">
-                <input type="hidden" id="for_id" name="for_id" value="">
-                {{Form::submit(' Commnent',['class'=>'btn btn-primary text-center comment'])}}
-
-                {!! Form::close() !!}
-              </p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      {{-- /.comments end --}}
+ 
 
 @endsection

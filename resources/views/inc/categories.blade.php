@@ -1,10 +1,8 @@
 <nav class="navbar navbar-light bg-light">
-    <ul class="nav nav-tabs cats " role="tablist">
-        <li role="presentation" class="active"><a href="#home"> Home</a></li>
-        <li role="presentation"><a href="#profile">Profile</a></li>
-        <li role="presentation"><a href="#messages" >Messages</a></li>
-        <li role="presentation"><a href="#settings">Settings</a></li>
-        <li role="presentation"><a href="#about" >about</a></li>
-        <li role="presentation"><a href="#contact" >Contacts</a></li>
+    <ul class="nav  cats " role="tablist">
+        @foreach (App\Category::orderBy('created_at','desc')->get() as $category)
+            <li role="presentation" class="active"><a href="#home"> {{$category->category_name}}</a></li>
+        @endforeach
     </ul>
 </nav>
+<hr>

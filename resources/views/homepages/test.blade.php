@@ -1,16 +1,120 @@
 @extends('layouts.home')
 
 @section('content')
-    <h2>Hello</h2>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consectetur tortor sapien, quis tincidunt risus sodales at. Integer sit amet lorem convallis, elementum augue sed, ornare sem. Phasellus vulputate augue vel lectus molestie, vitae accumsan dui varius. Vestibulum gravida commodo posuere. Etiam ut erat non felis dictum condimentum. Sed tempus mi non ultrices sodales. Proin urna risus, aliquam in sapien sed, faucibus imperdiet purus. Phasellus pretium, lacus ut suscipit porta, metus neque gravida purus, id auctor quam libero vitae urna. Duis arcu mauris, dapibus at tristique quis, rutrum eget erat. Maecenas posuere non turpis quis consequat. Curabitur sed faucibus erat. Nunc tincidunt egestas tortor, id aliquam metus euismod quis. Morbi luctus, lectus non sodales dapibus, diam magna mollis elit, quis vulputate lacus urna in lorem. Aliquam metus mauris, efficitur eu malesuada id, rutrum eu felis.
+    <div class="text-center">
+        <strong><h2>You want it?, We got you covered. </h2></strong>
+        <h5>Hamubere is here for you to make online marketing easier.</h5>
+    </div>
+    <hr>
+    <div class="cat-cards">
+        <div class="cat-card">
+            <div class="card-columns">
+                @foreach (App\Category::orderBy('created_at','desc')->skip(0)->take(6)->get() as $category)
+                    <div class="card  " >
+                    <img src="/storage/categories_images/{{$category->image}}" height="120" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"> {{$category->category_name}} </h5>
+                    </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="all-products">
+        <strong><h1 class="">Store Overview</h1></strong>
+        {{-- new arrivals --}}
+        <h1 class="lead text-center"> New Arrivals </h1>
+        <div class="grid-container">
+            @foreach (App\Product::orderBy('created_at','desc')->skip(0)->take(6)->get() as $product)
+                <div class="card product-card">
+                    @foreach (json_decode($product->product_images) as $image)
+                        <img src="/storage/cover_images/{{$image}}" class="card-img" width="100" height="150" alt="{{$product->product_name}}">
+                    @break
+                    @endforeach
+                    <div class="card-body">
+                        <p class="card-text">
+                             <span > <strong class="text-center">{{$product->product_name}}</strong></span> <br>
+                             <span><small class="text-center price-tag">{{number_format($product->price)}} Rwf</small></span>
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="text-center ">
+            <a href="/home/product" class="btn  btn-sm btn-pill mt-3 col-4 view-more-products"> View More</a>
+        </div>
+        <hr>
 
-        Curabitur eu tincidunt justo, dignissim condimentum diam. Quisque leo tortor, venenatis ut velit ut, pharetra condimentum augue. Cras urna lectus, blandit eu justo aliquam, efficitur tempor ante. Ut in auctor purus, sit amet pretium libero. In convallis tempor fermentum. Vestibulum porttitor justo sapien, eu dignissim tortor tincidunt nec. Duis nec metus aliquet, varius purus eu, tristique nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus et risus dignissim, posuere purus a, luctus ligula. Quisque efficitur laoreet erat non malesuada. Fusce ultricies hendrerit augue in pulvinar. Proin malesuada, nisl nec ultrices viverra, nibh ligula consectetur ipsum, nec ornare sapien massa eu enim. Suspendisse potenti.
+        {{-- Trending --}}
+        <h1 class="lead text-center"> Trending </h1>
+        <div class="grid-container">
+            @foreach (App\Product::orderBy('created_at','asc')->skip(0)->take(6)->get() as $product)
+                <div class="card product-card">
+                    @foreach (json_decode($product->product_images) as $image)
+                        <img src="/storage/cover_images/{{$image}}" class="card-img" width="100" height="150" alt="{{$product->product_name}}">
+                    @break
+                    @endforeach
+                    <div class="card-body">
+                        <p class="card-text">
+                            <span > <strong class="text-center">{{$product->product_name}}</strong></span> <br>
+                            <span><small class="text-center price-tag">{{number_format($product->price)}} Rwf</small></span>
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="text-center ">
+            <a href="/home/product" class="btn  btn-sm btn-pill mt-3 col-4 view-more-products"> View More</a>
+        </div>
+        <hr>
 
-        Integer id velit faucibus neque ultrices elementum eget vitae lectus. Integer eget purus mi. In hac habitasse platea dictumst. Duis molestie vitae urna vitae posuere. Nam eleifend ex in nisl rhoncus laoreet. Donec gravida consequat tortor nec tincidunt. Nunc ac dapibus nisl. Nam ut neque in justo tincidunt elementum.
+        {{-- Best seller --}}
+        <h1 class="lead text-center"> Recent </h1>
+        <div class="grid-container">
+            @foreach (App\Product::orderBy('created_at','asc')->skip(6)->take(6)->get() as $product)
+                <div class="card product-card">
+                    @foreach (json_decode($product->product_images) as $image)
+                        <img src="/storage/cover_images/{{$image}}" class="card-img" width="100" height="150" alt="{{$product->product_name}}">
+                    @break
+                    @endforeach
+                    <div class="card-body">
+                        <p class="card-text">
+                            <span > <strong class="text-center">{{$product->product_name}}</strong></span> <br>
+                            <span><small class="text-center price-tag">{{number_format($product->price)}} Rwf</small></span>
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="text-center ">
+            <a href="/home/product" class="btn  btn-sm btn-pill mt-3 col-4 view-more-products"> View More</a>
+        </div>
+        <hr>
+    </div>
 
-        Donec sit amet rhoncus neque, bibendum facilisis nibh. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque et dui at orci molestie rutrum. Etiam dictum tellus sit amet imperdiet gravida. Ut convallis sapien vel nulla tincidunt ultrices. Proin sed mi vel ligula fermentum euismod quis a turpis. Suspendisse potenti. Phasellus tempor cursus tincidunt. Suspendisse orci mi, consequat ac ullamcorper ut, accumsan quis nisi. Donec rhoncus, nibh at efficitur laoreet, turpis est facilisis orci, id pretium eros turpis pellentesque tortor. Proin at egestas turpis, in posuere libero.
+    <div class="blogs mb-5 mt-3">
+        <strong><h1 class="text-center mb-2">Our Blogs</h1></strong>
+        <div class="blog-container">
+            @foreach (App\Blog::orderBy('created_at','desc')->skip(0)->take(3)->get() as $blog)
+                <div class="card blog-card">
+                    <img src="/storage/blogs_images/{{$blog->image}}" height="250px" alt="{{$blog->title}}">
+                    <div class="card-body">
+                        <p><small class="text-muted blog-date">{{$blog->updated_at->format('M d, Y')}} </small></p>
+                        <h4 class="card-text"> <strong>{{$blog->title}}</strong> </h4>
+                        <p class="card-text"> {{str_limit($blog->content,60)}} </p>
+                        <a href="#" class="read-more-blog text-decoration-none">Read More</a>
+                    </div>
+                    {{-- <div class="card-footer text-center">
+                        <button class="btn btn-sm sec">Read More</button>
+                    </div> --}}
+                </div>
+            @endforeach
+        </div>
+    </div>
 
-        Maecenas suscipit porta dui sed porttitor. Etiam rutrum sem nisl, ac semper massa porta gravida. Nunc vestibulum posuere ipsum vitae commodo. Aenean porttitor pretium enim at vulputate. In feugiat odio lacus, in feugiat ipsum lobortis id. Donec venenatis pellentesque lacus, non cursus tortor tempus et. Aliquam tortor mi, porta non interdum et, vestibulum quis nisi. Vestibulum porta lorem quis vestibulum pharetra. Mauris ut enim sed quam commodo dictum. Sed ut leo feugiat, dictum mauris vel, consectetur augue. In pellentesque turpis a scelerisque volutpat. Maecenas sed semper est, id pulvinar sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin eu pharetra mauris, vel consequat odio. Maecenas a volutpat libero, eu suscipit sem. Suspendisse rutrum massa nec mi blandit, ac consequat ipsum faucibus.
-    </p>
+
+    <style>
+       
+    </style>
 @endsection
