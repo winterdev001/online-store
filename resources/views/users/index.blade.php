@@ -32,9 +32,16 @@
         <section class="col-lg-12 connectedSortable table-responsive" id="all_users">
 
           <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Users</h3>
-              <a href="/users/create" class="float-right btn btn-primary">Add User</a>
+            <div class="card-header">       
+              <div class="row">
+                <div class="col-md-9">
+                  <h3 class="card-title">Users</h3>
+                </div>
+                <div class="col-md-3">
+                  <a href="/users/create" class=" btn btn-primary">Add User</a>
+                  <a href="{{ url('user_pdf') }}" class="btn btn-success ">Export PDF</a>
+                </div>
+              </div> 
             </div>
             <!-- /.card-header -->
             <div class="card-body">

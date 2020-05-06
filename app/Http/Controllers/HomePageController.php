@@ -27,6 +27,7 @@ class HomePageController extends Controller
         $categories = Category::all();
         $carousels = Carousel::all();
         $comments = Comment::all();
+        $blogs = Blog::all();
         $home_blogs = Blog::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
         $home_categories = Category::orderBy('created_at', 'desc')->skip(0)->take(3)->get();
         $popular_products = Product::orderBy('created_at', 'asc')->skip(0)->take(8)->get();
@@ -45,10 +46,10 @@ class HomePageController extends Controller
         }
         return view('homepages.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,
                                               'home_categories'=>$home_categories,'recent_products'=>$recent_products,'popular_products'=>$popular_products,
-                                              'carousels'=>$carousels,'home_blogs'=>$home_blogs,'comments'=>$comments,'that_product'=>$that_product]);
+                                              'carousels'=>$carousels,'home_blogs'=>$home_blogs,'comments'=>$comments,'that_product'=>$that_product,'blogs'=>$blogs]);
     }
 
-    public function product()
+    public function product( Request $request)
     {
         if(isset($_POST['find'])){
             if (!empty($_POST['cat_id'])) {
@@ -90,12 +91,45 @@ class HomePageController extends Controller
             $products = \App\Product::where('category_id', $id )->paginate(12);  
         }
 
+        // filter by category from home
+        if(isset($_POST['cat_from_home'])){
+            $id = $_POST['category_id'];
+            // $category = $_GET['category'];
+    
+            $products = \App\Product::where('category_id', $id )->paginate(12);  
+        }
+
         // filter by field
         if(isset($_POST['filter_by_field'])){
             $id = $_POST['field_id'];
     
             $products = \App\Product::where('field_id',$id)->paginate(12);  
         }
+
+        // search        
+        if(isset($_POST['search'])){
+            $query = $_POST['search_query'];
+            $changed_query = ucfirst($query);
+            if (!empty($query)) {
+                $products = Product::where('product_name', 'LIKE', '%' . $query . '%')->paginate(12);
+                if (count($products) == 0) { 
+                    $cat_id = DB::table('categories')->where('category_name', $changed_query)->value('id');
+                    if(!empty($cat_id)){             
+                        $products = Product::where('category_id', '=', $cat_id)->paginate(12);
+                    }
+                    if (count($products) == 0) {
+                        $field_id = DB::table('fields')->where('field_name', $changed_query)->value('id');
+                        if(!empty($field_id)){
+                            $products = Product::where('field_id', '=',$field_id)->paginate(12);
+                        }
+                    }
+                }
+            }
+            // else {
+            //     $products = array(['no item found']);
+            // }
+        }
+
         // $products = Product::orderBy('created_at', 'desc')->paginate(12);
         $categories = Category::all();
         $fields = Field::all();
@@ -110,8 +144,17 @@ class HomePageController extends Controller
             }
         }
 
-
         return view("homepages.product")->with(['products'=>$products,'categories'=>$categories,'fields'=>$fields]);
+    }
+
+    public function product_details($id){
+        $products = Product::all();
+        $fields = Field::all();
+        $categories = Category::all();
+        $product = Product::find($id);
+        $comments = Comment::all();
+
+        return view("homepages.product_details")->with(['products'=>$products,'categories'=>$categories,'fields'=>$fields,'product'=>$product,'comments'=>$comments]);
     }
 
     public function about()
@@ -144,17 +187,14 @@ class HomePageController extends Controller
             $id = $_POST['category_id'];
             // $category = $_GET['category'];
             $cat_name = DB::table('blog_categories')->where('id', $id)->value('category_name');
-            $blogs = \App\Blog::where([
-                ['category_id', 'LIKE', '%' . $id . '%']
-
-            ])->get();
+            $blogs = \App\Blog::where('category_id', $id )->paginate(9);
         } else {
-            $blogs = Blog::orderBy('created_at','desc')->paginate(20);
+            $blogs = Blog::orderBy('created_at','desc')->paginate(9);
         }
 
 
 
-        return view('homepages.all_blogs', compact('blogs','cat_name'));
+        return view('homepages.all_blogs')->with(['blogs'=>$blogs]);
     }
     /**
      * Show the form for creating a new resource.

@@ -8,6 +8,8 @@ use App\Category;
 use App\Field;
 use App\Carousel;
 use App\Blog;
+use App\User;
+use PDF;
 
 class DashboardController extends Controller
 {
@@ -35,6 +37,16 @@ class DashboardController extends Controller
         $blogs = Blog::all();
         return view('dashboard.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'carousels'=>$carousels,'blogs'=>$blogs]);
     }
+
+    public function edit_prof($id){
+        $user = User::find($id);
+        // prevent the unauthorized user to edit the post
+        if (auth()->user()->super !== 1) {
+            return redirect('/dashboard')->with('error','Unauthorized Page');
+        }
+        return view("dashboard.edit_prof")->with('user',$user);
+    }    
+   
 
     /**
      * Show the form for creating a new resource.
@@ -94,7 +106,39 @@ class DashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        if($request->hasfile('image'))
+         {
+            $this->validate($request, [
+                'image' => ['required'],
+                'image.*' => ['image|nullable|max:2048']
+            ]);
+            // get filename with the extension
+            $name=$request->file('image')->getClientOriginalName();
+                // get just filename
+            $filename = pathinfo($name, PATHINFO_FILENAME);
+            // get just ext
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // filename to store
+            $fileNametoStore = $filename.'_'.time().'.'.$extension;
+            // upload image
+            $path = $request->file('image')->storeAs('public/users_images',$fileNametoStore);
+
+         }
+
+        // save
+        $user =  User::find($id);
+        $user->name = $request->input('name'); 
+    
+        if ($request->hasFile('image')) {
+            $user->image = $fileNametoStore;
+        }
+        $user->save();
+
+        return redirect('/dashboard')->with('success','Updated');
     }
 
     /**
@@ -115,7 +159,26 @@ class DashboardController extends Controller
     //     return view('dashboard.carousel')->with(['carousels'=>$carousels,'products'=>$products]);
     // }
 
+    public function product_pdf(){
+      
+        $data['title'] = 'Products List';
+        $data['products'] =  Product::get();
+        $data['fields'] = Field::get();
+        $data['categories'] = Category::get();
+    
+        $pdf = PDF::loadView('dashboard.product_pdf', $data);   
+      
+        return $pdf->download('products.pdf');
+    }
 
-
+    public function user_pdf(){
+      
+        $data['title'] = 'Users List';
+        $data['users'] =  User::get();
+    
+        $pdf = PDF::loadView('dashboard.user_pdf', $data);   
+      
+        return $pdf->download('users.pdf');
+    }
 
 }

@@ -54,7 +54,7 @@ class FieldsController extends Controller
 
         // save
         $field = new Field;
-        $field->field_name = $request->input('field_name');
+        $field->field_name = ucfirst($request->input('field_name'));
         $field->category_id = $request->input('category_id');
         $field->save();
 
@@ -111,7 +111,7 @@ class FieldsController extends Controller
 
         // save
         $field =  Field::find($id);
-        $field->field_name = $request->input('field_name');
+        $field->field_name = ucfirst($request->input('field_name'));
         $field->category_id = $request->input('category_id');
         $field->save();
 

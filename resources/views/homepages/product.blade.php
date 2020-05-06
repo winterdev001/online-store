@@ -14,7 +14,7 @@
                 <div class="card-body">
                   <a href="/home/product" class="text-decoration-none text-dark link">All Products</a>
                   <hr>
-                  @foreach ($categories as $category)
+                  @foreach ((App\Category::orderBy('category_name','asc')->skip(0)->take(10)->get()) as $category)
                     <ul>                    
                       <li class="cat-list">                        
                         <span class="cat-list-item">
@@ -23,19 +23,27 @@
                                 {{-- @method('POST') --}}
                                 @csrf
                                 <input type="hidden" value="{{$category->id}}" name="category_id">
+                                @if (count(App\Product::where('category_id',$category->id)->get()) != 0)
                                 <input type="submit" class="filter_by_cat" name="filter_by_cat" value="{{$category->category_name}}">
+                                    {{-- ({{count(App\Product::where('field_id',$field->id)->get())}}) --}}
+                                {{-- @else                                             --}}
+                                @endif
+                                
                             </form>
                         </span>
                         <ul>
-                          @foreach ($fields as $field) 
+                          @foreach ((App\Field::orderBy('field_name','asc')->get()) as $field) 
                               @if ($field->category_id == $category->id)
-                                  <li class="cat-child"> 
-                                       
+                                  <li class="cat-child">                                        
                                       <form action="{{URL::current()}}" method="POST">
                                         {{-- @method('POST') --}}
                                         @csrf
-                                        <input type="hidden" value="{{$field->id}}" name="field_id">
-                                        <input type="submit" class="filter_by_field" name="filter_by_field" value="{{$field->field_name}}">
+                                        <input type="hidden" value="{{$field->id}}" name="field_id">                                   
+                                        @if (count(App\Product::where('field_id',$field->id)->get()) != 0)
+                                            <input type="submit" class="filter_by_field" name="filter_by_field" value="{{$field->field_name}}">
+                                            ({{count(App\Product::where('field_id',$field->id)->get())}})
+                                        @else                                            
+                                        @endif
                                     </form>
                                   </li>
                               @endif
@@ -101,21 +109,33 @@
                     </form>
                 </div>
               </div>
-            
-              @foreach ($products as $product)
-                  <div class="card product-card">
-                      @foreach (json_decode($product->product_images) as $image)
-                          <img src="/storage/cover_images/{{$image}}" class="card-img" width="100" height="150" alt="{{$product->product_name}}">
-                      @break
-                      @endforeach
-                      <div class="card-body">
-                          <p class="card-text">
-                              <span > <strong class="text-center">{{$product->product_name}}</strong></span> <br>
-                              <span><small class="text-center price-tag">{{number_format($product->price)}} Rwf</small></span>
-                          </p>
-                      </div>
-                  </div>
-            @endforeach                        
+              @if (count($products) > 0)       
+                @foreach ($products as $product)
+                    <a href="/home/product_details/{{$product->id}}" class="text-decoration-none text-dark">
+                        <div class="card product-card">
+                            @foreach (json_decode($product->product_images) as $image)
+                                <img src="/storage/cover_images/{{$image}}" class="card-img" width="100" height="150" alt="{{$product->product_name}}">
+                            @break
+                            @endforeach
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <span > <strong class="text-center">{{$product->product_name}}</strong></span> <br>
+                                    <span><small class="text-center price-tag">{{number_format($product->price)}} Rwf</small></span>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach 
+            @else
+                <div class="d-flex justify-content-center">
+                    <div class="card text-center col-12">
+                        <div class="card-body">
+                          <p class="card-text alert alert-dark"><strong>Ooops!? No Items found.</strong><br></p>
+                          <a href="{{ URL::previous() }}" class="btn btn-light">Go Back</a>
+                        </div>
+                    </div>
+                </div>  
+            @endif                       
         </div>
         <div class="d-flex justify-content-center mt-5 ">
             {{-- pagination links  --}}
@@ -133,9 +153,8 @@
                             <p><small class="text-muted blog-date">{{$blog->updated_at->format('M d, Y')}} </small></p>
                             <h4 class="card-text"> <strong>{{$blog->title}}</strong> </h4>
                             <p class="card-text"> {{str_limit($blog->content,60)}} </p>
-                            <a href="#" class="read-more-blog text-decoration-none">Read More</a>
+                            <a href="/home/blog/{{$blog->id}}" class="read-more-blog text-decoration-none">Read More</a>
                         </div>
-
                     </div>
                 @endforeach
             </div>
@@ -144,21 +163,7 @@
  
     {{-- Product detail modal --}}
     <style>
-        /* breadcrumbs */
-        .breadcrumb-item>a {
-            color: #faa45a !important;
-        }
-        .breadcrumb>li::before {
-            content:none !important;
-        }
-        .breadcrumb>li:after {
-            content:'\3E';
-            margin-left: 0.3em;
-        }
-        .breadcrumb>li:last-child:after
-         {
-            content: none;
-        }
+        
 
         /* product container */
         .product-container {
@@ -236,20 +241,9 @@
 
         .filter_by_cat:hover, .filter_by_field:hover {
             color: #faa45a !important
-        }
+        }     
 
-        
-        .modo,.comment-modo {
-          position: absolute;
-          top: 50px;
-          right: 100px;
-          bottom: 0;
-          left: 0;
-          z-index: 10040;
-          overflow: auto;
-          overflow-y: auto;
-
-        }
+       
     </style>
  
 

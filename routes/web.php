@@ -21,9 +21,12 @@ Route::match(['get', 'post'],'homepages/product_result','HomePageController@home
 Route::match(['get', 'post'],'homepages/shop_result','HomePageController@shop_search');
 Route::match(['get', 'post'],'homepages/products_by_cat','HomePageController@products_by_cat');
 Route::match(['get', 'post'],'home/blog/{id}','HomePageController@blog');
+Route::match(['get', 'post'],'home/product_details/{id}','HomePageController@product_details');
 Route::match(['get', 'post'],'homepages/all_blogs','HomePageController@blog_by_cat');
 
 Route::resource('dashboard','DashboardController');
+Route::match(['get', 'post'],'dashboard/edit_prof/{id}','DashboardController@edit_prof');
+Route::match(['get', 'post','put'],'dashboard/edit_profile','DashboardController@edit_profile');
 Route::get('carousells','CarouselsController@carousel');
 
 Route::resource('carousel','CarouselsController');
@@ -50,3 +53,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/test', 'HomePageController@test');
 
 Route::resource('users','UsersController');
+
+// pdf
+Route::get('product_pdf', 'DashboardController@product_pdf');
+Route::get('user_pdf', 'DashboardController@user_pdf');

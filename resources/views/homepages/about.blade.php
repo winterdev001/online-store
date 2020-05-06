@@ -1,78 +1,111 @@
-@extends('layouts.pages')
+@extends('layouts.home')
 
 @section('content')
-    	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{ asset('images/bg-01.jpg')}}');">
-		<h2 class="ltext-105 cl0 txt-center">
-			About
-		</h2>
-	</section>
-
-
+{{-- breadcrumbs --}}
+	<div class="breadcrumbs">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb ">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">About</li>
+			</ol>
+		</nav>
+	</div>
 	<!-- Content page -->
-	<section class="bg0 p-t-75 p-b-120">
+	<section class="text-center about mt-3 mb-5">
+		<h1>About US</h1>
 		<div class="container">
-			<div class="row p-b-148">
-				<div class="col-md-7 col-lg-8">
-					<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
-						<h3 class="mtext-111 cl2 p-b-16">
-							Our Story
-						</h3>
-
-						<p class="stext-113 cl6 p-b-26">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat consequat enim, non auctor massa ultrices non. Morbi sed odio massa. Quisque at vehicula tellus, sed tincidunt augue. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas varius egestas diam, eu sodales metus scelerisque congue. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas gravida justo eu arcu egestas convallis. Nullam eu erat bibendum, tempus ipsum eget, dictum enim. Donec non neque ut enim dapibus tincidunt vitae nec augue. Suspendisse potenti. Proin ut est diam. Donec condimentum euismod tortor, eget facilisis diam faucibus et. Morbi a tempor elit.
-						</p>
-
-						<p class="stext-113 cl6 p-b-26">
-							Donec gravida lorem elit, quis condimentum ex semper sit amet. Fusce eget ligula magna. Aliquam aliquam imperdiet sodales. Ut fringilla turpis in vehicula vehicula. Pellentesque congue ac orci ut gravida. Aliquam erat volutpat. Donec iaculis lectus a arcu facilisis, eu sodales lectus sagittis. Etiam pellentesque, magna vel dictum rutrum, neque justo eleifend elit, vel tincidunt erat arcu ut sem. Sed rutrum, turpis ut commodo efficitur, quam velit convallis ipsum, et maximus enim ligula ac ligula.
-						</p>
-
-						<p class="stext-113 cl6 p-b-26">
-							Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
-						</p>
-					</div>
-				</div>
-
-				<div class="col-11 col-md-5 col-lg-4 m-lr-auto">
-					<div class="how-bor1 ">
-						<div class="hov-img0">
-							<img src="{{ asset('images/about-01.jpg')}}" alt="IMG">
-						</div>
-					</div>
-				</div>
-			</div>
-
 			<div class="row">
-				<div class="order-md-2 col-md-7 col-lg-8 p-b-30">
-					<div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md">
-						<h3 class="mtext-111 cl2 p-b-16">
-							Our Mission
-						</h3>
-
-						<p class="stext-113 cl6 p-b-26">
-							Mauris non lacinia magna. Sed nec lobortis dolor. Vestibulum rhoncus dignissim risus, sed consectetur erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam maximus mauris sit amet odio convallis, in pharetra magna gravida. Praesent sed nunc fermentum mi molestie tempor. Morbi vitae viverra odio. Pellentesque ac velit egestas, luctus arcu non, laoreet mauris. Sed in ipsum tempor, consequat odio in, porttitor ante. Ut mauris ligula, volutpat in sodales in, porta non odio. Pellentesque tempor urna vitae mi vestibulum, nec venenatis nulla lobortis. Proin at gravida ante. Mauris auctor purus at lacus maximus euismod. Pellentesque vulputate massa ut nisl hendrerit, eget elementum libero iaculis.
-						</p>
-
-						<div class="bor16 p-l-29 p-b-9 m-t-22">
-							<p class="stext-114 cl6 p-r-40 p-b-11">
-								Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn't really do it, they just saw something. It seemed obvious to them after a while.
-							</p>
-
-							<span class="stext-111 cl8">
-								- Steve Job’s
-							</span>
+				<div class="col-lg-4 col-sm-6 col-ex-12 about-item wow lightSpeedIn" data-wow-offset="200" >
+					<div class="card about-card">
+						<div class="card-body">
+						<span class="fa fa-user"></span>
+						<h5 class="mt-2">Our Story</h5>
+						<p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled</p>
 						</div>
 					</div>
 				</div>
-
-				<div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30">
-					<div class="how-bor2">
-						<div class="hov-img0">
-							<img src="{{ asset('images/about-02.jpg')}}" alt="IMG">
+				<div class="col-lg-4 col-sm-6 col-ex-12 about-item wow lightSpeedIn" data-wow-offset="200">
+					<div class="card  about-card">
+						<div class="card-body">
+							<span class="fa fa-info"></span>
+							<h5 class="mt-2"> Our Mission </h5>
+							<p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				<div class="clearfix visible-md-block visible-sm-block"></div>
+				<div class="col-lg-4 col-sm-6 col-ex-12 about-item wow lightSpeedIn" data-wow-offset="200">
+					<div class="card about-card">
+						<div class="card-body">
+							<span class="fa fa-file"></span>
+							<h5 class="mt-2">Our Vision </h5>
+							<p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled</p>
+							</div>
+						</div>
+					</div>				
+			</div>			
 		</div>
 	</section>
+
+	<style>
+		.about{
+			cursor: pointer;
+			background-color: white;
+			color: black;
+			padding-top: 20px;
+			padding-bottom: 30px;
+		}
+		.about h1 {
+			padding: 10px 0;
+			margin-bottom: 20px;
+		}
+		.about h2 {
+			opacity: .8;
+		}
+		.about span {
+			display: block;
+			width: 100px;
+			height: 100px;
+			line-height: 100px;
+			margin:auto;
+			border-radius:50%;  
+			font-size: 40px;
+			color: black;
+			opacity: 0.7;
+			background-color: #f6c89f;
+			border: 2px solid #f6c89f;
+
+			webkit-transition:all .5s ease;
+			moz-transition:all .5s ease;
+			os-transition:all .5s ease;
+			transition:all .5s ease;
+
+		}
+		.about-item:hover span{
+			opacity: 1;	
+			border: 2px solid #f6c89f;
+			font-size: 42px;
+			-webkit-transform: scale(1.1,1.1) rotate(360deg) ;
+			-moz-transform: scale(1.1,1.1) rotate(360deg) ;
+			-o-transform: scale(1.1,1.1) rotate(360deg) ;
+			transform: scale(1.1,1.1) rotate(360deg) ;
+		}
+		.about-item:hover h2{
+			opacity: 1;
+			-webkit-transform: scale(1.1,1.1)  ;
+			-moz-transform: scale(1.1,1.1)  ;
+			-o-transform: scale(1.1,1.1)  ;
+			transform: scale(1.1,1.1) ;
+		}
+		.about .lead{
+			color: #202040;
+			font-size: 14px;
+			/* font-weight: bold; */
+		}
+
+		.about-card {
+			height: 100% !important;
+			margin-top: .5rem !important;
+		}
+	</style>
 @endsection

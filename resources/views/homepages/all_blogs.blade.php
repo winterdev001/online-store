@@ -1,62 +1,33 @@
-@extends('layouts.pages')
-
+@extends('layouts.home')
 @section('content')
-    	<!-- breadcrumb -->
-	<div class="container">
-		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-			<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
-				Home
-				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-			</a>
-
-			<a href="javascript:void(1)" class="stext-109 cl8 hov-cl1 trans-04">
-				Blog
-				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-            </a>
-			<span class="stext-109 cl4">
-				Result
-			</span>
-		</div>
-    </div>
+	<div class="breadcrumbs">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb ">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Blogs</li>
+			</ol>
+		</nav>
+	</div>
     @if (count($blogs)>0)
         <!-- Content page -->
-        <div class="container mt-3">
-            <div class="row isotope-grid">
-                @foreach ($blogs as $blog)
-                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-                    <!-- Block2 -->
-                    <div class="block2">
-                        <div class="block2-pic hov-img0">
-                            <img src="/storage/blogs_images/{{$blog->image}}" width="100" height="300" alt="{{$blog->title}}">
-                        </div>
-
-                        <div class="block2-txt flex-w flex-t p-t-14">
-                            <div class="block2-txt-child1 flex-col-l ">
-                                <a href="/home/blog/{{$blog->id}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                    {{$blog->title}}
-                                </a>
-
-                                {{-- <span class="stext-105 cl3">
-                                    {{$blog->price}}$
-                                </span> --}}
-                            </div>
-
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                    {{-- <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-                                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON"> --}}
-                                </a>
-                            </div>
+        <div class="blogs mb-5 mt-3">
+            <div class="blog-container">
+                @foreach (App\Blog::orderBy('created_at','desc')->skip(0)->take(3)->get() as $blog)
+                    <div class="card blog-card">
+                        <img src="/storage/blogs_images/{{$blog->image}}" height="250px" alt="{{$blog->title}}">
+                        <div class="card-body">
+                            <p><small class="text-muted blog-date">{{$blog->updated_at->format('M d, Y')}} </small></p>
+                            <h4 class="card-text"> <strong>{{$blog->title}}</strong> </h4>
+                            <p class="card-text"> {{str_limit($blog->content,60)}} </p>
+                            <a href="/home/blog/{{$blog->id}}" class="read-more-blog text-decoration-none">Read More</a>
                         </div>
                     </div>
-                </div>
-                @endforeach
-
+                @endforeach                
             </div>
-            <div class="flex-c-m flex-w w-full p-t-45">
-				{{-- pagination links  --}}
-                {{-- {{$blogs->links()}} --}}
-			</div>
+            <div class="d-flex justify-content-center mt-5 ">
+            {{-- pagination links  --}}
+                <span class="text-center page-links">{{$blogs->render()}}</span>
+            </div>
         </div>
     @else
         <div class="container mt-5 mb-5">

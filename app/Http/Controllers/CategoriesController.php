@@ -71,7 +71,7 @@ class CategoriesController extends Controller
 
         // save
         $category = new Category;
-        $category->category_name = $request->input('category_name');
+        $category->category_name = ucfirst($request->input('category_name'));
         $category->image = $fileNametoStore;
         $category->save();
 
@@ -138,7 +138,7 @@ class CategoriesController extends Controller
 
         // save
         $category = Category::find($id);
-        $category->category_name = $request->input('category_name');
+        $category->category_name = ucfirst($request->input('category_name'));
         if ($request->hasFile('image')) {
             $category->image = $fileNametoStore;
         }

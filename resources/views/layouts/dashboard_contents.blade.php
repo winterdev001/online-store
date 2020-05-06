@@ -28,6 +28,7 @@
    <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
    <!-- Sweet Alert -->
    <link href="{{ asset('/dist/css/sweetalert.css') }}" rel="stylesheet">
+   <link rel="stylesheet" href="{{asset('css/default.scss')}}">
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -49,7 +50,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    {{-- <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -58,7 +59,7 @@
           </button>
         </div>
       </div>
-    </form>
+    </form> --}}
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -159,26 +160,32 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/dashboard" class="brand-link">
-      <img src="{{ asset('images/icons/logo-0.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">Hamubere</span>
+    <a href="/dashboard" class="brand-link text-center">
+      {{-- <img src="{{ asset('images/icons/logo-0.png')}}" alt="hamubere" class="brand-image img-circle elevation-3"
+           style="opacity: .8"> --}}
+      <span class="brand-text font-weight-bold">Hamubere</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-            @foreach (App\User::all() as $user)
-                @if (auth()->user()->id == $user->id)
-                <img src="/storage/users_images/{{$user->image}}" class="img-circle elevation-2" alt="User Image">
-                @endif
-            @endforeach
+        <div class="image ">
+            <div class="profile-pic">
+              @foreach (App\User::all() as $user)
+                  @if (auth()->user()->id == $user->id)
+                  <img src="/storage/users_images/{{$user->image}}"  class="rounded-lg prof-img" alt="User Image" style="width:100px !important">
+                  @endif
+              @endforeach
+            </div>
+
         </div>
-        <div class="info">
+        <style>
+
+        </style>
+        <div class="info mt-3">
             @if (Auth::user('auth'))
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="/dashboard/edit_prof/{{auth()->user()->id}}" class="d-block">{{ Auth::user()->name }} &nbsp; <span class=" text-light"><i class="fa fa-pen"></i></span></a>
             @endif
         </div>
       </div>
@@ -188,7 +195,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column dash-menu" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open ">
+          <li class="nav-item has-treeview menu-open dash main-menu">
             <a href="/dashboard" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p >
@@ -196,7 +203,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview menu-open carousel">
             <a href="/carousells" class="nav-link ">
               <i class="nav-icon far fa-images"></i>
               <p>
@@ -204,7 +211,7 @@
               </p>
             </a>
           </li>
-          <li  class="nav-item has-treeview menu-open">
+          <li  class="nav-item has-treeview menu-open blog">
             <a href="/blogs" class="nav-link ">
                 <i class="nav-icon fas fa-blog"></i>
                 <p>
@@ -212,7 +219,7 @@
                 </p>
             </a>
           </li>
-          <li  class="nav-item has-treeview menu-open">
+          <li  class="nav-item has-treeview menu-open comment">
             <a href="/comments" class="nav-link ">
                 <i class="nav-icon fas fa-comment"></i>
                 <p>
@@ -220,7 +227,7 @@
                 </p>
             </a>
           </li>
-          <li  class="nav-item has-treeview menu-open">
+          <li  class="nav-item has-treeview menu-open message">
             <a href="/messages" class="nav-link ">
                 <i class="nav-icon fas fa-envelope"></i>
                 <p>
@@ -229,7 +236,7 @@
             </a>
           </li>
           @if (auth()->user()->super == 1)
-            <li  class="nav-item has-treeview menu-open">
+            <li  class="nav-item has-treeview menu-open manage-user">
                 <a href="/users" class="nav-link ">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
@@ -239,6 +246,23 @@
             </li>
           @else
           @endif
+          {{-- <li  class="nav-item has-treeview menu-open message">
+            <a href="/messages" class="nav-link ">
+                <i class="nav-icon fas fa-envelope"></i>
+                <p>
+                Messages
+                </p>
+            </a>
+          </li> --}}
+          <li class="nav-item has-treeview menu-open">
+            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+                <span class="text-light"><img src="https://img.icons8.com/ios-filled/20/000000/logout-rounded-left.png"> Logout</span>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </li>
         </ul>
       </nav>
 
@@ -263,7 +287,7 @@
     <!-- Control sidebar content goes here -->
       <ul class="list-group bg-dark">
         <li class="list-group-item">
-          <a href="#" class="nav-link active">
+          <a href="/users/{{auth()->user()->id}}/edit" class="nav-link active">
             <span class="text-dark">&nbsp;<img src="https://img.icons8.com/metro/20/000000/pencil.png">Edit Acount</span>
           </a></li>
         <li class="list-group-item">
@@ -413,6 +437,38 @@
 
         // });
     });
+</script>
+
+<style>
+  .main-menu {
+    border:2px solid coral !important;
+  }
+</style>
+
+<script>
+  $(document).ready(function(){
+    var pathname = window.location.pathname;
+
+    // console.log(pathname);
+    if (pathname == "/carousells") {
+      $('.dash').removeClass('main-menu');
+      $('.carousel').addClass('main-menu');
+    } else if(pathname == "/blogs"){
+      $('.dash').removeClass('main-menu');
+      $('.blog').addClass('main-menu');
+    }else if(pathname == "/comments"){
+      $('.dash').removeClass('main-menu');
+      $('.comment').addClass('main-menu');
+    }else if(pathname == "/messages"){
+      $('.dash').removeClass('main-menu');
+      $('.message').addClass('main-menu');
+    }else if(pathname == "/users"){
+      $('.dash').removeClass('main-menu');
+      $('.manage-user').addClass('main-menu');
+    }else {
+      $('.dash').addClass('main-menu');
+    }
+   });
 </script>
 </body>
 

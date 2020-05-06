@@ -4,29 +4,29 @@
             <div class="row">
                 <div class="col-xl-4 col-md-4 mb-30">
                     <div class="single-cta">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <i class="fa fa-map-marker"></i>
                         <div class="cta-text">
                             <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
                             <h4>Find us</h4>
-                            <span>1010 Avenue, sw 54321, chandigarh</span>
+                            <span>Kigali,5 Avenue KK 100st</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-4 mb-30">
                     <div class="single-cta">
-                        <i class="fas fa-phone"></i>
+                        <i class="fa fa-phone"></i>
                         <div class="cta-text">
                             <h4>Call us</h4>
-                            <span>9876543210 0</span>
+                            <span>+250711111111</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-4 mb-30">
                     <div class="single-cta">
-                        <i class="far fa-envelope-open"></i>
+                        <i class="fa fa-envelope-open"></i>
                         <div class="cta-text">
                             <h4>Mail us</h4>
-                            <span>mail@info.com</span>
+                            <span>hamubere@gmail.com</span>
                         </div>
                     </div>
                 </div>
@@ -38,14 +38,14 @@
                     <div class="footer-widget">
                         <div class="footer-logo">
                             <div style="border:5px solid #f6c89f;" class="mx-auto text-center">
-                                <a class="navbar-brand p-2  text-light" href="#">Hamubere</a>
+                                <a class="navbar-brand p-2  text-light" href="/">Hamubere</a>
                             </div>
                         </div>
                         <div class="footer-social-icon">
                             <span>Follow us</span>
-                            <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                            <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
-                            <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                            <a href="#"><i class="fa fa-facebook-f facebook-bg"></i></a>
+                            <a href="#"><i class="fa fa-twitter twitter-bg"></i></a>
+                            <a href="#"><i class="fa fa-google-plus google-bg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -55,10 +55,10 @@
                             <h3>Useful Links</h3>
                         </div>
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/homepages/all_blogs">Blog</a></li>
+                            <li><a href="/home/about">About</a></li>
+                            <li><a href="/home/contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <div class="subscribe-form">
                             <form action="#">
                                 <input type="text" placeholder="Email Address">
-                                <button><i class="fab fa-telegram-plane"></i></button>
+                                <button><i class="fa fa-paper-plane"></i></button>
                             </form>
                         </div>
                     </div>
@@ -86,20 +86,9 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-6 text-center text-lg-center mx-auto">
                     <div class="copyright-text">
-                        <p>Copyright &copy; 2020, All Right Reserved <a href="/">Hamubere.com</a></p>
+                        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script>, All Right Reserved <a href="/">Hamubere.com</a></p>
                     </div>
                 </div>
-                {{-- <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
-                    <div class="footer-menu">
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Terms</a></li>
-                            <li><a href="#">Privacy</a></li>
-                            <li><a href="#">Policy</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>

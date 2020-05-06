@@ -17,6 +17,7 @@
     overflow-x: hidden ;
   }
 
+
 /* colors */
 .prime{
     background-color: #ffe7d1 !important;
@@ -84,10 +85,14 @@
     /* //transition: width .3s; */
 }
 
+.active-menu {
+  border: 2px solid #f6c89f !important;
+}
+
 /* ..navigation */
 
 /* categories */
-.cats>li>a:hover{
+.cats>form>button>li:hover{
     border-left: 3px solid #ffe7d1 !important ;
     border-right: 3px solid #ffe7d1 !important ;
     padding: .2rem !important;
@@ -187,12 +192,16 @@
         width: 100% !important
     }
 
-    .cat-card>.card-columns>.card {
+    .home-cat-card {
         background-color: #f8f9fa !important;
         border: none !important;
     }
 
-    .cat-card>.card-columns>.card:hover {
+    .filter-by-cat-home:focus {
+      outline: none !important;
+    }
+
+    .home-cat-card:hover {
         background-color: #fff !important;
         box-shadow: 0 2px 2px #CFD2CD !important;
     }
@@ -248,12 +257,31 @@
       box-shadow: 0 0 5px #ffe7d1;
   }
 
+ .comment-btn {
+      border: 2px solid #f6c89f;
+      color: black;
+  }
+
+  .comment-btn:hover {
+      background-color: #f6c89f;
+      color: white;
+  }
+  .comment-btn:focus {
+      outline: none !important;
+      border:2px solid #f6c89f;
+      box-shadow: 0 0 5px #ffe7d1;
+  }
+
   .price-tag {
       color: #faa45a !important;
   }
 
   .product-card:hover {
       box-shadow: 0 0 2px 2px rgba(45, 46, 45, 0.11) !important;
+  }
+
+  .product-card {
+    height: 100%;
   }
 
   .blog-card {
@@ -295,12 +323,41 @@
       } */
   }
 
+  .filter-by-cat-home {
+    border: none !important;
+    background-color: #f8f9fa !important;
+  }
+
 /* ..index page */
 
 /* product page */
 
+/* breadcrumbs */
+.breadcrumb-item>a {
+  color: #faa45a !important;
+}
+.breadcrumb>li::before {
+  content:none !important;
+}
+.breadcrumb>li:after {
+  content:'\3E';
+  margin-left: 0.3em;
+}
+.breadcrumb>li:last-child:after
+{
+  content: none;
+}
+/* ..breadcrumbs */
+
 /* ..product page */
 
+.productz {
+    display: none ;
+}
+
+/* .toproduct {
+    display: flex !important;
+} */
 
 /* ..body container */
 

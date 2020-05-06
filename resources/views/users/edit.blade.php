@@ -6,7 +6,7 @@
         <div class="col-md-8">
             @include('inc.message')
             <div class="card">
-                <div class="card-header">{{ __('Add User') }}</div>
+                <div class="card-header">{{ __('Edit Account') }}</div>
 
                 <div class="card-body">
                     {!! Form::open(['action'=>['UsersController@update',$user->id],'method'=>'POST','enctype'=>'multipart/form-data']) !!}
@@ -84,8 +84,9 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Update') }}
                                 </button>
+                                <a class="btn btn-light" href="{{ URL::previous() }}">Go Back</a>
                             </div>
                         </div>
                     {!! Form::close() !!}

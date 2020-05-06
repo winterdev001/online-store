@@ -88,7 +88,7 @@
                                                             @endif
                                                         @endforeach
                                         </p>
-                                        <p class="card-text">Price: {{$product->price}}$</p>
+                                        <p class="card-text">Price: {{number_format($product->price)}} Rwf</p>
                                         <p class="card-text">Quantity: {{$product->quantity}}</p>
                                         <p class="card-text">Status: @if ($product->status == 0)
                                                     <span>Available</span>

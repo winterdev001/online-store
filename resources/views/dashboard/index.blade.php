@@ -115,56 +115,65 @@
           </ul>
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">All Products</h3>
+              <div class="row">
+                <div class="col-md-10">
+                  <h3 class="card-title">All Products</h3>
+                </div>
+                <div class="col-md-2">
+                  <a href="{{ url('product_pdf') }}" class="btn btn-success mb-2">Export PDF</a>
+                </div>
+              </div>         
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Product Name</th>
-                    <th>Field</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($products as $product)
-                  <tr>
-                    <th>{{ $product->product_name }}</th>
-                    <td>
-                      @foreach ($fields as $field)
-                      @if ($product->field_id == $field->id)
-                      {{ $field->field_name }}
-                      @endif
-                      @endforeach
-                    </td>
-                    <td>
-                      @foreach ($categories as $category)
-                      @if ($product->category_id == $category->id)
-                      {{ $category->category_name }}
-                      @endif
-                      @endforeach
-                    </td>
-                    <td>{{ $product->price }} $</td>
-                    <td>{{ $product->quantity }}</td>
-                    <td>{{ $product->total }} $</td>
-                    <td>
-                        @if (auth()->user()->super == 1)
-                        <a href="/products/{{$product->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
-                        @else
+              <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Product Name</th>
+                      <th>Field</th>
+                      <th>Category</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($products as $product)
+                    <tr>
+                      <th>{{ $product->product_name }}</th>
+                      <td>
+                        @foreach ($fields as $field)
+                        @if ($product->field_id == $field->id)
+                        {{ $field->field_name }}
                         @endif
-                        |<a href="/products/{{$product->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-                    </td>
-                    {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
-                    </td> --}}
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                        @endforeach
+                      </td>
+                      <td>
+                        @foreach ($categories as $category)
+                        @if ($product->category_id == $category->id)
+                        {{ $category->category_name }}
+                        @endif
+                        @endforeach
+                      </td>
+                      <td>{{number_format($product->price)}} Rwf</td>
+                      <td>{{ $product->quantity }}</td>
+                      <td>{{number_format($product->total)}} Rwf</td>
+                      <td>
+                          @if (auth()->user()->super == 1)
+                          <a href="/products/{{$product->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                          @else
+                          @endif
+                          |<a href="/products/{{$product->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                      </td>
+                      {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
+                      </td> --}}
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>              
             </div>
             <!-- /.card-body -->
           </div>

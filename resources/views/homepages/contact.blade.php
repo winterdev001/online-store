@@ -1,93 +1,95 @@
-@extends('layouts.pages')
+@extends('layouts.home')
 
 @section('content')
-    	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{ asset('images/bg-01.jpg')}}');">
-		<h2 class="ltext-105 cl0 txt-center">
-			Contact
-		</h2>
-	</section>
-
+    {{-- breadcrumbs --}}
+	<div class="breadcrumbs">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb ">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Contact</li>
+			</ol>
+		</nav>
+	</div>
 
 	<!-- Content page -->
-	<section class="bg0 p-t-104 p-b-116">
-		<div class="container">
-			<div class="flex-w flex-tr">
-				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                    @include('inc.message')
-					{!!
-                        Form::open(['action'=>'MessagesController@store','method'=>'POST'])
-                        !!}
-						<h4 class="mtext-105 cl2 txt-center p-b-30">
-							Send Us A Message
-						</h4>
-
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" placeholder="Your Email Address">
-							<img class="how-pos4 pointer-none" src="{{ asset('images/icons/icon-email.png')}}" alt="ICON">
+	<div class="card mt-3 mb-5">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-lg-6 col-sm-6 col-ex-12 about-item wow lightSpeedIn" data-wow-offset="200" >
+					<div class="card contact-card">
+						<div class="card-body">
+							@include('inc.message')
+							{!!Form::open(['action'=>'MessagesController@store','method'=>'POST'])!!}
+								<h5 class="font-weight-bold">
+									 Send Us A Message
+								</h5>
+		
+								<div class="form-group">								
+									<input class="form-control col-md-12 col-sm-12" type="text" name="email" placeholder="Your Email Address">							
+								</div>
+		
+								<div class="form-group ">
+									<textarea class="form-control col-md-12 col-sm-12" rows="4" name="message" placeholder="How Can We Help?"></textarea>
+								</div>
+		
+							{{Form::submit(' Send',['class'=>'btn comment-btn '])}}
+		
+							{!! Form::close() !!}
 						</div>
-
-						<div class="bor8 m-b-30">
-							<textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" name="message" placeholder="How Can We Help?"></textarea>
-						</div>
-
-                        {{Form::submit(' Send',['class'=>'flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer '])}}
-
-                        {!! Form::close() !!}
-
+				  </div>
 				</div>
+				<div class="col-lg-6 col-sm-6 col-ex-12 about-item wow lightSpeedIn" data-wow-offset="200">
+					<div class="card contact-card">
+						<div class="card-body">
+							<div class="direct-contact-container">
 
-				<div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
-					<div class="flex-w w-full p-b-42">
-						<span class="fs-18 cl5 txt-center size-211">
-							<span class="lnr lnr-map-marker"></span>
-						</span>
-
-						<div class="size-212 p-t-2">
-							<span class="mtext-110 cl2">
-								Address
-							</span>
-
-							<p class="stext-115 cl6 size-213 p-t-18">
-								 Hamubere , Kigali-Rwanda, KN 200st , 5 ave
-							</p>
+								<ul class="contact-list ">
+									<li class="list-item"><i class="fa fa-map-marker "></i> <span class="font-weight-bold">Address</span>  <br> 
+										<span class="contact-text place text-dark">Kigali | KK 100st</span>
+									</li>
+									
+									<li class="list-item"><i class="fa fa-phone "></i> <span class="font-weight-bold">Let's talk</span>  <br>
+										<span class="contact-text phone"><a class="text-decoration-none text-dark" href="tel:+250-711-111-111" title="Give me a call">(250)711-111-111</a></span>
+									</li>
+									
+									<li class="list-item"><i class="fa fa-envelope "></i> <span class="font-weight-bold">Sale Support</span>  <br>
+										<span class="contact-text gmail"><a class="text-decoration-none text-dark" href="mailto:#" title="Send me an email">hamubere@gmail.com</a></span>
+									</li>
+									
+								</ul>			
+							</div>
 						</div>
-					</div>
-
-					<div class="flex-w w-full p-b-42">
-						<span class="fs-18 cl5 txt-center size-211">
-							<span class="lnr lnr-phone-handset"></span>
-						</span>
-
-						<div class="size-212 p-t-2">
-							<span class="mtext-110 cl2">
-								Lets Talk
-							</span>
-
-							<p class="stext-115 cl1 size-213 p-t-18">
-								+250 788 000 000
-							</p>
-						</div>
-					</div>
-
-					<div class="flex-w w-full">
-						<span class="fs-18 cl5 txt-center size-211">
-							<span class="lnr lnr-envelope"></span>
-						</span>
-
-						<div class="size-212 p-t-2">
-							<span class="mtext-110 cl2">
-								Sale Support
-							</span>
-
-							<p class="stext-115 cl1 size-213 p-t-18">
-								hamubere.shop@example.com
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
+					</div>					
+			  </div>
+		  </div>
 		</div>
-	</section>
+	</div>
+	
+	<style>
+		.contact-card {
+			height: 100% !important;
+		}
 
+		/* Location, Phone, Email Section */
+		.contact-list {
+			list-style-type: none;
+			/* margin-left: -30px; */
+			/* padding-right: 20px; */
+		}
+
+		.list-item {
+			line-height: 3;
+			color: rgba(0, 0, 0, 0.603);
+			/* padding: 1rem */
+		}
+
+		.contact-text {
+			/* font: 300 18px 'Lato', sans-serif; */
+			letter-spacing: 1.9px;
+			/* color: black !important; */
+			margin-left: 1rem
+		}
+
+		
+	</style>
 @endsection
