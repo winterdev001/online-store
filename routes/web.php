@@ -27,6 +27,7 @@ Route::match(['get', 'post'],'homepages/all_blogs','HomePageController@blog_by_c
 Route::resource('dashboard','DashboardController');
 Route::match(['get', 'post'],'dashboard/edit_prof/{id}','DashboardController@edit_prof');
 Route::match(['get', 'post','put'],'dashboard/edit_profile','DashboardController@edit_profile');
+Route::match(['get', 'post'],'dashboard/users_post','DashboardController@users_posts');
 Route::get('carousells','CarouselsController@carousel');
 
 Route::resource('carousel','CarouselsController');

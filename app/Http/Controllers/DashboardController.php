@@ -9,6 +9,7 @@ use App\Field;
 use App\Carousel;
 use App\Blog;
 use App\User;
+use DB;
 use PDF;
 
 class DashboardController extends Controller
@@ -45,8 +46,8 @@ class DashboardController extends Controller
             return redirect('/dashboard')->with('error','Unauthorized Page');
         }
         return view("dashboard.edit_prof")->with('user',$user);
-    }    
-   
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -131,8 +132,8 @@ class DashboardController extends Controller
 
         // save
         $user =  User::find($id);
-        $user->name = $request->input('name'); 
-    
+        $user->name = $request->input('name');
+
         if ($request->hasFile('image')) {
             $user->image = $fileNametoStore;
         }
@@ -159,25 +160,39 @@ class DashboardController extends Controller
     //     return view('dashboard.carousel')->with(['carousels'=>$carousels,'products'=>$products]);
     // }
 
+    public function users_posts(){
+        $id = $_POST['user_id'];
+        // $category = $_GET['category'];
+        $user_name = DB::table('users')->where('id', $id)->value('name');
+        $products = \App\Product::where([
+            ['user_id','=',  $id ]
+
+        ])->get();
+        $fields = Field::all();
+        $categories = Category::all();
+
+        return view('dashboard.posts', compact('products','user_name','fields','categories'));
+    }
+
     public function product_pdf(){
-      
+
         $data['title'] = 'Products List';
         $data['products'] =  Product::get();
         $data['fields'] = Field::get();
         $data['categories'] = Category::get();
-    
-        $pdf = PDF::loadView('dashboard.product_pdf', $data);   
-      
+
+        $pdf = PDF::loadView('dashboard.product_pdf', $data);
+
         return $pdf->download('products.pdf');
     }
 
     public function user_pdf(){
-      
+
         $data['title'] = 'Users List';
         $data['users'] =  User::get();
-    
-        $pdf = PDF::loadView('dashboard.user_pdf', $data);   
-      
+
+        $pdf = PDF::loadView('dashboard.user_pdf', $data);
+
         return $pdf->download('users.pdf');
     }
 

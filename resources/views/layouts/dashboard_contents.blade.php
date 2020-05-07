@@ -185,7 +185,16 @@
         </style>
         <div class="info mt-3">
             @if (Auth::user('auth'))
-                <a href="/dashboard/edit_prof/{{auth()->user()->id}}" class="d-block">{{ Auth::user()->name }} &nbsp; <span class=" text-light"><i class="fa fa-pen"></i></span></a>
+                @if (auth()->user()->super == 1)
+                    <a href="/dashboard/edit_prof/{{auth()->user()->id}}" class="d-block">
+                        {{ Auth::user()->name }} &nbsp;
+                        <span class=" text-light"><i class="fa fa-pen"></i></span>
+                    </a>
+                @else
+                    <a  class="d-block">
+                        {{ Auth::user()->name }} &nbsp;
+                    </a>
+                @endif
             @endif
         </div>
       </div>
@@ -246,18 +255,22 @@
             </li>
           @else
           @endif
-          {{-- <li  class="nav-item has-treeview menu-open message">
-            <a href="/messages" class="nav-link ">
-                <i class="nav-icon fas fa-envelope"></i>
-                <p>
-                Messages
-                </p>
-            </a>
-          </li> --}}
+          <li  class="nav-item has-treeview menu-open postz">
+              <a class="nav-link ">
+                <form class="form-inline my-2 my-lg-0 " method="POST" action="/dashboard/users_post">
+                    @csrf
+                    <input type="hidden" value=" {{auth()->user()->id}}" name="user_id">
+                    <i class="fas fa-clipboard"></i>
+                    <button class="btn sec my-2 my-sm-0 search-btn text-light" type="submit" >&nbsp;&nbsp;Posts </button>
+                </form>
+              </a>
+          </li>
+
           <li class="nav-item has-treeview menu-open">
             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
-                <span class="text-light"><img src="https://img.icons8.com/ios-filled/20/000000/logout-rounded-left.png"> Logout</span>
+              <i class="fas fa-sign-out-alt"></i>
+              <p>&nbsp;&nbsp; Logout</p>
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
@@ -462,9 +475,12 @@
     }else if(pathname == "/messages"){
       $('.dash').removeClass('main-menu');
       $('.message').addClass('main-menu');
-    }else if(pathname == "/users"){
+    }else if((pathname == "/users")){
       $('.dash').removeClass('main-menu');
       $('.manage-user').addClass('main-menu');
+    }else if(pathname == "/dashboard/users_post"){
+      $('.dash').removeClass('main-menu');
+      $('.postz').addClass('main-menu');
     }else {
       $('.dash').addClass('main-menu');
     }

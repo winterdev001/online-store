@@ -94,6 +94,7 @@
             </div>
 
             {{Form::submit('Add Product',['class'=>'btn btn-primary'])}}
+            <a class="btn btn-dark" href="{{ URL::previous() }}">Go Back</a>
 
         {!! Form::close() !!}
     </div>

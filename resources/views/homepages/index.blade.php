@@ -1,6 +1,69 @@
 @extends('layouts.home')
 
 @section('content')
+    <div class="container carousel-container" >
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+             @foreach( $carousels as $carousel )
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+             @endforeach
+            </ol>
+
+            <div class="carousel-inner" role="listbox">
+              @foreach( $carousels as $carousel )
+                 <div class="carousel-item {{ $loop->first ? 'active' : '' }} ">
+                     <img class="d-block img-fluid " style="" src="/storage/carousels_images/{{$carousel->image}}" alt="{{ $carousel->first_title }}">
+                        {{-- <div class="carousel-caption d-none d-md-block ">
+                           <p class="" style="background-color:rgba(0, 0, 0, 0.651);border-left:4px solid black ;height:2rem">{{ $carousel->first_title }}</p>
+                        </div> --}}
+                        <div class="carousel-caption d-none d-md-block text-dark col-lg-3 col-md-3 col-sm-6 col-xm-6 font-weight-bold">
+                            <h2 class="carousel-txt "> {{$carousel->first_title}} </h2>
+                            <p class="carousel-txt">{{$carousel->second_title}}</p>
+                            <a href="/home/product" class="btn  btn-sm btn-pill mt-3 col-4 view-more-products"> Explore</a>
+                        </div>
+                 </div>
+              @endforeach
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+        {{-- <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              @foreach ($carousels as $carousel)
+                <div class="carousel-item active">
+                    <img src="/storage/carousels_images/{{$carousel->image}}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5> {{$carousel->first_title}} </h5>
+                    <p>{{$carousel->second_title}}</p>
+                    </div>
+                </div>
+              @endforeach
+
+
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+        </div> --}}
+    </div>
     <div class="text-center">
         <strong><h2>You want it?, We got you covered. </h2></strong>
         <h5>Hamubere is here for you to make online marketing easier.</h5>
@@ -164,7 +227,21 @@
         </div>
     </div>
 
+    <style>
+        .carousel .carousel-item {
+            height: 300px;
+        }
 
+        .carousel-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+        .carousel-inner,.carousel-control-prev,.carousel-control-next {
+            z-index: 0;
+        }
+    </style>
    <script>
        // pop up after a minute site loaded
 

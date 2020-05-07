@@ -32,7 +32,7 @@
         <section class="col-lg-12 connectedSortable table-responsive" id="all_users">
 
           <div class="card">
-            <div class="card-header">       
+            <div class="card-header">
               <div class="row">
                 <div class="col-md-9">
                   <h3 class="card-title">Users</h3>
@@ -41,7 +41,7 @@
                   <a href="/users/create" class=" btn btn-primary">Add User</a>
                   <a href="{{ url('user_pdf') }}" class="btn btn-success ">Export PDF</a>
                 </div>
-              </div> 
+              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -52,6 +52,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Role</th>
+                    <th>Posts</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -67,6 +68,14 @@
                             @else
                                 Admin
                             @endif
+                        </td>
+
+                        <td>
+                            <form class="form-inline my-2 my-lg-0" method="POST" action="/dashboard/users_post">
+                                @csrf
+                                <input type="hidden" value=" {{$user->id}}" name="user_id">
+                                <button class="btn sec my-2 my-sm-0 search-btn" type="submit" name="search"><span class="font-weight-bold"><u>Posts</u></span> </button>
+                            </form>
                         </td>
 
                         <td>

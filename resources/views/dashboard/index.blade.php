@@ -11,7 +11,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -43,14 +43,14 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>{{count($categories)}}</sup></h3>
+              <h3>{{count(App\Comment::all())}}</sup></h3>
 
-              <p>Categories</p>
+              <p>Comments</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#all_categories" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/comments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -58,14 +58,14 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>{{count($fields)}}</h3>
+              <h3>{{count(App\Message::all())}}</h3>
 
-              <p>Fields</p>
+              <p>Messages</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#all_fields" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/messages" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -122,7 +122,7 @@
                 <div class="col-md-2">
                   <a href="{{ url('product_pdf') }}" class="btn btn-success mb-2">Export PDF</a>
                 </div>
-              </div>         
+              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -173,7 +173,7 @@
                     @endforeach
                   </tbody>
                 </table>
-              </div>              
+              </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -472,7 +472,7 @@
             {{Form::label('field_name','Field Name')}}
             {{Form::text('field_name','',['class'=>'form-control','placeholder'=>'Field Name'])}}
           </div>
-          <div class="form-group">                
+          <div class="form-group">
             {{Form::label('category_id','Select Category')}}
             <select class="form-control" name="category_id">
               <option>Select Category</option>

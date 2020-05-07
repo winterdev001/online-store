@@ -16,6 +16,8 @@
     <!-- animate css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css">
     <link rel="stylesheet" href="{{ asset('css/default.css')}}">
+    <script src="{{asset('js/invertImgText.js')}}"></script>
+
 </head>
 <body class="bg-light">
     <header>
