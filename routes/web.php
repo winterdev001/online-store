@@ -21,7 +21,25 @@ Route::match(['get', 'post'],'homepages/product_result','HomePageController@home
 Route::match(['get', 'post'],'homepages/shop_result','HomePageController@shop_search');
 Route::match(['get', 'post'],'homepages/products_by_cat','HomePageController@products_by_cat');
 Route::match(['get', 'post'],'home/blog/{id}','HomePageController@blog');
-Route::match(['get', 'post'],'home/product_details/{id}','HomePageController@product_details');
+// Route::get('home/product_details/{id}','HomePageController@product_details')->name('details');
+Route::get('home/removed','HomePageController@deleted_products')->name('d_products');
+Route::match(['get', 'post'],'home/product_details/{id}', function($id){
+    if (App\Product::find($id) === null)
+    {
+        // return abort(404);
+        // return back();
+        return redirect()->route('d_products');
+    } else {
+        $products = App\Product::all();
+        $fields = App\Field::all();
+        $categories = App\Category::all();
+        $product = App\Product::find($id);
+        $comments = App\Comment::all();
+
+        return view("homepages.product_details")->with(['products'=>$products,'categories'=>$categories,'fields'=>$fields,'product'=>$product,'comments'=>$comments]);
+    }
+});
+// Route::match(['get', 'post'],'home/product_details/{id}','HomePageController@product_details');
 Route::match(['get', 'post'],'homepages/all_blogs','HomePageController@blog_by_cat');
 
 Route::resource('dashboard','DashboardController');

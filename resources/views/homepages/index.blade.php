@@ -64,7 +64,7 @@
             </a>
         </div> --}}
     </div>
-    <div class="text-center">
+    <div class="text-center mt-5 mb-3">
         <strong><h2>You want it?, We got you covered. </h2></strong>
         <h5>Hamubere is here for you to make online marketing easier.</h5>
     </div>
@@ -92,7 +92,7 @@
     </div>
     <hr>
     <div class="all-products">
-        <strong><h1 class="">Store Overview</h1></strong>
+        <strong><h1 class="text-center">Store Overview</h1></strong>
         {{-- new arrivals --}}
         <h1 class="lead text-center"> New Arrivals </h1>
         <div class="grid-container">
@@ -196,18 +196,18 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                {{-- <h5 class="modal-title" id="exampleModalLabel">
-                    <div style="border:5px solid #f6c89f;" class=" text-center">
-                        <a class="navbar-brand p-2 text-center " href="#">Hamubere</a>
-                    </div>
-                </h5> --}}
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                <div class="modal-title w-100 text-center" >
+                    <span class="font-weight-bold p-2 text-center mx-auto" style="border:5px solid #f6c89f;margin: 0 auto;">
+                    Hamubere
+                    </span>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="text-center">
-                    <div style="border:3px solid #f6c89f;" >
+                    <div style="border-bottom:3px solid #f6c89f;" >
                         <span class=" p-2 text-center font-weight-bold">Advertise with US</span>
                     </div>
                 </div>
@@ -229,14 +229,14 @@
 
     <style>
         .carousel .carousel-item {
-            height: 300px;
+            height: 500px;
         }
 
         .carousel-item img {
             position: absolute;
             top: 0;
             left: 0;
-            min-height: 300px;
+            min-height: 500px;
         }
         .carousel-inner,.carousel-control-prev,.carousel-control-next {
             z-index: 0;

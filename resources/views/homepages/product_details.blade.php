@@ -136,21 +136,29 @@
 		@if (count(App\Product::where('category_id',$product->category_id)->get()) >1)
 			<strong><h5 class=" mb-2">You may also like </h5></strong>
 			<div class="grid-container">
-				@foreach (App\Product::where('category_id',$product->category_id)->orderBy('created_at','desc')->skip(0)->take(6)->get() as $product)
-				<a href="/home/product_details/{{$product->id}}" class="text-decoration-none text-dark">
-						<div class="card product-card popular-section" style="height:100%">
-								@foreach (json_decode($product->product_images) as $image)
-										<img src="/storage/cover_images/{{$image}}" class="card-img" width="100" height="150" alt="{{$product->product_name}}">
-								@break
-								@endforeach
-								<div class="card-body">
-										<p class="card-text">
-												<span > <strong class="text-center">{{$product->product_name}}</strong></span> <br>
-												<span><small class="text-center price-tag">{{number_format($product->price)}} Rwf</small></span>
-										</p>
-								</div>
-						</div>
-				</a>
+                @foreach (App\Product::where('category_id',$product->category_id)->orderBy('created_at','desc')->skip(0)->take(6)->get() as $product)
+                    <a
+                        {{-- @if (App\Product::find($product->id) === null)
+                            href="{{ URL::previous() }}"
+                        @else
+                            href="/"
+                        @endif --}}
+                        href="/home/product_details/{{$product->id}}"
+
+                        class="text-decoration-none text-dark">
+                        <div class="card product-card popular-section" style="height:100%">
+                                @foreach (json_decode($product->product_images) as $image)
+                                        <img src="/storage/cover_images/{{$image}}" class="card-img" width="100" height="150" alt="{{$product->product_name}}">
+                                @break
+                                @endforeach
+                                <div class="card-body">
+                                        <p class="card-text">
+                                                <span > <strong class="text-center">{{$product->product_name}}</strong></span> <br>
+                                                <span><small class="text-center price-tag">{{number_format($product->price)}} Rwf</small></span>
+                                        </p>
+                                </div>
+                        </div>
+                    </a>
 				@endforeach
 			</div>
 		@else

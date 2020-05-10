@@ -113,21 +113,21 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group all_fields">
                           {{Form::label('Product Image')}}
-                          <div class="input-group control-group incremented_field">
+                          <div class="input-group control-group ">
                             <input type="file" name="filename[]" class="form-control">
                             <div class="input-group-btn input-group-append">
                               <button class="btn btn-success add_field" type="button"><img
-                                  src="{{asset('images/icons/plus.svg')}}">Add</button>
+                                  src="{{asset('images/icons/plus.svg')}}"></button>
                             </div>
                           </div>
-                          <div class="cloned_field hide d-none">
-                            <div class="control-group_field input-group" style="margin-top:10px">
+                          <div class="cloned_field hide d-none ">
+                            <div class="control-group_field input-group " style="margin-top:10px">
                               <input type="file" name="filename[]" class="form-control">
                               <div class="input-group-btn input-group-append">
                                 <button class="btn btn-danger remove_field" type="button"><img
-                                    src="{{asset('images/icons/x.svg')}}"> Remove</button>
+                                    src="{{asset('images/icons/x.svg')}}"> </button>
                               </div>
                             </div>
                           </div>
@@ -155,6 +155,7 @@
     <!-- /.content -->
     </div>
   </section>
+  
 @endsection
 
 
