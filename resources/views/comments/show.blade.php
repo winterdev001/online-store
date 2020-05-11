@@ -117,7 +117,13 @@
                                                     </p>
                                                     <p class="card-text">Seller Info: {{$product->seller_phone}} / {{$product->seller_email}}</p>
                                                     <p class="card-text">Description: {{$product->description}}</p>
-                                                    <p class="card-text"><small class="text-muted">Posted By:</small></p>
+                                                    <p class="card-text">
+                                                        <small class="text-muted">
+                                                            Posted By: @if ($product->user_id == auth()->user()->id)
+                                                                {{auth()->user()->name}}
+                                                            @endif
+                                                        </small>
+                                                    </p>
                                                     <span><strong>Comments</strong> <hr></span>
                                                     <div class="card card-body" class="card card-body" style="border-left: 8px solid #717fe0 !important">
                                                         @foreach (App\Comment::all() as $comment)

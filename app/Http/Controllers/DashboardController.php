@@ -36,7 +36,9 @@ class DashboardController extends Controller
         $categories = Category::all();
         $carousels = Carousel::all();
         $blogs = Blog::all();
-        return view('dashboard.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'carousels'=>$carousels,'blogs'=>$blogs]);
+        $cur_user = auth()->user()->id;
+        $my_comments = DB::select("select comments.for,comments.for_id from comments join products on products.id = comments.for_id where comments.for = 'product' and products.user_id = $cur_user");
+        return view('dashboard.index')->with(['products'=>$products,'fields'=>$fields,'categories'=>$categories,'carousels'=>$carousels,'blogs'=>$blogs,'my_comments'=>$my_comments]);
     }
 
     public function edit_prof($id){
@@ -171,7 +173,7 @@ class DashboardController extends Controller
         $fields = Field::all();
         $categories = Category::all();
 
-        return view('dashboard.posts', compact('products','user_name','fields','categories'));
+        return view('dashboard.posts', compact('products','user_name','fields','categories','id'));
     }
 
     public function product_pdf(){
@@ -194,6 +196,20 @@ class DashboardController extends Controller
         $pdf = PDF::loadView('dashboard.user_pdf', $data);
 
         return $pdf->download('users.pdf');
+    }
+
+    public function user_post_pdf(){
+        $user_id = $_POST['user_id'];
+        $user_name = DB::table('users')->where('id', $user_id)->value('name');
+        $data['title'] = $user_name;
+        // $data['id'] = $user_id;
+        $data['fields'] = Field::get();
+        $data['categories'] = Category::get();
+        $data['products'] =  Product::where('user_id',$user_id)->get();
+
+        $pdf = PDF::loadView('dashboard.user_posts_pdf', $data);
+
+        return $pdf->download('user_posts.pdf');
     }
 
 }

@@ -36,7 +36,14 @@
               <div class="row">
                 <div class="col-md-9">
                   <div class="row">
-                      <div class="col-md-10"><h3 class="card-title"> {{$user_name}}'s Posts </h3></div>
+                      <div class="col-md-4"><h3 class="card-title"> {{$user_name}}'s Posts </h3></div>
+                      <div class="col-md-2">
+                          <form action="{{ url('user_posts_pdf') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value=" {{$id}} ">
+                            <input type="submit" class="btn btn-success mb-2" value="Export PDF">
+                          </form>
+                      </div>
                       <div class="col-md-2"><a class="btn btn-dark" href="{{ URL::previous() }}">Go Back</a></div>
                   </div>
                 </div>

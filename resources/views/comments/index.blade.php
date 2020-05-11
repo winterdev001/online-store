@@ -27,97 +27,49 @@
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
-        <!-- Left col -->
+          @if (Auth()->user()->super == 1)
+            <!-- Left col -->
         {{-- blogs --}}
-        <section class="col-lg-12 connectedSortable table-responsive" id="all_blogs">
-
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Products Comments</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th> Sender Email</th>
-                    <th>Product</th>
-                    <th> Content</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($comments as $comment)
-                    @if ($comment->for =="product")
-                        <tr>
-                            <td>{{ $comment->email }}</td>
-                            <td>
-                                @foreach (App\Product::all() as $product)
-                                    @if ($product->id == $comment->for_id)
-                                        {{$product->product_name}}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>{{ str_limit($comment->content,20) }}</td>
-
-                            <td>
-                                |<a href="/comments/{{$comment->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-                            </td>
-
-                        </tr>
-                    @endif
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-
-          <!-- /.card -->
-        </section>
-
-        {{-- blog categories --}}
         <section class="col-lg-12 connectedSortable table-responsive" id="all_blogs">
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Blog's Comments</h3>
+                <h3 class="card-title">Products Comments</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="category_table" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th> Sender Email</th>
-                        <th>Blog</th>
-                        <th> Content</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($comments as $comment)
-                        @if ($comment->for =="blog")
-                            <tr>
-                                <td>{{ $comment->email }}</td>
-                                <td>
-                                    @foreach (App\Blog::all() as $blog)
-                                        @if ($blog->id == $comment->for_id)
-                                            {{$blog->title}}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>{{ str_limit($comment->content,20) }}</td>
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th> Sender Email</th>
+                      <th>Product</th>
+                      <th> Content</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($comments as $comment)
+                      @if ($comment->for =="product")
+                          <tr>
+                              <td>{{ $comment->email }}</td>
+                              <td>
+                                  @foreach (App\Product::all() as $product)
+                                      @if ($product->id == $comment->for_id)
+                                          {{$product->product_name}}
+                                      @endif
+                                  @endforeach
+                              </td>
+                              <td>{{ str_limit($comment->content,20) }}</td>
 
-                                <td>
-                                    |<a href="/comments/{{$comment->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-                                </td>
+                              <td>
+                                  |<a href="/comments/{{$comment->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                              </td>
 
-                            </tr>
-                        @endif
-                      @endforeach
-                    </tbody>
-                  </table>
+                          </tr>
+                      @endif
+                    @endforeach
+                  </tbody>
+                </table>
               </div>
               <!-- /.card-body -->
             </div>
@@ -125,6 +77,107 @@
 
             <!-- /.card -->
           </section>
+
+          {{-- blog categories --}}
+          <section class="col-lg-12 connectedSortable table-responsive" id="all_blogs">
+
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Blog's Comments</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="category_table" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th> Sender Email</th>
+                          <th>Blog</th>
+                          <th> Content</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($comments as $comment)
+                          @if ($comment->for =="blog")
+                              <tr>
+                                  <td>{{ $comment->email }}</td>
+                                  <td>
+                                      @foreach (App\Blog::all() as $blog)
+                                          @if ($blog->id == $comment->for_id)
+                                              {{$blog->title}}
+                                          @endif
+                                      @endforeach
+                                  </td>
+                                  <td>{{ str_limit($comment->content,20) }}</td>
+
+                                  <td>
+                                      |<a href="/comments/{{$comment->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                                  </td>
+
+                              </tr>
+                          @endif
+                        @endforeach
+                      </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+
+              <!-- /.card -->
+            </section>
+          @else
+            <section class="col-lg-12 connectedSortable table-responsive" id="all_blogs">
+
+                <div class="card">
+                    <div class="card-header">
+                    <h3 class="card-title">Products Comments</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th> Sender Email</th>
+                            <th>Product</th>
+                            <th> Content</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($comments as $comment)
+                            @foreach (App\Product::all() as $item)
+                                @if (($comment->for =="product" && $comment->for_id == $item->id && $item->user_id == Auth()->user()->id) )
+                                    <tr>
+                                        <td>{{ $comment->email }}</td>
+                                        <td>
+                                            @foreach (App\Product::all() as $product)
+                                                @if ($product->id == $comment->for_id)
+                                                    {{$product->product_name}}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>{{ str_limit($comment->content,20) }}</td>
+
+                                        <td>
+                                            |<a href="/comments/{{$comment->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                                        </td>
+
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endforeach
+                        </tbody>
+                    </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+                <!-- /.card -->
+            </section>
+          @endif
+
       </div>
       <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->

@@ -212,22 +212,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview menu-open carousel">
-            <a href="/carousells" class="nav-link ">
-              <i class="nav-icon far fa-images"></i>
-              <p>
-                Carousels
-              </p>
-            </a>
-          </li>
-          <li  class="nav-item has-treeview menu-open blog">
-            <a href="/blogs" class="nav-link ">
-                <i class="nav-icon fas fa-blog"></i>
-                <p>
-                Blogs
-                </p>
-            </a>
-          </li>
+
           <li  class="nav-item has-treeview menu-open comment">
             <a href="/comments" class="nav-link ">
                 <i class="nav-icon fas fa-comment"></i>
@@ -236,15 +221,32 @@
                 </p>
             </a>
           </li>
-          <li  class="nav-item has-treeview menu-open message">
-            <a href="/messages" class="nav-link ">
-                <i class="nav-icon fas fa-envelope"></i>
-                <p>
-                Messages
-                </p>
-            </a>
-          </li>
+
           @if (auth()->user()->super == 1)
+            <li  class="nav-item has-treeview menu-open message">
+                <a href="/messages" class="nav-link ">
+                    <i class="nav-icon fas fa-envelope"></i>
+                    <p>
+                    Messages
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview menu-open carousel">
+                <a href="/carousells" class="nav-link ">
+                <i class="nav-icon far fa-images"></i>
+                <p>
+                    Carousels
+                </p>
+                </a>
+            </li>
+            <li  class="nav-item has-treeview menu-open blog">
+                <a href="/blogs" class="nav-link ">
+                    <i class="nav-icon fas fa-blog"></i>
+                    <p>
+                    Blogs
+                    </p>
+                </a>
+            </li>
             <li  class="nav-item has-treeview menu-open manage-user">
                 <a href="/users" class="nav-link ">
                     <i class="nav-icon fas fa-users"></i>
@@ -253,18 +255,18 @@
                     </p>
                 </a>
             </li>
+            <li  class="nav-item has-treeview menu-open postz">
+                <a class="nav-link ">
+                  <form class="form-inline my-2 my-lg-0 " method="POST" action="/dashboard/users_post">
+                      @csrf
+                      <input type="hidden" value=" {{auth()->user()->id}}" name="user_id">
+                      <i class="fas fa-clipboard"></i>
+                      <button class="btn sec my-2 my-sm-0 search-btn text-light" type="submit" >&nbsp;&nbsp;Posts </button>
+                  </form>
+                </a>
+            </li>
           @else
           @endif
-          <li  class="nav-item has-treeview menu-open postz">
-              <a class="nav-link ">
-                <form class="form-inline my-2 my-lg-0 " method="POST" action="/dashboard/users_post">
-                    @csrf
-                    <input type="hidden" value=" {{auth()->user()->id}}" name="user_id">
-                    <i class="fas fa-clipboard"></i>
-                    <button class="btn sec my-2 my-sm-0 search-btn text-light" type="submit" >&nbsp;&nbsp;Posts </button>
-                </form>
-              </a>
-          </li>
 
           <li class="nav-item has-treeview menu-open">
             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
@@ -299,10 +301,13 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
       <ul class="list-group bg-dark">
-        <li class="list-group-item">
-          <a href="/users/{{auth()->user()->id}}/edit" class="nav-link active">
-            <span class="text-dark">&nbsp;<img src="https://img.icons8.com/metro/20/000000/pencil.png">Edit Acount</span>
-          </a></li>
+          @if (auth()->user()->super == 1)
+          <li class="list-group-item">
+            <a href="/users/{{auth()->user()->id}}/edit" class="nav-link active">
+              <span class="text-dark">&nbsp;<img src="https://img.icons8.com/metro/20/000000/pencil.png">Edit Acount</span>
+            </a>
+          </li>
+          @endif
         <li class="list-group-item">
             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
@@ -463,16 +468,16 @@
     var pathname = window.location.pathname;
 
     // console.log(pathname);
-    if (pathname == "/carousells") {
+    if (pathname.includes( "/carousells") || pathname.includes( "/carousel")) {
       $('.dash').removeClass('main-menu');
       $('.carousel').addClass('main-menu');
-    } else if(pathname == "/blogs"){
+    } else if(pathname.includes( "/blogs")){
       $('.dash').removeClass('main-menu');
       $('.blog').addClass('main-menu');
-    }else if(pathname == "/comments"){
+    }else if(pathname.includes("comments") == true){
       $('.dash').removeClass('main-menu');
       $('.comment').addClass('main-menu');
-    }else if(pathname == "/messages"){
+    }else if(pathname.includes( "/messages")){
       $('.dash').removeClass('main-menu');
       $('.message').addClass('main-menu');
     }else if((pathname == "/users")){

@@ -76,3 +76,4 @@ Route::resource('users','UsersController');
 // pdf
 Route::get('product_pdf', 'DashboardController@product_pdf');
 Route::get('user_pdf', 'DashboardController@user_pdf');
+Route::match(['get', 'post'],'user_posts_pdf', 'DashboardController@user_post_pdf');

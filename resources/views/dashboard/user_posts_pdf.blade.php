@@ -15,7 +15,7 @@
 </head>
 <body>
 <div >
-    <h2 class="text-center">{{$title}}</h2>
+    <h2 class="text-center">{{$title}}'s Post</h2>
     <table id="example1" class="table  table-bordered" >
         <thead>
           <tr>
@@ -28,32 +28,8 @@
           </tr>
         </thead>
         <tbody>
-            @if (auth()->user()->super == 0 )
-                @foreach (App\Product::where('user_id',auth()->user()->id)->get() as $product)
-                <tr>
-                    <th>{{ $product->product_name }}</th>
-                    <td>
-                        @foreach ($fields as $field)
-                        @if ($product->field_id == $field->id)
-                        {{ $field->field_name }}
-                        @endif
-                        @endforeach
-                    </td>
-                    <td>
-                        @foreach ($categories as $category)
-                        @if ($product->category_id == $category->id)
-                        {{ $category->category_name }}
-                        @endif
-                        @endforeach
-                    </td>
-                    <td>{{number_format($product->price)}} </td>
-                    <td>{{ $product->quantity }}</td>
-                    <td>{{number_format($product->total)}} </td>
-                    </tr>
-                @endforeach
-            @else
-                @foreach ($products as $product)
-                <tr>
+            @foreach ($products as $product)
+            <tr>
                 <th>{{ $product->product_name }}</th>
                 <td>
                     @foreach ($fields as $field)
@@ -73,8 +49,8 @@
                 <td>{{ $product->quantity }}</td>
                 <td>{{number_format($product->total)}} </td>
                 </tr>
-                @endforeach
-            @endif
+            @endforeach
+
         </tbody>
     </table>
 </div>

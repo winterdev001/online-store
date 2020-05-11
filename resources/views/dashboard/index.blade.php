@@ -22,69 +22,140 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-info">
-            <div class="inner">
-              <h3>{{count($products)}}</h3>
+      @if (auth()->user()->super == 1)
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                <h3>{{count($products)}}</h3>
 
-              <p>All Products</p>
+                <p>
+                    @if (count($products) > 1)
+                        Products
+                    @else
+                        Comment
+                    @endif
+                </p>
+                </div>
+                <div class="icon">
+                <i class="ion ion-bag"></i>
+                </div>
+                <a href="#all_products" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon">
-              <i class="ion ion-bag"></i>
             </div>
-            <a href="#all_products" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3>{{count(App\Comment::all())}}</sup></h3>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                <h3>{{count(App\Comment::all())}}</sup></h3>
 
-              <p>Comments</p>
+                <p>
+                    @if (count(App\Comment::all()) > 1)
+                        Comments
+                    @else
+                        Comment
+                    @endif
+                </p>
+                </div>
+                <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="/comments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="/comments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h3>{{count(App\Message::all())}}</h3>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                <h3>{{count(App\Message::all())}}</h3>
 
-              <p>Messages</p>
+                <p>
+                    @if (count(App\Message::all()) > 1)
+                        Messages
+                    @else
+                        Message
+                    @endif
+                </p>
+                </div>
+                <div class="icon">
+                <i class="ion ion-person-add"></i>
+                </div>
+                <a href="/messages" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
             </div>
-            <a href="/messages" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-danger">
-            <div class="inner">
-                <h3>{{count($blogs)}}</h3>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>{{count($blogs)}}</h3>
 
-              <p>Blogs</p>
+                <p>
+                    @if (count($blogs) > 1)
+                        Blogs
+                    @else
+                        Blog
+                    @endif
+                </p>
+                </div>
+                <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="/blogs" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="/blogs" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
+            <!-- ./col -->
         </div>
-        <!-- ./col -->
-      </div>
+      @else
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                <h3>{{count(App\Product::where('user_id',auth()->user()->id)->get())}}</h3>
+                <p>
+                    @if (count(App\Product::where('user_id',auth()->user()->id)->get()) > 1)
+                        Products
+                    @else
+                        Product
+                    @endif
+                </p>
+                </div>
+                <div class="icon">
+                <i class="ion ion-bag"></i>
+                </div>
+                <a href="#all_products" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-6 col-md-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                <h3>{{count($my_comments)}}</sup></h3>
+
+                <p>
+                    @if (count($my_comments) > 1)
+                        Comments
+                    @else
+                        Comment
+                    @endif
+                </p>
+                </div>
+                <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="/comments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            </div>
+            <!-- ./col -->
+        </div>
+      @endif
       @include('inc.message')
       <!-- /.row -->
       <!-- Main row -->
@@ -140,37 +211,73 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($products as $product)
-                    <tr>
-                      <th>{{ $product->product_name }}</th>
-                      <td>
-                        @foreach ($fields as $field)
-                        @if ($product->field_id == $field->id)
-                        {{ $field->field_name }}
-                        @endif
+
+                    @if (auth()->user()->super == 0 )
+                        @foreach (App\Product::where('user_id',auth()->user()->id)->get() as $product)
+                        <tr>
+                            <th>{{ $product->product_name }}</th>
+                            <td>
+                            @foreach ($fields as $field)
+                            @if ($product->field_id == $field->id)
+                            {{ $field->field_name }}
+                            @endif
+                            @endforeach
+                            </td>
+                            <td>
+                            @foreach ($categories as $category)
+                            @if ($product->category_id == $category->id)
+                            {{ $category->category_name }}
+                            @endif
+                            @endforeach
+                            </td>
+                            <td>{{number_format($product->price)}} Rwf</td>
+                            <td>{{ $product->quantity }}</td>
+                            <td>{{number_format($product->total)}} Rwf</td>
+                            <td>
+                                @if (auth()->user()->super == 1)
+                                <a href="/products/{{$product->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                                @else
+                                @endif
+                                |<a href="/products/{{$product->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                            </td>
+                            {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
+                            </td> --}}
+                        </tr>
                         @endforeach
-                      </td>
-                      <td>
-                        @foreach ($categories as $category)
-                        @if ($product->category_id == $category->id)
-                        {{ $category->category_name }}
-                        @endif
+                    @else
+                        @foreach ($products as $product)
+                        <tr>
+                            <th>{{ $product->product_name }}</th>
+                            <td>
+                            @foreach ($fields as $field)
+                            @if ($product->field_id == $field->id)
+                            {{ $field->field_name }}
+                            @endif
+                            @endforeach
+                            </td>
+                            <td>
+                            @foreach ($categories as $category)
+                            @if ($product->category_id == $category->id)
+                            {{ $category->category_name }}
+                            @endif
+                            @endforeach
+                            </td>
+                            <td>{{number_format($product->price)}} Rwf</td>
+                            <td>{{ $product->quantity }}</td>
+                            <td>{{number_format($product->total)}} Rwf</td>
+                            <td>
+                                @if (auth()->user()->super == 1)
+                                <a href="/products/{{$product->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
+                                @else
+                                @endif
+                                |<a href="/products/{{$product->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                            </td>
+                            {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
+                            </td> --}}
+                        </tr>
                         @endforeach
-                      </td>
-                      <td>{{number_format($product->price)}} Rwf</td>
-                      <td>{{ $product->quantity }}</td>
-                      <td>{{number_format($product->total)}} Rwf</td>
-                      <td>
-                          @if (auth()->user()->super == 1)
-                          <a href="/products/{{$product->id}}/edit" class="btn btn-default"><i class="fa fa-pen"></i></a>
-                          @else
-                          @endif
-                          |<a href="/products/{{$product->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-                      </td>
-                      {{-- <td><a href="/products/{{$product->id}}" class="btn btn-warning">Show</a>
-                      </td> --}}
-                    </tr>
-                    @endforeach
+                    @endif
+
                   </tbody>
                 </table>
               </div>
