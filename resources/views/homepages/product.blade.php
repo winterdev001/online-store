@@ -9,16 +9,16 @@
           </nav>
     </div>
     <div class="all-products">
-        <div class="product-container">            
+        <div class="product-container">
               <div class="card">
                 <div class="card-body">
                   <a href="/home/product" class="text-decoration-none text-dark link">All Products</a>
                   <hr>
                   @foreach ((App\Category::orderBy('category_name','asc')->skip(0)->take(10)->get()) as $category)
-                    <ul>                    
-                      <li class="cat-list">                        
+                    <ul>
+                      <li class="cat-list">
                         <span class="cat-list-item">
-                            
+
                             <form action="{{URL::current()}}" method="POST">
                                 {{-- @method('POST') --}}
                                 @csrf
@@ -28,29 +28,29 @@
                                     {{-- ({{count(App\Product::where('field_id',$field->id)->get())}}) --}}
                                 {{-- @else                                             --}}
                                 @endif
-                                
+
                             </form>
                         </span>
                         <ul>
-                          @foreach ((App\Field::orderBy('field_name','asc')->get()) as $field) 
+                          @foreach ((App\Field::orderBy('field_name','asc')->get()) as $field)
                               @if ($field->category_id == $category->id)
-                                  <li class="cat-child">                                        
+                                  <li class="cat-child">
                                       <form action="{{URL::current()}}" method="POST">
                                         {{-- @method('POST') --}}
                                         @csrf
-                                        <input type="hidden" value="{{$field->id}}" name="field_id">                                   
+                                        <input type="hidden" value="{{$field->id}}" name="field_id">
                                         @if (count(App\Product::where('field_id',$field->id)->get()) != 0)
                                             <input type="submit" class="filter_by_field" name="filter_by_field" value="{{$field->field_name}}">
                                             ({{count(App\Product::where('field_id',$field->id)->get())}})
-                                        @else                                            
+                                        @else
                                         @endif
                                     </form>
                                   </li>
                               @endif
                           @endforeach
                         </ul>
-                      </li>    
-                      <hr>                
+                      </li>
+                      <hr>
                     </ul>
                   @endforeach
 
@@ -109,7 +109,7 @@
                     </form>
                 </div>
               </div>
-              @if (count($products) > 0)       
+              @if (count($products) > 0)
                 @foreach ($products as $product)
                     <a href="/home/product_details/{{$product->id}}" class="text-decoration-none text-dark">
                         <div class="card product-card">
@@ -125,7 +125,7 @@
                             </div>
                         </div>
                     </a>
-                @endforeach 
+                @endforeach
             @else
                 <div class="d-flex justify-content-center">
                     <div class="card text-center col-12">
@@ -134,8 +134,8 @@
                           <a href="{{ URL::previous() }}" class="btn btn-light">Go Back</a>
                         </div>
                     </div>
-                </div>  
-            @endif                       
+                </div>
+            @endif
         </div>
         <div class="d-flex justify-content-center mt-5 ">
             {{-- pagination links  --}}
@@ -146,24 +146,29 @@
         <div class="blogs mb-5 mt-3">
             <strong><h5 class=" mb-2">Latest Blogs</h5></strong>
             <div class="blog-container">
-                @foreach (App\Blog::orderBy('created_at','desc')->skip(0)->take(3)->get() as $blog)
-                    <div class="card blog-card">
-                        <img src="/storage/blogs_images/{{$blog->image}}" height="250px" alt="{{$blog->title}}">
-                        <div class="card-body">
-                            <p><small class="text-muted blog-date">{{$blog->updated_at->format('M d, Y')}} </small></p>
-                            <h4 class="card-text"> <strong>{{$blog->title}}</strong> </h4>
-                            <p class="card-text"> {{str_limit($blog->content,60)}} </p>
-                            <a href="/home/blog/{{$blog->id}}" class="read-more-blog text-decoration-none">Read More</a>
+                @if (count(App\Blog::all()) >= 3)
+                    @foreach (App\Blog::orderBy('created_at','desc')->skip(0)->take(3)->get() as $blog)
+                        <div class="card blog-card mb-3" >
+                            <div class="product-blo-img-sect">
+                                <img src="/storage/blogs_images/{{$blog->image}}"  alt="{{$blog->title}}">
+                            </div>
+                            <div class="card-body">
+                                <p><small class="text-muted blog-date">{{$blog->updated_at->format('M d, Y')}} </small></p>
+                                <h4 class="card-text"> <strong>{{$blog->title}}</strong> </h4>
+                                <p class="card-text"> {{str_limit($blog->content,60)}} </p>
+                                <a href="/home/blog/{{$blog->id}}" class="read-more-blog text-decoration-none">Read More</a>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                @endif
             </div>
         </div>
     </div>
- 
+
     {{-- Product detail modal --}}
     <style>
-        
+
 
         /* product container */
         .product-container {
@@ -178,7 +183,7 @@
 
         .cat-list {
           display: block;
-          
+
         }
 
         .cat-list-item {
@@ -196,6 +201,15 @@
 
         .product-card:hover {
           box-shadow: 0 0 2px 2px rgba(45, 46, 45, 0.11) !important;
+        }
+
+        .product-blo-img-sect {
+            height: 200px;
+        }
+
+        .product-blo-img-sect > img {
+            height: 100%;
+            width: 100%;
         }
 
         @media (max-width: 768px) and (min-width: 577px) {
@@ -220,6 +234,10 @@
             .product-container .card:first-child {
                 grid-row: span 7;
             }
+            img{
+                height: 100% !important;
+                width: 100% !important;
+            }
         }
 
         .page-links {
@@ -241,10 +259,10 @@
 
         .filter_by_cat:hover, .filter_by_field:hover {
             color: #faa45a !important
-        }     
+        }
 
-       
+
     </style>
- 
+
 
 @endsection

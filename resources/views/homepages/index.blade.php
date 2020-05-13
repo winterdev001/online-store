@@ -241,6 +241,27 @@
         .carousel-inner,.carousel-control-prev,.carousel-control-next {
             z-index: 0;
         }
+
+        @media (max-width: 576px) {
+            .carousel .carousel-item {
+                height: 300px;
+            }
+
+            .carousel-item img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                min-height: 300px;
+            }
+
+            /* .carousel-caption {
+                font-size: 10px;
+                font-weight: bold !important;
+                height: 2rem;
+                margin-bottom: 5rem
+            } */
+
+        }
     </style>
    <script>
        // pop up after a minute site loaded

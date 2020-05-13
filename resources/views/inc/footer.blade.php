@@ -43,9 +43,9 @@
                         </div>
                         <div class="footer-social-icon">
                             <span>Follow us</span>
-                            <a href="#"><i class="fa fa-facebook-f facebook-bg"></i></a>
-                            <a href="#"><i class="fa fa-twitter twitter-bg"></i></a>
-                            <a href="#"><i class="fa fa-google-plus google-bg"></i></a>
+                            <a href="#" class="ml-3"><img class="footer-img" src="https://img.icons8.com/office/48/000000/facebook-new.png"/></a>
+                            <a href="#" class="ml-3"><img  class="footer-img" src="https://img.icons8.com/color/50/000000/instagram-new.png"/></a>
+                            <a href="#" class="ml-3 "><img class="footer-img" src="https://img.icons8.com/color/48/000000/gmail.png"/></a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                {{-- <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
                     <div class="footer-widget">
                         <div class="footer-widget-heading">
                             <h3>Subscribe</h3>
@@ -77,7 +77,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -93,3 +93,9 @@
         </div>
     </div>
 </footer>
+<style>
+    .footer-img {
+    height: 50px !important;
+    width: 50px !important;
+}
+</style>
