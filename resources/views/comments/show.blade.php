@@ -130,6 +130,7 @@
                                                             @if ($comment->for_id == $product->id && $comment->for == "product")
                                                             <p>Sender's Email : {{$comment->email}}</p>
                                                             <p class="crad-text">Comment: {{$comment->content}}</p>
+                                                            <p><small>{{$comment->created_at}}</small></p>
                                                             <hr>
                                                             @endif
                                                         @endforeach

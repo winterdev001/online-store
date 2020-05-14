@@ -18,14 +18,25 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+    .navbar-brand > img{
+        /* position: relative; */
+        /* background: url("{{ asset('images/icons/logo.jpg')}}"); */
+        width: 70px !important;
+        height: 70px !important;
+        /* left: 15px;
+        background-size: contain; */
+    }
+</style>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container" >
-                <a class="navbar-brand p-2" style="border:5px solid #f6c89f;"  href="{{ url('/') }}">
+                {{-- <a class="navbar-brand p-2" style="border:5px solid #f6c89f;"  href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
-                </a>
+                </a> --}}
+                <a class="navbar-brand  " href="/"><img src="{{ asset('images/icons/amizero-logo.jpg')}}" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

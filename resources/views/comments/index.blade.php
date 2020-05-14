@@ -44,6 +44,7 @@
                       <th> Sender Email</th>
                       <th>Product</th>
                       <th> Content</th>
+                      <th>Date</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -60,6 +61,7 @@
                                   @endforeach
                               </td>
                               <td>{{ str_limit($comment->content,20) }}</td>
+                              <td>{{$comment->created_at}}</td>
 
                               <td>
                                   |<a href="/comments/{{$comment->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
@@ -92,7 +94,8 @@
                         <tr>
                           <th> Sender Email</th>
                           <th>Blog</th>
-                          <th> Content</th>
+                          <th>Content</th>
+                          <th>Date</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -109,6 +112,9 @@
                                       @endforeach
                                   </td>
                                   <td>{{ str_limit($comment->content,20) }}</td>
+                                  <td>
+                                        {{$comment->created_at}}
+                                  </td>
 
                                   <td>
                                       |<a href="/comments/{{$comment->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
@@ -140,7 +146,8 @@
                         <tr>
                             <th> Sender Email</th>
                             <th>Product</th>
-                            <th> Content</th>
+                            <th>Content</th>
+                            <th>Date</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -158,7 +165,7 @@
                                             @endforeach
                                         </td>
                                         <td>{{ str_limit($comment->content,20) }}</td>
-
+                                        <td> {{$comment->updated_at}} </td>
                                         <td>
                                             |<a href="/comments/{{$comment->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
                                         </td>

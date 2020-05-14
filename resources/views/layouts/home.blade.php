@@ -24,8 +24,8 @@
         @include('inc.nav')
     </header>
 
-    <div class="container  all-content">
-        <div class="categories mt-1 mb-3">
+    <div class="container  all-content mt-3">
+        <div class="categories mt-5 mb-3">
             @include('inc.categories')
         </div>
         @yield('content')

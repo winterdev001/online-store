@@ -53,7 +53,7 @@
 							<p class="card-text">
 								Like what you see? Contact us : <br>
 								 <span class="btn btn-sm sec text-dark font-weight-bold btn-cancel i-text-small mt-4 mb-5 animated fadeIn slow delay-2s">
-								<img src="https://img.icons8.com/ios-filled/24/000000/ringing-phone.png" alt="user_name" class="d-header-icon animated tada infinite slow"> :
+								<img src="https://img.icons8.com/ios-filled/24/000000/ringing-phone.png" alt="user_name" class="d-header-icon animated tada infinite slow call-us"> :
 								<span id="seller_info">{{$product->seller_phone}} / {{$product->seller_email}}</span>
 								</span>
 							</p>

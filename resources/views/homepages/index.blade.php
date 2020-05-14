@@ -197,9 +197,10 @@
           <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title w-100 text-center" >
-                    <span class="font-weight-bold p-2 text-center mx-auto" style="border:5px solid #f6c89f;margin: 0 auto;">
+                    {{-- <span class="font-weight-bold p-2 text-center mx-auto" style="border:5px solid #f6c89f;margin: 0 auto;">
                     Hamubere
-                    </span>
+                    </span> --}}
+                    <a class="navbar-brand  " href="/"><img src="{{ asset('images/icons/amizero-logo.jpg')}}" alt=""></a>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

@@ -42,6 +42,7 @@
                   <tr>
                     <th> Sender Email</th>
                     <th> Message</th>
+                    <th>Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -51,6 +52,7 @@
                         <td>{{ $message->email }}</td>
 
                         <td>{{ str_limit($message->message,20) }}</td>
+                        <td> {{$message->created_at}} </td>
 
                         <td>
                             |<a href="/messages/{{$message->id}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>

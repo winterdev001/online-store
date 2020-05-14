@@ -23,17 +23,17 @@
 								<h5 class="font-weight-bold">
 									 Send Us A Message
 								</h5>
-		
-								<div class="form-group">								
-									<input class="form-control col-md-12 col-sm-12" type="text" name="email" placeholder="Your Email Address">							
+
+								<div class="form-group">
+									<input class="form-control col-md-12 col-sm-12" type="text" name="email" placeholder="Your Email Address">
 								</div>
-		
+
 								<div class="form-group ">
 									<textarea class="form-control col-md-12 col-sm-12" rows="4" name="message" placeholder="How Can We Help?"></textarea>
 								</div>
-		
+
 							{{Form::submit(' Send',['class'=>'btn comment-btn '])}}
-		
+
 							{!! Form::close() !!}
 						</div>
 				  </div>
@@ -44,27 +44,27 @@
 							<div class="direct-contact-container">
 
 								<ul class="contact-list ">
-									<li class="list-item"><i class="fa fa-map-marker "></i> <span class="font-weight-bold">Address</span>  <br> 
-										<span class="contact-text place text-dark">Kigali | KK 100st</span>
+									<li class="list-item"><i class="fa fa-map-marker "></i> <span class="font-weight-bold">Address</span>  <br>
+										<span class="contact-text place text-dark">Kigali | KN 57 St</span>
 									</li>
-									
+
 									<li class="list-item"><i class="fa fa-phone "></i> <span class="font-weight-bold">Let's talk</span>  <br>
-										<span class="contact-text phone"><a class="text-decoration-none text-dark" href="tel:+250-711-111-111" title="Give me a call">(250)711-111-111</a></span>
+										<span class="contact-text phone"><a class="text-decoration-none text-dark" href="tel:+250-788-226-574" title="Give me a call">(250)788-226-574</a></span>
 									</li>
-									
+
 									<li class="list-item"><i class="fa fa-envelope "></i> <span class="font-weight-bold">Sale Support</span>  <br>
-										<span class="contact-text gmail"><a class="text-decoration-none text-dark" href="mailto:#" title="Send me an email">hamubere@gmail.com</a></span>
+										<span class="contact-text gmail"><a class="text-decoration-none text-dark" href="mailto:hamubereltd@gmail.com" title="Send me an email">hamubereltd@gmail.com</a></span>
 									</li>
-									
-								</ul>			
+
+								</ul>
 							</div>
 						</div>
-					</div>					
+					</div>
 			  </div>
 		  </div>
 		</div>
 	</div>
-	
+
 	<style>
 		.contact-card {
 			height: 100% !important;
@@ -90,6 +90,6 @@
 			margin-left: 1rem
 		}
 
-		
+
 	</style>
 @endsection

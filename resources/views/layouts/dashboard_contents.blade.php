@@ -161,11 +161,15 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/dashboard" class="brand-link text-center">
-      {{-- <img src="{{ asset('images/icons/logo-0.png')}}" alt="hamubere" class="brand-image img-circle elevation-3"
-           style="opacity: .8"> --}}
-      <span class="brand-text font-weight-bold">Hamubere</span>
+      <img src="{{ asset('images/icons/amizero-logo.jpg')}}" alt="hamubere" class="brand-image img-cirle   elevation-3"
+           style="width: 80px !important; height: 80px !important;">
+      <span class="brand-text font-weight-bold" style="color:#f6c89f">Hamubere</span>
     </a>
-
+    {{-- <div class="mx-auto">
+        <a class="navbar-brand  m-1  text-center" href="/"><img style="width: 70px !important; height: 70px !important;" src="{{ asset('images/icons/amizero-logo.jpg')}}" alt="Hamubere"> </a>
+        <span class="brand-text font-weight-bold">Hamubere</span>
+    </div> --}}
+    {{-- <hr> --}}
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
