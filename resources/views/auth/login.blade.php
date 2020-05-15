@@ -79,9 +79,9 @@
                 <div class=" d-flex justify-content-center">
                     <div class="footer-social-icon mt-5">
                         <span class="font-weight-bold">Follow us</span> <br>
-                        <<a target="_blank" href="https://web.facebook.com/Hamubere-102919924765309/?modal=admin_todo_tour" class="ml-3"><img class="footer-img" src="https://img.icons8.com/office/48/000000/facebook-new.png"/></a>
+                            <a target="_blank" href="https://web.facebook.com/Hamubere-102919924765309/?modal=admin_todo_tour" class="ml-3"><img class="footer-img" src="https://img.icons8.com/office/48/000000/facebook-new.png"/></a>
                             <a target="_blank" href="https://www.instagram.com/hamubere_ltd/" class="ml-3"><img  class="footer-img" src="https://img.icons8.com/color/50/000000/instagram-new.png"/></a>
-                            <a target="_blank" href="https://www.twitter.com/hamubere" class="ml-3"><img src="https://img.icons8.com/nolan/55/twitter.png"/></a>
+                            <a target="_blank" href="https://www.twitter.com/hamubere" class="ml-3"><img class="footer-img" src="https://img.icons8.com/nolan/55/twitter.png"/></a>
                             <a target="_blank" href="mailto:hamubereltd@gmail.com" class="ml-3 "><img class="footer-img" src="https://img.icons8.com/color/48/000000/gmail.png"/></a>
                     </div>
                 </div>
