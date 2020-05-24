@@ -78,7 +78,9 @@
                         @csrf
                            <button type="submit" name="cat_from_home" class="filter-by-cat-home">
                                 <div class="card home-cat-card " id="filter-by-cat-home" >
-                                    <img src="/storage/categories_images/{{$category->image}}" height="120" class="card-img-top" alt="...">
+                                    <div style="max-height: 100px !important">
+                                        <img src="/storage/categories_images/{{$category->image}}" height="120" class="card-img-top" alt="...">
+                                    </div>
                                     <div class="card-body">
                                         <h5 class="card-title"> {{$category->category_name}} </h5>
                                     </div>
@@ -170,27 +172,40 @@
     </div>
 
     <div class="blogs mb-5 mt-3">
-		@if (count($blogs) > 0)
+		@if (count($blogs) > 0 && count($blogs) < 4 )
 			<strong><h1 class="text-center mb-2">Our Blogs</h1></strong>
-			<div class="blog-container">
+			<div class="grid-container">
 				@foreach (App\Blog::orderBy('created_at','desc')->skip(0)->take(3)->get() as $blog)
 					<div class="card blog-card">
-						<img src="/storage/blogs_images/{{$blog->image}}" height="250px" alt="{{$blog->title}}">
+						<img src="/storage/blogs_images/{{$blog->image}}" class="card-img" width="100" height="150" alt="{{$blog->title}}">
 						<div class="card-body">
 							<p><small class="text-muted blog-date">{{$blog->updated_at->format('M d, Y')}} </small></p>
 							<h4 class="card-text"> <strong>{{$blog->title}}</strong> </h4>
-							<p class="card-text"> {{str_limit($blog->content,60)}} </p>
+							<p class="card-text"> {{str_limit($blog->content,30)}} </p>
 							<a href="/home/blog/{{$blog->id}}" class="read-more-blog text-decoration-none">Read More</a>
 						</div>
-						{{-- <div class="card-footer text-center">
-							<button class="btn btn-sm sec">Read More</button>
-						</div> --}}
 					</div>
 				@endforeach
-			</div>
-		@else
-		@endif
+            </div>
+        @elseif ( count($blogs) > 3)
+            <strong><h1 class="text-center mb-2">Our Blogs</h1></strong>
+            <div class="grid-container">
+                @foreach (App\Blog::orderBy('created_at','asc')->skip(0)->take(4)->get() as $blog)
+                    <div class="card product-card">
+                        <img src="/storage/blogs_images/{{$blog->image}}" class="card-img-top" width="100" height="200" alt="{{$blog->title}}">
+                        <div class="card-body">
+                        <p><small class="text-muted blog-date">{{$blog->updated_at->format('M d, Y')}} </small></p>
+                        <h4 class="card-text"> <strong>{{$blog->title}}</strong> </h4>
+                        <p class="card-text"> {{str_limit($blog->content,30)}} </p>
+                        <a href="/home/blog/{{$blog->id}}" class="read-more-blog text-decoration-none">Read More</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+        @endif
     </div>
+
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -229,6 +244,7 @@
     </div>
 
     <style>
+
         .carousel .carousel-item {
             height: 500px;
         }

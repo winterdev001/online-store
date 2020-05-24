@@ -125,7 +125,7 @@
     background-size: contain; */
 }
 
-.
+
 
 /* category cards */
 
@@ -138,6 +138,12 @@
         height: 400px;
     }
  } */
+
+ /* img {
+    width: auto ;
+    max-width: 100% ;
+    height: auto ;
+  } */
  @media (max-width: 576px) {
     .card-columns {
         column-count: 1 !important;
@@ -154,6 +160,11 @@
         height: 100%;
         width: 100%;
     }
+    /* img {
+        width: auto ;
+        max-width: 100% ;
+        height: auto ;
+      } */
 
     .call-us {
         height: 30px;
@@ -175,6 +186,7 @@
         height: 15rem !important;
         width: 100% !important
     }
+
 
     .call-us {
         height: 30px;
@@ -262,6 +274,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 25px;
+  /* height: 250px; */
   }
   /* .grid-container .card:first-child {
   grid-row: span 2;

@@ -12,7 +12,7 @@
         <!-- Content page -->
         <div class="blogs mb-5 mt-3">
             <div class="blog-container">
-                @foreach (App\Blog::orderBy('created_at','desc')->skip(0)->take(3)->get() as $blog)
+                @foreach (App\Blog::orderBy('created_at','desc')->get() as $blog)
                     <div class="card blog-card">
                         <img src="/storage/blogs_images/{{$blog->image}}" height="250px" alt="{{$blog->title}}">
                         <div class="card-body">
@@ -22,7 +22,7 @@
                             <a href="/home/blog/{{$blog->id}}" class="read-more-blog text-decoration-none">Read More</a>
                         </div>
                     </div>
-                @endforeach                
+                @endforeach
             </div>
             <div class="d-flex justify-content-center mt-5 ">
             {{-- pagination links  --}}
